@@ -1,5 +1,7 @@
 # Escopo, fontes e créditos
 
+Atualização 3.0: o histórico abaixo descreve etapas anteriores. Recursos atuais e declaração de IA detalhados em `ASSETS_E_CREDITOS.md`. O jogo agora tem áudio sintetizado original, cenários/personagens aprimorados, mixer e opções locais; não foram baixados assets externos nesta etapa. Evidências e limitações em `POLIMENTO.md`.
+
 ## Fundação
 Representação fictícia estilizada; esta área de treino não representa condições ambientais atuais de Maricá. Geometria feita com primitivas nativas do Godot. Um guardião provisório com colete verde e mochila; quatro aparências e animação de coleta ainda pendentes. Não há modelos, texturas ou áudio baixados. Fonte de interface: padrão incluído no Godot. O ícone original do projeto foi preservado.
 

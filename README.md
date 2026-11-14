@@ -1,9 +1,9 @@
 # ECO MARICÁ — Guardiões da Cidade
 
-Jogo acadêmico 3D educativo para Windows, um jogador offline. Godot 4.7.2 Standard e GDScript, renderizador Compatibility. Campanha atual com cinco fases jogáveis. Sons, ajuste de volume, polimento e entrega acadêmica final serão tratados depois.
+Jogo acadêmico 3D educativo para Windows, um jogador offline. Godot 4.7.2 Standard e GDScript, renderizador Forward Mobile/Vulkan. Campanha com cinco fases, áudio sintetizado original, cenários/personagens aprimorados e opções de volume, câmera e qualidade. A entrega acadêmica final ainda será preparada.
 
 ## Abrir e jogar
-1. Abra o `project.godot` desta pasta no Godot 4.7.2.
+1. Abra o `project.godot` desta pasta no Godot 4.7.2. Se o editor estava aberto em Compatibility, reabra o projeto para carregar o novo renderizador.
 2. Pare uma execução anterior com F8 e pressione F5.
 3. Escolha um dos quatro personagens e uma fase desbloqueada.
 4. Leia as instruções e clique em Começar missão. Cada vitória libera a próxima fase.
@@ -23,6 +23,13 @@ Todas as fases perdem no tempo zero. O mapa final mostra cinco localidades esque
 
 ## Correção do Centro
 Os 12 coletores agora estão no nível da rua, em estações com acesso sem pulo. Há seis rampas para acessar as calçadas. `test_centro_access.gd` verifica os coletores e as duas rampas laterais caminhando com o controlador real.
+
+## Áudio, câmera e gráficos
+No menu ou na pausa, abra **Configurações**. Master, Music, Ambience e SFX possuem volumes independentes; zero silencia. Sensibilidade e suavização da câmera são ajustáveis. Qualidade Baixa remove sombras e reduz vegetação; Média usa sombras próximas e MSAA 2×; Alta acrescenta detalhes, mais vegetação e MSAA 4×. O nível não troca o renderizador nem reinicia a campanha. Preferências em `user://eco_settings.cfg`, separadas dos saves.
+
+As 34 faixas/efeitos WAV foram sintetizados originalmente por código, com auxílio de IA; não foram baixados. São provisórios e não gravações de ambientes reais. Há passos por superfície, sons de ações, menu, restauração, chuva, motor e trilhas instrumentais discretas. Veja `docs/ASSETS_E_CREDITOS.md` e `docs/POLIMENTO.md`.
+
+Foi adotado Forward Mobile após abrir e comparar os três renderizadores na Intel UHD. Para diagnóstico em outra máquina, é possível iniciar pelo console com `--rendering-method gl_compatibility --rendering-driver opengl3`; para comparar Forward+, use `--rendering-method forward_plus --rendering-driver vulkan`. Não é necessário editar os saves.
 
 ## Ubatiba
 Aproxime-se de um ponto e use E. Inspecione aptidão, cobertura e solo exposto; escolha nos botões. Prepare os oito pontos aptos antes de plantar mudas nativas adequadas ao cenário. Os três expostos exigem proteção após o plantio. Preserve os quatro não aptos. Fechar/Esc volta ao terreno. O cronômetro continua durante a inspeção. Repetir ação concluída não gera pontos nem novas mudas.
@@ -58,7 +65,7 @@ Execute na raiz do projeto:
 .\tests\run_all.ps1 -Godot 'C:\caminho\Godot_v4.7.2-stable_win64_console.exe'
 ```
 
-Validação atual: 306 verificações em 13 suítes, sem falhas nem erros nos logs finais. O executor confere código de saída e mensagens do motor, e salva logs próprios em `tests/artifacts/test_*.log`. Resumo em `validation_summary.json`. Testes usam saves próprios e não concluem a campanha real do jogador.
+Validação anterior ao polimento: 306 verificações em 13 suítes. O polimento acrescenta `test_audio.gd` e `test_presentation.gd`; a execução final e as medições estão em `docs/POLIMENTO.md` e `tests/artifacts/validation_summary.json`. O executor confere código de saída e mensagens do motor, salvando logs em `tests/artifacts/test_*.log`. Testes usam saves próprios e não concluem a campanha real do jogador.
 
 Há testes de física real e de estados com reposicionamento controlado; não substituem uma partida humana completa nem avaliação da dificuldade. Capturas `capture_ubatiba.gd`, `capture_ponta_negra.gd` e demais scripts geram estados simulados para inspeção gráfica. Não são evidência de teste externo.
 
@@ -71,6 +78,6 @@ Há testes de física real e de estados com reposicionamento controlado; não su
 - `docs/GDD_5_FASES.md`: GDD de trabalho com as 16 seções e rastreabilidade real na seção 13.
 - `docs/rastreabilidade.md`, `validacao.md`, `expansao.md`, `escopo_e_creditos.md`: regras, evidências e fontes.
 
-Modelos/effects provisórios feitos com primitivas nativas, sem assets baixados. Usabilidade externa, métricas de aprendizagem, FPS sustentados, áudio/volume, polimento, DOCX/PDF final, vídeo e exportação Windows permanecem pendentes.
+Modelos e efeitos procedurais usam recursos nativos, sem assets baixados. Os benchmarks representam vistas controladas, sem garantir FPS de uma partida completa. Usabilidade externa, métricas de aprendizagem, revisão humana da mixagem/dificuldade, rigs externos, DOCX/PDF final, vídeo e exportação Windows permanecem pendentes.
 
 Repositório de destino: https://github.com/AmaralCharle/Eco_Marica.git . Checkpoints locais; nenhuma publicação automática.

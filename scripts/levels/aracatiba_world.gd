@@ -42,6 +42,7 @@ func _ready() -> void:
 func box(title: String, pos: Vector3, size: Vector3, color: Color, solid: bool = false) -> Node3D:
 	var node: Node3D = StaticBody3D.new() if solid else Node3D.new()
 	node.name = title
+	node.set_meta("kind", title)
 	node.position = pos
 	var mesh := BoxMesh.new()
 	mesh.size = size

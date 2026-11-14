@@ -50,3 +50,5 @@ PASS: bia: animação de coleta compartilhada
 PASS: Troca repetida não duplica acessórios
 PASS: Aparência inválida volta ao padrão seguro
 RESULT: 49 verificações, 0 falhas
+WARNING: 4 ObjectDB instances were leaked at exit (run with `--verbose` for details).
+   at: cleanup (core/object/object.cpp:2536)

@@ -13,22 +13,28 @@ var content: VBoxContainer
 var results_button: Button
 var selector: CharacterSelection
 var feedback_time: float = 0.0
+var hud_widgets: Array[Control] = []
+var cleaning_bar: ProgressBar
 
 func _ready() -> void:
 	mission = get_parent()
 	session = mission.get_node("Session")
-	var heading := panel(Control.PRESET_TOP_LEFT, Vector4(16, 16, 570, 160))
-	var title := label(heading, "ECO MARICÁ • " + mission.definition()["title"], 22)
+	var heading := panel(Control.PRESET_TOP_LEFT, Vector4(16, 16, 510, 118))
+	var title := label(heading, "ECO MARICÁ • " + mission.definition()["short_name"].to_upper(), 20)
 	title.add_theme_color_override("font_color", Color("a4efc5"))
-	label(heading, mission.definition()["objective"], 18)
-	label(heading, "WASD mover • Shift correr • Espaço pular", 16)
-	label(heading, "Mouse câmera • E interagir • Esc pausar", 16)
-	var stats := panel(Control.PRESET_TOP_RIGHT, Vector4(-350, 16, -16, 195))
-	status = label(stats, "", 18)
-	var bottom := panel(Control.PRESET_BOTTOM_WIDE, Vector4(16, -146, -16, -16))
-	prompt = label(bottom, "", 20)
-	feedback = label(bottom, "", 17)
-	label(bottom, mission.definition()["note"], 14)
+	label(heading, mission.definition()["objective"], 16)
+	label(heading, "WASD • Shift correr • Espaço pular • E agir • Esc pausa", 13)
+	var stats := panel(Control.PRESET_TOP_RIGHT, Vector4(-350, 16, -16, 168))
+	status = label(stats, "", 17)
+	cleaning_bar = ProgressBar.new()
+	cleaning_bar.custom_minimum_size.y = 6
+	cleaning_bar.show_percentage = false
+	stats.add_child(cleaning_bar)
+	session.changed.connect(func(): cleaning_bar.value = session.cleaning_index())
+	var bottom := panel(Control.PRESET_BOTTOM_WIDE, Vector4(16, -132, -16, -16))
+	prompt = label(bottom, "", 18)
+	feedback = label(bottom, "", 15)
+	label(bottom, mission.definition()["note"], 12)
 	overlay = ColorRect.new()
 	overlay.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	overlay.color = Color(0.015, 0.04, 0.06, 0.68)
@@ -41,7 +47,7 @@ func _ready() -> void:
 	card.add_theme_stylebox_override("panel", style())
 	center.add_child(card)
 	content = VBoxContainer.new()
-	content.add_theme_constant_override("separation", 12)
+	content.add_theme_constant_override("separation", 7)
 	card.add_child(content)
 	results_button = Button.new()
 	results_button.text = "Mostrar resultados"
@@ -62,6 +68,8 @@ func style() -> StyleBoxFlat:
 	box.content_margin_top = 18
 	box.content_margin_bottom = 18
 	box.set_corner_radius_all(14)
+	box.border_color = Color("315459")
+	box.set_border_width_all(1)
 	return box
 
 func panel(preset: int, offsets: Vector4) -> VBoxContainer:
@@ -74,6 +82,7 @@ func panel(preset: int, offsets: Vector4) -> VBoxContainer:
 	box.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	box.add_theme_stylebox_override("panel", style())
 	add_child(box)
+	hud_widgets.append(box)
 	var rows := VBoxContainer.new()
 	rows.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	rows.add_theme_constant_override("separation", 6)
@@ -92,7 +101,7 @@ func label(parent: Node, text: String, size: int = 19) -> Label:
 func button(text: String, callback: Callable, disabled: bool = false) -> Button:
 	var node := Button.new()
 	node.text = text
-	node.custom_minimum_size.y = 43
+	node.custom_minimum_size.y = 34
 	node.add_theme_font_size_override("font_size", 18)
 	node.disabled = disabled
 	node.pressed.connect(callback)
@@ -109,18 +118,29 @@ func update_screen() -> void:
 	results_button.hide()
 	match mission.state:
 		Mission.State.MENU:
-			label(content, "ECO MARICÁ — Guardiões da Cidade", 30)
-			label(content, "Uma jornada de cuidado com os espaços públicos.", 21)
+			var brand := HBoxContainer.new()
+			brand.add_theme_constant_override("separation", 16)
+			content.add_child(brand)
+			brand.add_child(preload("res://scripts/ui/eco_mark.gd").new())
+			var words := VBoxContainer.new()
+			words.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+			brand.add_child(words)
+			label(words, "ECO MARICÁ", 29)
+			label(words, "GUARDIÕES DA CIDADE", 16)
+			label(content, "Uma jornada de cuidado com os espaços públicos.", 18)
 			label(content, "Guardião: %s • Um jogador • Offline" % Catalog.get_character(mission.profile.selected_id)["name"], 17)
 			button("Escolher personagem", mission.show_character_selection)
 			for id in mission.Definitions.IDS:
 				var destination: Dictionary = mission.Definitions.get_mission(id)
 				var accessible: bool = mission.progress.unlocked_level >= destination["number"]
-				button(("Jogar • " if accessible else "Bloqueada • ") + destination["title"], func(): mission.open_level(id), not accessible)
+				var choice := button(("Jogar • " if accessible else "Bloqueada • ") + destination["title"], func(): mission.open_level(id), not accessible)
+				if id == mission.mission_id and accessible:
+					choice.modulate = Color("a9e4bc")
 			button("Treinar coleta e classificação", func(): get_tree().change_scene_to_file("res://scenes/levels/foundation.tscn"))
 			if mission.progress.campaign_completed:
 				button("Campanha concluída • Rever conclusão", mission.show_campaign_completion)
 			button("Sair", func(): get_tree().quit())
+			button("Configurações • áudio, câmera e gráficos", open_settings)
 		Mission.State.SELECAO_PERSONAGEM:
 			selector = Selector.new()
 			selector.pending_id = mission.profile.selected_id
@@ -165,6 +185,7 @@ func update_screen() -> void:
 			label(content, "MISSÃO PAUSADA", 30)
 			label(content, "O cronômetro e as interações estão suspensos.")
 			button("Continuar", func(): mission.set_state(Mission.State.JOGANDO))
+			button("Configurações • áudio, câmera e gráficos", open_settings)
 			button("Reiniciar missão", mission.restart)
 			button("Voltar ao menu", mission.go_menu)
 		Mission.State.VITORIA, Mission.State.DERROTA:
@@ -201,13 +222,27 @@ func update_screen() -> void:
 		if node is Button and not node.disabled:
 			node.grab_focus()
 			break
+	animate_screen()
+
+func animate_screen() -> void:
+	content.modulate.a = 0.0
+	create_tween().tween_property(content, "modulate:a", 1.0, 0.18)
 
 func show_feedback(text: String, positive: bool) -> void:
 	feedback.text = ("CERTO • " if positive else "ATENÇÃO • ") + text
 	feedback.modulate = Color("a4efc5") if positive else Color("ffd29a")
 	feedback_time = 7.0
 
+func open_settings() -> void:
+	var settings := preload("res://scripts/ui/settings_panel.gd").new()
+	add_child(settings)
+	# O modal recebe Esc antes do controlador da missão.
+	mission.set_process_input(false)
+	settings.tree_exited.connect(func(): mission.set_process_input(true))
+
 func _process(delta: float) -> void:
+	for widget in hud_widgets:
+		widget.visible = not overlay.visible
 	if mission.progress == null:
 		return
 	var seconds: int = ceili(mission.remaining)

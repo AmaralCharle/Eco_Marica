@@ -1,5 +1,7 @@
 # Validação — histórico das etapas
 
+Estado mais recente: polimento audiovisual 3.0, **356 verificações em 15 suítes, sem falhas**. Renderizador padrão Forward Mobile/Vulkan, qualidade ajustável, áudio e opções implementados. Medições reais, capturas, avisos de encerramento e limitações em `POLIMENTO.md`; resumo final em `tests/artifacts/validation_summary.json`. As seções abaixo mantêm o histórico das versões anteriores.
+
 Data: 14/11/2026. Godot 4.7.2.stable.official.ed1daf0bf, Windows 11 64 bits. Renderização gráfica observada: Intel UHD Graphics, OpenGL 3.3, modo Compatibility.
 
 ## Executado

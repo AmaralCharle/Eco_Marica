@@ -22,7 +22,7 @@ A mudança fora do jogo não foi medida. Os contadores são ações simuladas e 
 ## 4. Conceito do jogo
 Aventura educativa 3D em que um guardião percorre representações fictícias de cinco localidades de Maricá. O jogador separa resíduos, prioriza perdas, realiza ações simuladas de drenagem/restauração e navega para acessar resíduos aquáticos.
 
-Terceira pessoa, um jogador offline, personagens Lucas/Marina/Rafael/Bia com mesmas habilidades. Pilares: observar antes de agir, retorno legível, progressão por novas responsabilidades. Godot/GDScript permitem cenas reutilizáveis e testes nativos, sem servidor ou banco externo. Low-poly e Compatibility reduzem a complexidade técnica; desempenho sustentado ainda não foi medido. Referências de outros jogos não foram definidas pelo grupo.
+Terceira pessoa, um jogador offline, personagens Lucas/Marina/Rafael/Bia com mesmas habilidades. Pilares: observar antes de agir, retorno legível, progressão por novas responsabilidades. Godot/GDScript permitem cenas reutilizáveis e testes nativos, sem servidor ou banco externo. Arte low-poly aprimorada e Forward Mobile equilibram apresentação e custo. As imagens enviadas pelo autor orientaram cores, composição e ambientes; não são modelos importados. Benchmarks controlados, metodologia e limites em `POLIMENTO.md`.
 
 ## 5. Mecânica dinâmica e estética
 | Mecânica implementada | Dinâmica esperada | Experiência pretendida | Relação com o problema |
@@ -74,16 +74,16 @@ As malhas e posições efetivas estão nos scripts de cenário e nos testes/capt
 ## 11. Arte interface e áudio
 Primitivas low-poly, vegetação e água estilizadas, materiais leves e sem texturas baixadas. Personagens, plantio, chuva e água usam efeitos procedurais simples. Menu com cinco fases, seleção de quatro personagens, instruções, HUD, pausa, vitória/derrota, inspeção de terreno e encerramento com mapa/estatísticas.
 
-As estatísticas finais são dos melhores resultados registrados por missão; repetir uma pontuação menor não aumenta nem reduz o acumulado. Saves antigos não recebem estatísticas fabricadas. Áudio e ajuste de volume ainda não implementados e ficam para o polimento. Fonte de interface: padrão nativo do Godot; ícone original preservado.
+As estatísticas finais são dos melhores resultados registrados por missão; repetir uma pontuação menor não aumenta nem reduz o acumulado. Saves antigos não recebem estatísticas fabricadas. O mixer `GameAudio` separa Master/Music/Ambience/SFX; volumes, câmera e qualidade possuem preferências locais. Sons e músicas originais sintetizados por código são provisórios, com origem registrada em `ASSETS_E_CREDITOS.md`. Fonte de interface: padrão nativo do Godot; ícone original preservado e marca vetorial de folha nos menus.
 
 ## 12. Arquitetura técnica
-Motor Godot 4.7.2 Standard, GDScript; recursos nativos, sem bibliotecas externas de execução. Máquina observada: Windows 11 64 bits, Intel Core i5-12450H, aproximadamente 12 GB de RAM instalada e Intel UHD Graphics. Renderização inspecionada em 1280 × 720 com Compatibility/OpenGL. FPS sustentados e meta formal de desempenho não medidos.
+Motor Godot 4.7.2 Standard, GDScript; recursos nativos, sem bibliotecas externas de execução. Máquina observada: Windows 11 64 bits, Intel Core i5-12450H, aproximadamente 12 GB de RAM instalada e Intel UHD Graphics. Renderização padrão Forward Mobile/Vulkan após ensaios comparativos, em 1280 × 720. Há benchmarks de vistas controladas das cinco fases, sem garantia de FPS sustentados em partida humana; resultados em `POLIMENTO.md`.
 
 `scenes/levels` guarda cenas próprias; `scripts/levels` define cenários e objetivos; `scripts/core` reúne configuração/catálogo/perfil/progresso; `scripts/gameplay` separa sessão, interação, restauração e inventário; `scripts/player` contém controlador terrestre, aparências e barco; `scripts/ui` contém HUD, seleção e mapa; `tests` guarda testes e evidências; `docs` documentação.
 
 O controlador de missões existente é reutilizado por herança, com substituição de objetivos e tempo em cada fase. O estado JOGANDO habilita ações; menu, pausa e resultados bloqueiam. Movimento usa `_physics_process(delta)` e `move_and_slide`, colisões nativas e linha de visão para interação. O barco possui controlador/câmera separados e limites de navegação. O estado STORED identifica itens na carga antes da transferência para mãos; transferência não repete a recompensa.
 
-Persistência local: perfil em `user://player_profile.json`, progresso em `user://mission_progress.json`. Progresso versão 2 lê a versão 1: um final antigo de três fases libera Ubatiba, mantém o personagem e não conclui a campanha expandida. Não inventa resultados ausentes. Gravação temporária antes de substituição. Melhor resultado por fase, desbloqueios e estatísticas; som ainda pendente.
+Persistência local: perfil em `user://player_profile.json`, progresso em `user://mission_progress.json`. Progresso versão 2 lê a versão 1: um final antigo de três fases libera Ubatiba, mantém o personagem e não conclui a campanha expandida. Não inventa resultados ausentes. Gravação temporária antes de substituição. Melhor resultado por fase, desbloqueios e estatísticas preservados. Preferências independentes em `user://eco_settings.cfg`.
 
 Executar: abrir `project.godot` no Godot 4.7.2, F5, escolher personagem/fase e seguir instruções. Testes: executar `tests/run_all.ps1` no PowerShell ajustando o caminho do motor, se necessário. Passo a passo completo no README.
 
@@ -104,19 +104,19 @@ Executar: abrir `project.godot` no Godot 4.7.2, F5, escolher personagem/fase e s
 | Progressão, migração e melhor resultado | 7, 12 | scripts/core/mission_progress.gd: _init, record_result, total_score; scripts/levels/aracatiba.gd: open_level | Implementado; test_progress_extension.gd, test_campaign.gd |
 | Final somente após Ponta Negra | 6, 11 | scripts/levels/aracatiba.gd: show_campaign_completion; scripts/ui/mission_hud.gd: update_screen; scripts/ui/campaign_map.gd: _draw | Implementado; teste completo de cinco fases e captura |
 
-Caminhos abreviados nesta tabela são relativos a `scripts/gameplay`, `scripts/levels`, `scripts/core`, `scripts/player` ou `scripts/ui`, conforme o arquivo; a tabela expandida em `rastreabilidade.md` identifica o caminho completo. Situações parciais: sons/volume, polimento, teste externo, vídeo e exportação.
+Rastreabilidade complementar do polimento em `POLIMENTO.md`: mixer/volumes (`game_audio.gd`), decoração/qualidade (`world_polish.gd`), efeitos observadores (`mission_presentation.gd`), câmera (`camera_transition.gd`), aparências (`character_appearance.gd`) e tema (`eco_theme.gd`). Testes adicionais: `test_audio.gd` e `test_presentation.gd`. Situações parciais: revisão humana de áudio/arte, teste externo, rigs, vídeo e exportação.
 
 ## 14. Testes e validação
 Ver `validacao.md` e logs do executor para contagem efetivamente executada. Testes automatizados cobrem regras, limites, estados, persistência, física, acesso, barco e transições. Capturas no renderizador real são evidência visual de estados simulados. Testes que reposicionam o jogador não substituem percurso humano nem balanceamento.
 
 Teste externo: pendente. Perfil de participante, observações e mudanças: não registrados. Métrica de comportamento proposta: erros de decisão/classificação e perdas por missão; dados do jogo são registrados por resultado. Métrica de impacto proposta: acertos em tarefa equivalente antes/depois da sessão, fora do jogo; ainda não coletada nem implementada como pesquisa. Critério de sucesso educativo deve ser definido pela equipe antes do teste. Não há dados para afirmar redução real de erro ou aprendizagem.
 
-Defeitos conhecidos/limitações: geometria provisória, informação 3D que pode sobrepor em ângulos próximos, navegação/água/chuva simplificadas, sem áudio, dificuldade ainda sem avaliação externa. Bug de acesso do Centro tratado e coberto por teste de caminhada e rampas.
+Defeitos conhecidos/limitações: modelos procedurais estilizados, informação 3D que pode sobrepor em ângulos próximos, navegação/água/chuva simplificadas, áudio sintetizado provisório, dificuldade ainda sem avaliação externa. Bug de acesso do Centro tratado e coberto por teste de caminhada e rampas.
 
 ## 15. Riscos limitações e próximos passos
 Exploração: coleta e tarefas únicas usam IDs/estados; sequência só premia blocos completos; melhores resultados não somam repetição ilimitada. Saves locais são editáveis pelo dono e não oferecem proteção competitiva. Riscos educativos: generalizar coleta local, tratar reposição como resgate, supor que plantio elimina deslizamentos ou limpeza impede enchentes. Interface e créditos delimitam as simplificações.
 
-Próximos passos: polir som/volume/arte/interface; medir desempenho; testar com pessoa externa; ajustar dificuldade; revisar fontes/conteúdo com a equipe; gerar GDD de entrega, vídeo de 1–3 minutos e exportação Windows. O estado atual não é prova de atendimento integral à P2.
+Próximos passos: revisar o polimento com o autor, realizar partida humana e teste externo, ajustar mixagem/dificuldade, revisar fontes/conteúdo com a equipe; gerar GDD de entrega, vídeo de 1–3 minutos e exportação Windows. O estado atual não é prova de atendimento integral à P2.
 
 ## 16. Equipe uso de IA e créditos
 Integrantes, matrículas e divisão real do trabalho: pendentes de informação do grupo. OpenAI Codex gerou e integrou scripts, cenas, primitivas, testes e documentação, com correções após execução e inspeção visual. Os arquivos alterados estão no histórico Git e na rastreabilidade. A equipe deve revisar e conseguir explicar cada implementação. Não foi atribuído trabalho a integrantes não identificados.

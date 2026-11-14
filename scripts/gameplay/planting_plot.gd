@@ -12,7 +12,21 @@ func _ready() -> void:
 	sapling = Node3D.new()
 	add_child(sapling)
 	block(sapling, Vector3(0, 0.35, 0), Vector3(0.08, 0.7, 0.08), Color("8a6647"))
-	block(sapling, Vector3(0, 0.8, 0), Vector3(0.65, 0.55, 0.65), Color("3b9a65"))
+	for i in 5:
+		var leaf := MeshInstance3D.new()
+		var mesh := SphereMesh.new()
+		mesh.radius = 0.5
+		mesh.height = 1.0
+		mesh.radial_segments = 8
+		mesh.rings = 4
+		var mat := StandardMaterial3D.new()
+		mat.albedo_color = Color("58a768") if i % 2 == 0 else Color("35875a")
+		mesh.material = mat
+		leaf.mesh = mesh
+		leaf.scale = Vector3(0.36, 0.12, 0.22)
+		leaf.position = Vector3(cos(i * 2.4) * 0.16, 0.55 + i * 0.1, sin(i * 2.4) * 0.16)
+		leaf.rotation = Vector3(0.2, -i * 2.4, 0.25)
+		sapling.add_child(leaf)
 	sapling.visible = not apt
 	label = Label3D.new()
 	label.text = "PONTO " + plot_id.trim_prefix("ubatiba_") + (" • Solo exposto" if exposed else " • Inspecione")

@@ -32,6 +32,9 @@ func _ready() -> void:
 	session.active = false
 	spawn_objects()
 	session.changed.connect(evaluate_objectives)
+	var presentation := preload("res://scripts/effects/mission_presentation.gd").new()
+	presentation.name = "Presentation"
+	add_child(presentation)
 	if get_tree().get_meta("mission_restart", false):
 		get_tree().remove_meta("mission_restart")
 		set_state(State.JOGANDO)
@@ -59,6 +62,7 @@ func spawn_objects() -> void:
 			add_child(bin)
 
 func set_state(next: State) -> void:
+	var previous := state
 	state = next
 	var playing: bool = state == State.JOGANDO
 	session.active = playing
@@ -68,6 +72,15 @@ func set_state(next: State) -> void:
 		player.velocity = Vector3.ZERO
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED if playing and DisplayServer.get_name() != "headless" else Input.MOUSE_MODE_VISIBLE
 	$Interaction.refresh_target()
+	var audio := get_node_or_null("/root/GameAudio")
+	if audio:
+		audio.set_context(mission_id, playing)
+		if playing and previous == State.INSTRUCOES:
+			audio.play_event("start")
+		elif next == State.VITORIA:
+			audio.play_event("victory")
+		elif next == State.DERROTA:
+			audio.play_event("defeat")
 	state_changed.emit()
 
 func show_character_selection() -> void:
@@ -80,6 +93,7 @@ func confirm_character(id: String) -> bool:
 	if not profile.select_character(id):
 		return false
 	player.set_character(profile.selected_id)
+	get_node("/root/GameAudio").play_event("select")
 	set_state(State.MENU)
 	return true
 
@@ -124,6 +138,8 @@ func finish(won: bool, reason: String) -> void:
 	if won:
 		session.score += Config.POINTS_MISSION
 		save_ok = progress.record_result(mission_id, result_record())
+		if definition()["number"] < 5:
+			get_node("/root/GameAudio").play_event("unlock")
 		$World.recover_area()
 	session.changed.emit()
 	state_changed.emit()

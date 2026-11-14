@@ -48,7 +48,10 @@ func update_screen() -> void:
 				button("Celebrar • Ver conclusão da campanha", mission.show_campaign_completion)
 		button("Jogar novamente", mission.restart)
 		button("Voltar ao menu", mission.go_menu)
+	animate_screen()
 func _process(delta: float) -> void:
+	for widget in hud_widgets:
+		widget.visible = not overlay.visible
 	if mission.progress == null:
 		return
 	var seconds: int = ceili(mission.remaining)

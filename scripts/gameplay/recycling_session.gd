@@ -3,6 +3,7 @@ extends Node
 ## Autoridade dos estados e pontos: o visual nunca decide a recompensa.
 signal changed
 signal feedback(message: String, positive: bool)
+signal presentation_event(event: String)
 const Config = preload("res://scripts/core/game_config.gd")
 enum WasteState { AVAILABLE, CARRIED, SORTED, DISCARDED_WRONG, LOST, STORED }
 @export var is_training: bool = true
@@ -36,6 +37,7 @@ func collect(id: String) -> bool:
 	carried_id = id
 	collected += 1
 	score += Config.POINTS_COLLECT
+	presentation_event.emit("collect")
 	feedback.emit("Coletado: %s. Leve à lixeira identificada. +%d" % [carried_material_name(), Config.POINTS_COLLECT], true)
 	changed.emit()
 	return true
@@ -45,6 +47,7 @@ func sort_into(material: String) -> bool:
 		return false
 	if records[carried_id]["material"] != material:
 		errors += 1
+		presentation_event.emit("wrong")
 		streak = 0
 		score = maxi(0, score + Config.POINTS_WRONG)
 		var material_name := carried_material_name()
@@ -61,9 +64,11 @@ func sort_into(material: String) -> bool:
 	correct += 1
 	streak += 1
 	score += Config.POINTS_CORRECT
+	presentation_event.emit("correct")
 	var message := "Destino correto! +%d pontos" % Config.POINTS_CORRECT
 	if streak % Config.STREAK_LENGTH == 0:
 		score += Config.POINTS_STREAK
+		presentation_event.emit("bonus")
 		message += " • Três acertos seguidos: +%d" % Config.POINTS_STREAK
 	if is_training and correct == records.size():
 		message += " • Treino concluído! R para recomeçar."
@@ -85,6 +90,7 @@ func mark_lost(id: String) -> bool:
 		return false
 	records[id]["state"] = WasteState.LOST
 	lost_count += 1
+	presentation_event.emit("wrong")
 	feedback.emit(loss_message, false)
 	changed.emit()
 	return true
@@ -102,6 +108,7 @@ func clean_drain(id: String) -> bool:
 	drains[id] = true
 	drains_cleaned += 1
 	score += Config.POINTS_DRAIN
+	presentation_event.emit("drain")
 	feedback.emit("Bueiro desobstruído na simulação! +%d. Isso reduz um fator de risco; não garante evitar enchentes." % Config.POINTS_DRAIN, true)
 	changed.emit()
 	return true

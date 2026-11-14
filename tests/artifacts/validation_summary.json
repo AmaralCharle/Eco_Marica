@@ -1,83 +1,128 @@
 {
-  "checks": 306,
+  "generated_at": "2026-11-14T13:23:46.0041006-03:00",
+  "source": "logs da execução final de run_all.ps1",
+  "checks": 356.0,
+  "failed_suites": 0,
   "suites": [
     {
-      "suite": "test_aracatiba",
+      "name": "test_aracatiba.gd",
       "checks": 32,
       "failures": 0,
-      "errors_reported": false
+      "has_errors": false,
+      "warnings": true,
+      "log": "test_aracatiba.log"
     },
     {
-      "suite": "test_boat",
+      "name": "test_audio.gd",
+      "checks": 17,
+      "failures": 0,
+      "has_errors": false,
+      "warnings": true,
+      "log": "test_audio.log"
+    },
+    {
+      "name": "test_boat.gd",
       "checks": 9,
       "failures": 0,
-      "errors_reported": false
+      "has_errors": false,
+      "warnings": false,
+      "log": "test_boat.log"
     },
     {
-      "suite": "test_campaign",
+      "name": "test_campaign.gd",
       "checks": 18,
       "failures": 0,
-      "errors_reported": false
+      "has_errors": false,
+      "warnings": true,
+      "log": "test_campaign.log"
     },
     {
-      "suite": "test_centro",
-      "checks": 34,
-      "failures": 0,
-      "errors_reported": false
-    },
-    {
-      "suite": "test_centro_access",
+      "name": "test_centro_access.gd",
       "checks": 14,
       "failures": 0,
-      "errors_reported": false
+      "has_errors": false,
+      "warnings": true,
+      "log": "test_centro_access.log"
     },
     {
-      "suite": "test_characters",
+      "name": "test_centro.gd",
+      "checks": 34,
+      "failures": 0,
+      "has_errors": false,
+      "warnings": true,
+      "log": "test_centro.log"
+    },
+    {
+      "name": "test_characters.gd",
       "checks": 49,
       "failures": 0,
-      "errors_reported": false
+      "has_errors": false,
+      "warnings": true,
+      "log": "test_characters.log"
     },
     {
-      "suite": "test_foundation",
+      "name": "test_foundation.gd",
       "checks": 16,
       "failures": 0,
-      "errors_reported": false
+      "has_errors": false,
+      "warnings": true,
+      "log": "test_foundation.log"
     },
     {
-      "suite": "test_itaipuacu",
+      "name": "test_itaipuacu.gd",
       "checks": 47,
       "failures": 0,
-      "errors_reported": false
+      "has_errors": false,
+      "warnings": true,
+      "log": "test_itaipuacu.log"
     },
     {
-      "suite": "test_ponta_access",
+      "name": "test_ponta_access.gd",
       "checks": 6,
       "failures": 0,
-      "errors_reported": false
+      "has_errors": false,
+      "warnings": true,
+      "log": "test_ponta_access.log"
     },
     {
-      "suite": "test_ponta_negra",
+      "name": "test_ponta_negra.gd",
       "checks": 20,
       "failures": 0,
-      "errors_reported": false
+      "has_errors": false,
+      "warnings": true,
+      "log": "test_ponta_negra.log"
     },
     {
-      "suite": "test_progress_extension",
+      "name": "test_presentation.gd",
+      "checks": 33,
+      "failures": 0,
+      "has_errors": false,
+      "warnings": true,
+      "log": "test_presentation.log"
+    },
+    {
+      "name": "test_progress_extension.gd",
       "checks": 8,
       "failures": 0,
-      "errors_reported": false
+      "has_errors": false,
+      "warnings": false,
+      "log": "test_progress_extension.log"
     },
     {
-      "suite": "test_recycling",
+      "name": "test_recycling.gd",
       "checks": 35,
       "failures": 0,
-      "errors_reported": false
+      "has_errors": false,
+      "warnings": true,
+      "log": "test_recycling.log"
     },
     {
-      "suite": "test_ubatiba",
+      "name": "test_ubatiba.gd",
       "checks": 18,
       "failures": 0,
-      "errors_reported": false
+      "has_errors": false,
+      "warnings": true,
+      "log": "test_ubatiba.log"
     }
   ]
 }

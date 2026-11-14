@@ -7,3 +7,5 @@ PASS: Embarcação passa sob ponte sem atravessar estrutura
 PASS: Margem da fase limita barco com colisão real
 PASS: Limite do píer impede caminhar para dentro do canal
 RESULT: 6 verificações, 0 falhas
+WARNING: 4 ObjectDB instances were leaked at exit (run with `--verbose` for details).
+   at: cleanup (core/object/object.cpp:2536)

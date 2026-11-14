@@ -14,6 +14,7 @@ func inspect(id: String) -> bool:
 	if not active or not plots.has(id):
 		return false
 	plots[id]["inspected"] = true
+	presentation_event.emit("select")
 	changed.emit()
 	return true
 
@@ -32,11 +33,13 @@ func act(id: String, action: String) -> bool:
 	var appropriate: bool = (action == "prepare" and plot["apt"]) or (action == "plant" and plot["apt"] and plot["prepared"]) or (action == "protect" and plot["apt"] and plot["exposed"] and plot["planted"]) or (action == "preserve" and not plot["apt"])
 	if not appropriate:
 		errors += 1
+		presentation_event.emit("wrong")
 		score = maxi(0, score + Config.POINTS_WRONG)
 		feedback.emit("Decisão inadequada. " + plot["reason"] + " Prepare antes de plantar; proteja o solo exposto após o plantio.", false)
 		changed.emit()
 		return false
 	plot[field] = true
+	presentation_event.emit("plant" if action == "plant" else "soil" if action in ["prepare", "protect"] else "correct")
 	if action == "plant":
 		planted += 1
 	if action == "protect":

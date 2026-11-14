@@ -21,6 +21,10 @@ func _ready() -> void:
 		rail.mesh = mesh
 		rail.position = Vector3(side * 0.67, 0.5, 0)
 		add_child(rail)
+	var art := preload("res://scripts/effects/boat_polish.gd").new()
+	art.name = "BoatArt"
+	add_child(art)
+	$Hull.hide()
 func embark(player: CharacterBody3D) -> bool:
 	if pilot != null or global_position.distance_to(player.global_position) > 3.0:
 		return false
@@ -35,9 +39,16 @@ func embark(player: CharacterBody3D) -> bool:
 	player.hide()
 	$Passenger.apply_character(player.visual.character_id)
 	$Passenger.show()
-	camera.current = true
+	$Passenger.set_animation("embark")
+	$Passenger.rotation.x = -0.18
+	create_tween().tween_property($Passenger, "rotation:x", 0.0, 0.45)
+	$Passenger.get_node("LeftArm").rotation.x = -0.55
+	$Passenger.get_node("RightArm").rotation.x = -0.55
+	preload("res://scripts/player/camera_transition.gd").blend(player.camera_pivot.get_node("SpringArm3D/Camera3D"), camera)
 	active = true
 	set_physics_process(true)
+	if has_node("/root/GameAudio"):
+		get_node("/root/GameAudio").play_event("embark")
 	return true
 func disembark() -> bool:
 	if pilot == null or global_position.distance_to(dock_position) > 2.8 or absf(speed) > 0.6:
@@ -54,8 +65,11 @@ func disembark() -> bool:
 	player.show()
 	player.set_physics_process(true)
 	player.set_process_unhandled_input(true)
-	player.camera_pivot.get_node("SpringArm3D/Camera3D").current = true
+	preload("res://scripts/player/camera_transition.gd").blend(camera, player.camera_pivot.get_node("SpringArm3D/Camera3D"))
 	$Passenger.hide()
+	player.play_action("disembark")
+	if has_node("/root/GameAudio"):
+		get_node("/root/GameAudio").play_event("disembark")
 	return true
 func _physics_process(delta: float) -> void:
 	if not active or pilot == null:

@@ -21,6 +21,10 @@ func _ready() -> void:
 	label.pixel_size = 0.007
 	add_child(label)
 	spawn_recycling_training()
+	var audio := get_node_or_null("/root/GameAudio")
+	if audio:
+		audio.set_context("aracatiba", true)
+		$Session.presentation_event.connect(audio.play_event)
 
 func box(title: String, pos: Vector3, size: Vector3, color: Color, solid: bool) -> void:
 	var node: Node3D = StaticBody3D.new() if solid else Node3D.new()

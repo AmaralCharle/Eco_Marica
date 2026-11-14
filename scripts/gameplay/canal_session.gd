@@ -7,6 +7,7 @@ func store_from_boat(id: String) -> bool:
 	boat_inventory.append(id)
 	collected += 1
 	score += Config.POINTS_COLLECT
+	presentation_event.emit("collect")
 	feedback.emit("Recolhido para a carga: %d/5. %s" % [boat_inventory.size(), "Barco cheio: retorne ao píer." if boat_inventory.size() == 5 else "Continue a coleta ou retorne ao píer."], true)
 	changed.emit()
 	return true
@@ -15,6 +16,7 @@ func take_next_to_hand() -> bool:
 		return false
 	carried_id = boat_inventory.pop_front()
 	records[carried_id]["state"] = WasteState.CARRIED
+	presentation_event.emit("unload")
 	feedback.emit("Descarga: em mãos %s. Classifique; o próximo item da carga virá em seguida." % carried_material_name(), true)
 	changed.emit()
 	return true
