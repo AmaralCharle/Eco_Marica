@@ -1,0 +1,35 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+PASS: Menu bloqueia interações
+PASS: Missão cria 15 resíduos e três pares de coletores
+PASS: Menu não consome tempo
+PASS: Não coleta antes de começar
+PASS: Instruções não consomem tempo
+PASS: Começar ativa missão e cronômetro
+PASS: Esc pausa personagem e missão
+PASS: Pausa congela tempo e coleta
+PASS: Esc retoma a missão
+PASS: Tempo exatamente zero causa derrota
+PASS: Derrota informa motivo específico
+PASS: Resultado trava novas ações e pontos
+PASS: Até três erros mantêm a missão ativa
+PASS: Erro consome item e impede recoleta
+PASS: Quarto erro causa derrota imediata
+PASS: Não vence com um item ainda pendente
+PASS: Vitória aceita exatamente 12 acertos e 3 erros
+PASS: Limpeza 80% e placar de 360 sem apagar erros
+PASS: Vitória ativa transformação do cenário
+PASS: Vitória desbloqueia e grava próxima área
+PASS: Desbloqueio recuperado do disco
+PASS: Bônus de missão não pode ser duplicado
+PASS: Vitória antes do fim: 15 acertos, 425 pontos e 100%
+PASS: Derrota preserva desbloqueio anterior
+PASS: Reinício começa sessão limpa com cronômetro completo
+PASS: Voltar ao menu encerra sessão anterior
+PASS: Percurso integrado alcança os 15 itens e destinos sem bloqueios
+PASS: Progresso inválido usa padrão seguro: quebrado
+PASS: Progresso inválido usa padrão seguro: []
+PASS: Progresso inválido usa padrão seguro: {"version":1,"unlocked_level":999}
+PASS: Progresso inválido usa padrão seguro: {"version":1,"unlocked_level":"2"}
+PASS: Progresso inválido usa padrão seguro: {"version":1,"unlocked_level":1.5}
+RESULT: 32 verificações, 0 falhas

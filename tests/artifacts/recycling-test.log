@@ -1,0 +1,38 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+PASS: Índice vazio seguro
+PASS: ID vazio rejeitado
+PASS: Material desconhecido rejeitado
+PASS: Registra ID único 0
+PASS: Registra ID único 1
+PASS: Registra ID único 2
+PASS: Registra ID único 3
+PASS: Registra ID único 4
+PASS: Registra ID único 5
+PASS: ID duplicado rejeitado
+PASS: Coleta desconhecida rejeitada
+PASS: Descarte sem item não pontua
+PASS: Coleta premia uma única vez
+PASS: Não coleta duas vezes nem carrega dois itens
+PASS: Erro aplica penalidade
+PASS: Pontos mínimos zero e item preservado para corrigir
+PASS: Destino inválido não altera contadores
+PASS: Classificação correta consome item e pontua
+PASS: Item destinado não pode render pontos novamente
+PASS: Terceiro acerto concede exatamente +20
+PASS: Índice mede destinos corretos, não coletas
+PASS: Erro interrompe sequência
+PASS: Nova sequência concede um bônus; conclusão chega a 100%
+PASS: Treino cria seis resíduos e duas lixeiras
+PASS: E fora de alcance não coleta
+PASS: Entrada E coleta, oculta resíduo e atualiza pontos
+PASS: E repetido longe da lixeira não duplica coleta
+PASS: Lixeira errada registra erro e preserva item
+PASS: Lixeira certa conclui classificação
+PASS: HUD acompanha sessão real
+PASS: Parede bloqueia alcance de interação
+PASS: Não coleta através da parede
+PASS: Ciclo completo de seis itens com placar e bônus exatos
+PASS: Conclusão exibe orientação de reinício
+PASS: R reinicia cena e sessão sem pontos antigos
+RESULT: 35 verificações, 0 falhas

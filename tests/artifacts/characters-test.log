@@ -1,0 +1,52 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+PASS: Quatro identidades válidas
+PASS: Perfil ausente usa Lucas
+PASS: Grava e recarrega lucas
+PASS: Grava e recarrega marina
+PASS: Grava e recarrega rafael
+PASS: Grava e recarrega bia
+PASS: ID inválido não sobrescreve escolha válida
+PASS: Perfil inválido usa padrão: {
+PASS: Perfil inválido usa padrão: []
+PASS: Perfil inválido usa padrão: {"version":1,"selected_character":5}
+PASS: Perfil inválido usa padrão: {"version":1,"selected_character":"hacker"}
+PASS: Perfil inválido usa padrão: {"version":2,"selected_character":"bia"}
+PASS: Falha de escrita preserva seleção anterior
+PASS: Menu aplica perfil ao jogador
+PASS: Seleção cria quatro prévias e bloqueia missão
+PASS: Prévia não salva antes de confirmar
+PASS: Seleção não consome tempo nem permite coleta
+PASS: Cancelar preserva personagem anterior
+PASS: Confirmação integrada aplica e salva lucas
+PASS: Confirmação integrada aplica e salva marina
+PASS: Confirmação integrada aplica e salva rafael
+PASS: Confirmação integrada aplica e salva bia
+PASS: Seleção não apaga desbloqueio de fases
+PASS: Nova instância recupera Bia do disco
+PASS: Esc volta da seleção sem alterar perfil
+PASS: Interface informa falha de gravação e mantém escolha anterior
+PASS: Treino carrega escolha salva pelo controlador compartilhado
+PASS: lucas: mesma caminhada
+PASS: lucas: mesma corrida
+PASS: lucas: pulo disponível
+PASS: lucas: mesma cápsula e retorno ao chão
+PASS: lucas: animação de coleta compartilhada
+PASS: marina: mesma caminhada
+PASS: marina: mesma corrida
+PASS: marina: pulo disponível
+PASS: marina: mesma cápsula e retorno ao chão
+PASS: marina: animação de coleta compartilhada
+PASS: rafael: mesma caminhada
+PASS: rafael: mesma corrida
+PASS: rafael: pulo disponível
+PASS: rafael: mesma cápsula e retorno ao chão
+PASS: rafael: animação de coleta compartilhada
+PASS: bia: mesma caminhada
+PASS: bia: mesma corrida
+PASS: bia: pulo disponível
+PASS: bia: mesma cápsula e retorno ao chão
+PASS: bia: animação de coleta compartilhada
+PASS: Troca repetida não duplica acessórios
+PASS: Aparência inválida volta ao padrão seguro
+RESULT: 49 verificações, 0 falhas

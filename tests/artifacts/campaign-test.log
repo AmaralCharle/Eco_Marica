@@ -1,0 +1,16 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+PASS: Nova campanha bloqueia fase 2 no menu
+PASS: Menu inicia instruções de Araçatiba
+PASS: Botão inicia primeira fase
+PASS: Araçatiba concluída libera fase 2 no mesmo progresso
+PASS: Resultado abre fase 2 pelo botão
+PASS: Itaipuaçu recebe perfil e instruções corretos
+PASS: Itaipuaçu concluída libera fase final
+PASS: Resultado abre Centro pelo botão
+PASS: Centro recebe a mesma campanha e personagem
+PASS: Terceira vitória grava campanha concluída
+PASS: Botão de vitória abre encerramento da campanha
+PASS: Encerramento oferece retorno ao menu
+PASS: Menu preserva conclusão e oferece revisão
+RESULT: 13 verificações, 0 falhas

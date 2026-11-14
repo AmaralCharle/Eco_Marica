@@ -1,0 +1,50 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+PASS: Fase 2 bloqueada antes de vencer Araçatiba
+PASS: Acesso direto também respeita bloqueio
+PASS: Vinte resíduos iniciais
+PASS: Três estações com quatro coletores
+PASS: Cinco resíduos de paper
+PASS: Cinco resíduos de plastic
+PASS: Cinco resíduos de glass
+PASS: Cinco resíduos de metal
+PASS: Personagem confirmado aplicado na fase 2
+PASS: Sete resíduos têm deslocamento em direção ao mar
+PASS: Menu congela resíduos e cronômetro
+PASS: Deslocamento e cronômetro usam delta
+PASS: Risco indicado por texto e tempo
+PASS: Pausa congela também os resíduos móveis
+PASS: Coleta interrompe deslocamento
+PASS: Item carregado não pode ser perdido ao mar
+PASS: Erro de classificação preserva item na fase 2
+PASS: Correção conclui destino
+PASS: Perda 1 contabilizada e ocultada
+PASS: Não duplica perda nem recoleta perdido 0
+PASS: Perda 2 contabilizada e ocultada
+PASS: Não duplica perda nem recoleta perdido 1
+PASS: Perda 3 contabilizada e ocultada
+PASS: Não duplica perda nem recoleta perdido 2
+PASS: Perda 4 contabilizada e ocultada
+PASS: Não duplica perda nem recoleta perdido 3
+PASS: Quatro perdas mantêm missão possível com reposição única
+PASS: Vinte destinos ainda possíveis após quatro perdas
+PASS: Índice registra perdas: 20/24, sem apagá-las
+PASS: Vitória grava desbloqueio do Centro
+PASS: Bônus da fase 2 é concedido uma única vez
+PASS: Vitória recupera visualmente a praia
+PASS: Resultado final bloqueia novas perdas
+PASS: Quinta perda causa derrota
+PASS: Quinta perda não cria reposição após derrota
+PASS: Derrota não apaga fase 2 desbloqueada
+PASS: Tempo zero causa derrota na fase 2
+PASS: Partida perfeita: 20 acertos, 520 pontos e 100%
+PASS: Reinício preserva fase e zera objetivos/tempo
+PASS: Reinício preserva perfil e progresso corretos
+PASS: Retorno ao menu mantém progresso da fase 2
+PASS: Menu abre Itaipuaçu desbloqueada
+PASS: Transição abre instruções da fase correta
+PASS: Transição preserva personagem e arquivo de progresso
+PASS: Interação integrada alcança os 20 itens e quatro materiais
+PASS: Repetir fase anterior não rebaixa desbloqueio
+PASS: Desbloqueio inválido rejeitado
+RESULT: 47 verificações, 0 falhas
