@@ -1,0 +1,41 @@
+[gd_scene load_steps=9 format=3]
+[ext_resource type="PackedScene" path="res://scenes/player/guardian.tscn" id="1"]
+[ext_resource type="Script" path="res://scripts/levels/ponta_negra.gd" id="2"]
+[ext_resource type="Script" path="res://scripts/levels/ponta_negra_world.gd" id="3"]
+[ext_resource type="Script" path="res://scripts/gameplay/canal_session.gd" id="4"]
+[ext_resource type="Script" path="res://scripts/gameplay/canal_interaction.gd" id="5"]
+[ext_resource type="Script" path="res://scripts/ui/expansion_hud.gd" id="6"]
+[ext_resource type="PackedScene" path="res://scenes/player/boat.tscn" id="7"]
+[sub_resource type="Environment" id="Environment"]
+background_mode = 1
+background_color = Color(0.62, 0.81, 0.88, 1)
+ambient_light_source = 3
+ambient_light_color = Color(0.85, 0.93, 1, 1)
+ambient_light_energy = 0.65
+[node name="PontaNegra" type="Node3D"]
+script = ExtResource("2")
+mission_id = "ponta_negra"
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment")
+[node name="Sun" type="DirectionalLight3D" parent="."]
+rotation_degrees = Vector3(-55, -30, 0)
+light_color = Color(1, 0.94, 0.8, 1)
+light_energy = 1.1
+shadow_enabled = false
+[node name="World" type="Node3D" parent="."]
+script = ExtResource("3")
+[node name="Player" parent="." instance=ExtResource("1")]
+position = Vector3(11, 0.1, 12)
+[node name="Session" type="Node" parent="."]
+script = ExtResource("4")
+is_training = false
+retry_wrong = true
+loss_message = "Um resíduo cruzou a zona de saída. A perda continua registrada."
+[node name="Interaction" type="Node" parent="."]
+script = ExtResource("5")
+[node name="MissionHUD" type="CanvasLayer" parent="."]
+script = ExtResource("6")
+
+[node name="Boat" parent="." instance=ExtResource("7")]
+position = Vector3(4.8, 0.05, 12)
+collision_mask = 17

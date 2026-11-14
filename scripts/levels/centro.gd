@@ -15,7 +15,7 @@ func spawn_objects() -> void:
 		for i in 4:
 			var bin := bin_scene.instantiate()
 			bin.material = Config.MATERIAL_ORDER[i]
-			bin.position = Vector3(-5.5 + i * 3.0, 0.15, [-16.0, 2.0, 16.0][station])
+			bin.position = Vector3(-2.4 + i * 1.6, 0.0, [-16.0, 2.0, 16.0][station])
 			add_child(bin)
 	var drain_scene := preload("res://scenes/objects/storm_drain.tscn")
 	var positions: Array[Vector3] = [Vector3(-3.2, 0, -10), Vector3(3.2, 0, -3), Vector3(-3.2, 0, 8)]

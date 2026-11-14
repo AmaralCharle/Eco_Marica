@@ -1,0 +1,11 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+PASS: Migra final de três fases sem fabricar resultados
+PASS: Grava resultado real da quarta fase
+PASS: Nova gravação versão 2 preserva migração e libera quinta
+PASS: Repetição pior não aumenta nem rebaixa soma
+PASS: Conclusão soma apenas resultados realmente registrados
+PASS: Final informa ausência de estatísticas antigas
+PASS: Missão desconhecida não entra no placar
+PASS: Estatísticas recarregadas não duplicam ações
+RESULT: 8 verificações, 0 falhas

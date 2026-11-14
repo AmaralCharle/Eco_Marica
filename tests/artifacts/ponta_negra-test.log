@@ -1,0 +1,22 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+PASS: Vinte resíduos recuperáveis e carga vazia
+PASS: Embarca pelo acesso ao píer
+PASS: Capacidade de cinco, coleta única e pontos exatos
+PASS: Sexto item impedido quando carga cheia
+PASS: Item na carga não escapa
+PASS: Desembarque rejeitado fora do píer
+PASS: Desembarque transfere um item para mãos sem nova coleta
+PASS: Carga pendente precisa ser destinada antes de embarcar
+PASS: Erro permite corrigir item da carga
+PASS: Descarga encadeada destina os cinco itens
+PASS: Quatro viagens completam vinte destinos usando barco e coletores
+PASS: Apenas a quinta fase encerra e salva campanha
+PASS: Placar real com um erro e soma persistida
+PASS: Celebração abre mapa e estatísticas das cinco fases
+PASS: Não conta perda antes de cruzar a zona
+PASS: Cruzamento real conta uma perda e uma reposição
+PASS: Objeto perdido não gera perdas repetidas
+PASS: Quinta perda encerra sem criar reposição adicional
+PASS: Prazo de 360 segundos encerra fase incompleta
+RESULT: 19 verificações, 0 falhas

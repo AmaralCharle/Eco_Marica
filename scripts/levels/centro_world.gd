@@ -14,6 +14,11 @@ func _ready() -> void:
 		for i in 4:
 			var z: float = -13 + i * 8.0
 			building(Vector3(side * 11.5, 0, z), i, side)
+	# Rampas atravessam o meio-fio; o controlador não precisa saltar um degrau.
+	for side: float in [-1.0, 1.0]:
+		for z: float in [-16.0, 2.0, 16.0]:
+			var ramp := box("AccessRamp", Vector3(side * 3.5, 0.02, z), Vector3(1.6, 0.08, 3.2), Color("c9c6b8"), true)
+			ramp.rotation.z = side * atan(0.12 / 1.6)
 	for z: float in [-19.5, 19.5]:
 		box("Boundary", Vector3(0, 0.5, z), Vector3(33, 1, 0.3), Color("718c79"), true)
 	for z: float in [-15.0, -10.0, -5.0, 0.0, 5.0, 10.0, 15.0]:

@@ -1,4 +1,4 @@
-# Rastreabilidade — Etapas 1 a 6
+# Rastreabilidade — Campanha de cinco fases
 
 O GDD fornecido é um modelo. A documentação desta versão descreve somente a fundação implementada. As seções indicam onde registrar o conteúdo no GDD final.
 
@@ -60,3 +60,20 @@ Etapa 5: `test_itaipuacu.gd` passou em 47 verificações; regressão 16 + 35 + 3
 
 
 Etapa 6: 34 verificações do Centro e 13 do fluxo completo de campanha; regressões 16 + 35 + 32 + 49 + 47. Total: **226 verificações aprovadas**. Parâmetros `GameConfig`: CENTRO_DURATION, CENTRO_TARGET, CENTRO_DRAINS, POINTS_DRAIN, STORM_RAIN_THRESHOLD e STORM_RAIN_COUNT. O palco da chuva usa MultiMesh; não foi medida uma meta de FPS nesta etapa.
+
+
+## Expansão e correção de acesso
+| Mecânica | Seções GDD | Arquivo e função | Estado | Evidência |
+|---|---|---|---|---|
+| Coletores em nível da rua/rampas | 6, 10, 13 | scripts/levels/centro.gd: spawn_objects; scripts/levels/centro_world.gd: _ready | Corrigido | test_centro_access.gd: 14 verificações |
+| 12 avaliações de terreno | 5, 6, 13 | scripts/gameplay/restoration_session.gd: inspect, resolved, act | Implementado | test_ubatiba.gd |
+| Oito plantios e três proteções | 5, 6, 7, 13 | scripts/levels/ubatiba.gd: evaluate_objectives; scripts/gameplay/planting_plot.gd: update_plot | Implementado | Teste de metas/visual; capturas Ubatiba |
+| Preservação de pontos não aptos e limite de erros | 5, 6, 8, 13 | scripts/gameplay/restoration_session.gd: act; scripts/levels/ubatiba.gd: evaluate_objectives | Implementado | Quarta decisão incorreta, repetição sem pontos |
+| Inspeção contextual | 6, 11, 13 | scripts/gameplay/planting_interaction.gd: interact; scripts/ui/expansion_hud.gd: refresh_inspection | Implementado | E, informações do solo e ações |
+| Barco e câmera separados | 6, 10, 12, 13 | scripts/player/boat.gd: embark, disembark, _physics_process | Implementado | test_boat.gd; test_ponta_access.gd |
+| Carga de cinco e descarga | 6, 13 | scripts/gameplay/canal_session.gd: store_from_boat, take_next_to_hand; scripts/levels/ponta_negra.gd: auto_unload | Implementado | test_ponta_negra.gd: quatro viagens e sexto item rejeitado |
+| Saídas efetivas e reposição controlada | 6, 7, 13 | scripts/gameplay/floating_waste.gd: advance_float; scripts/levels/ponta_negra.gd: evaluate_objectives | Implementado | Sem perda antes da linha; quinta derrota; vitória após quatro |
+| Migração de três para cinco fases | 7, 12, 13 | scripts/core/mission_progress.gd: _init, record_result, save_progress | Implementado | test_progress_extension.gd e test_campaign.gd |
+| Encerramento, mapa e estatísticas | 6, 11, 13 | scripts/ui/mission_hud.gd: update_screen; scripts/ui/campaign_map.gd: _draw; scripts/core/mission_progress.gd: totals | Implementado | Teste de cinco fases e captura ponta_finale.png |
+
+A expansão substitui o antigo encerramento no Centro; somente a quinta fase conclui a campanha. Seções 1–16 e regras atuais estão em `GDD_5_FASES.md`. Total da execução final: 306 verificações em 13 suítes. Detalhes e limitações em `validacao.md`.

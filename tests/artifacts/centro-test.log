@@ -17,12 +17,12 @@ PASS: Tempo zero encerra missão sem concluir campanha
 PASS: Resultado bloqueia limpeza pendente
 PASS: Só os 15 resíduos não vencem; índice considera bueiros
 PASS: Quinze destinos e três bueiros: vitória, 515 pontos e 100%
-PASS: Conclusão salva e recuperada do disco
+PASS: Centro salva desbloqueio de Ubatiba sem encerrar campanha
 PASS: Vitória ativa recuperação urbana simbólica
 PASS: Bônus de missão final não duplica
-PASS: Tela de conclusão usa estado FINALIZADO e trava ações
+PASS: Terceira fase não abre final prematuro
 PASS: Menu recupera campanha concluída sem apagar perfil
-PASS: Conclusão pode ser revista pelo menu
+PASS: Final permanece bloqueado até quinta fase
 PASS: Campanha concluída permite rejogar Centro
 PASS: Derrota posterior preserva campanha concluída
 PASS: Reinício zera tarefas e tempestade da fase final

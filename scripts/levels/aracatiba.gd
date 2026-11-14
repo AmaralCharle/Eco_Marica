@@ -2,7 +2,7 @@ extends Node3D
 signal state_changed
 const Config = preload("res://scripts/core/game_config.gd")
 const Definitions = preload("res://scripts/core/mission_definitions.gd")
-@export_enum("aracatiba", "itaipuacu", "centro") var mission_id: String = "aracatiba"
+@export_enum("aracatiba", "itaipuacu", "centro", "ubatiba", "ponta_negra") var mission_id: String = "aracatiba"
 const Profile = preload("res://scripts/core/player_profile.gd")
 const Progress = preload("res://scripts/core/mission_progress.gd")
 enum State { MENU, INSTRUCOES, JOGANDO, PAUSADO, VITORIA, DERROTA, SELECAO_PERSONAGEM, FINALIZADO }
@@ -123,10 +123,16 @@ func finish(won: bool, reason: String) -> void:
 	set_state(State.VITORIA if won else State.DERROTA)
 	if won:
 		session.score += Config.POINTS_MISSION
-		save_ok = progress.complete_campaign() if mission_id == "centro" else progress.unlock_next_level(definition()["number"] + 1)
+		save_ok = progress.record_result(mission_id, result_record())
 		$World.recover_area()
 	session.changed.emit()
 	state_changed.emit()
+
+func result_record() -> Dictionary:
+	var record: Dictionary = {"score": session.score, "collected": session.collected, "correct": session.correct, "errors": session.errors, "lost": session.lost_count, "drains": session.drains_cleaned, "seconds": ceili(definition()["duration"] - remaining)}
+	if mission_id == "ubatiba":
+		record.merge({"assessed": session.assessed, "planted": session.planted, "protected": session.protected_soil})
+	return record
 
 func show_campaign_completion() -> void:
 	if progress.campaign_completed and state in [State.MENU, State.VITORIA]:
@@ -136,7 +142,7 @@ func transfer_paths(id: String, entry: String = "menu") -> void:
 	get_tree().set_meta("mission_transfer", {"id": id, "entry": entry, "profile_path": profile_path, "progress_path": progress_path})
 
 func open_level(id: String) -> bool:
-	if id not in ["aracatiba", "itaipuacu", "centro"]:
+	if id not in ["aracatiba", "itaipuacu", "centro", "ubatiba", "ponta_negra"]:
 		return false
 	var next := Definitions.get_mission(id)
 	if progress.unlocked_level < next["number"]:

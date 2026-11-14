@@ -1,0 +1,37 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+PASS: Centro bloqueado antes de vencer Itaipuaçu
+PASS: Quinze resíduos e três bueiros únicos
+PASS: Personagem confirmado aplicado no Centro
+PASS: Bueiros sem ID ou duplicados rejeitados
+PASS: Menu bloqueia limpeza
+PASS: Menu não avança tempestade nem relógio
+PASS: Metade do prazo intensifica céu e chuva
+PASS: Pausa congela chuva, céu e tempo
+PASS: Limpeza de bueiro desconhecido rejeitada
+PASS: Exige mãos livres para limpar
+PASS: Erro mantém resíduo para correção na fase final
+PASS: Limpar bueiro concede +30
+PASS: Bueiro não pode render pontos repetidos
+PASS: Tempo zero encerra missão sem concluir campanha
+PASS: Resultado bloqueia limpeza pendente
+PASS: Só os 15 resíduos não vencem; índice considera bueiros
+PASS: Quinze destinos e três bueiros: vitória, 515 pontos e 100%
+PASS: Centro salva desbloqueio de Ubatiba sem encerrar campanha
+PASS: Vitória ativa recuperação urbana simbólica
+PASS: Bônus de missão final não duplica
+PASS: Terceira fase não abre final prematuro
+PASS: Menu recupera campanha concluída sem apagar perfil
+PASS: Final permanece bloqueado até quinta fase
+PASS: Campanha concluída permite rejogar Centro
+PASS: Derrota posterior preserva campanha concluída
+PASS: Reinício zera tarefas e tempestade da fase final
+PASS: Reinício preserva personagem e arquivos corretos
+PASS: Só três bueiros não vencem; índice 3/18
+PASS: Entrada E limpa bueiro e altera visual
+PASS: E repetido não duplica limpeza
+PASS: Ciclo integrado alcança os 15 resíduos e três bueiros
+PASS: Repetir fase anterior preserva conclusão
+PASS: Conclusão inválida rejeitada
+PASS: Conclusão inválida rejeitada
+RESULT: 34 verificações, 0 falhas

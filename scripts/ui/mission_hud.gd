@@ -113,12 +113,11 @@ func update_screen() -> void:
 			label(content, "Uma jornada de cuidado com os espaços públicos.", 21)
 			label(content, "Guardião: %s • Um jogador • Offline" % Catalog.get_character(mission.profile.selected_id)["name"], 17)
 			button("Escolher personagem", mission.show_character_selection)
-			button("Jogar • Operação Araçatiba", func(): mission.open_level("aracatiba"))
+			for id in mission.Definitions.IDS:
+				var destination: Dictionary = mission.Definitions.get_mission(id)
+				var accessible: bool = mission.progress.unlocked_level >= destination["number"]
+				button(("Jogar • " if accessible else "Bloqueada • ") + destination["title"], func(): mission.open_level(id), not accessible)
 			button("Treinar coleta e classificação", func(): get_tree().change_scene_to_file("res://scenes/levels/foundation.tscn"))
-			var can_play: bool = mission.progress.unlocked_level >= 2
-			button("Jogar • Resgate de Itaipuaçu" if can_play else "Itaipuaçu • Conclua Araçatiba para desbloquear", func(): mission.open_level("itaipuacu"), not can_play)
-			var center_playable: bool = mission.progress.unlocked_level >= 3
-			button("Jogar • Alerta de Tempestade" if center_playable else "Centro de Maricá • Conclua Itaipuaçu", func(): mission.open_level("centro"), not center_playable)
 			if mission.progress.campaign_completed:
 				button("Campanha concluída • Rever conclusão", mission.show_campaign_completion)
 			button("Sair", func(): get_tree().quit())
@@ -149,10 +148,16 @@ func update_screen() -> void:
 			button("Começar missão", mission.start_mission)
 			button("Voltar ao menu", mission.go_menu)
 		Mission.State.FINALIZADO:
-			label(content, "ECO MARICÁ • Campanha concluída!", 28)
-			label(content, "Araçatiba, Itaipuaçu e Centro de Maricá: as três missões da jornada foram concluídas.", 21)
-			label(content, "Você praticou reconhecer materiais, escolher destinos e priorizar ações ambientais. Continue observando as regras da coleta local e os alertas oficiais.")
-			label(content, "Cuidar da drenagem reduz um fator de risco; não elimina o risco de enchentes. O jogo é uma representação fictícia e não mede, sozinho, aprendizagem fora dele.", 18)
+			content.add_theme_constant_override("separation", 7)
+			label(content, "ECO MARICÁ • Campanha concluída!", 27)
+			label(content, "Cinco locais • Uma jornada de cuidado", 18)
+			var map := preload("res://scripts/ui/campaign_map.gd").new()
+			map.completed = mission.progress.completed_levels
+			content.add_child(map)
+			var totals: Dictionary = mission.progress.totals()
+			label(content, "Pontuação acumulada (melhores missões): %d\nDestinos corretos: %d • Plantios: %d • Proteções: %d • Bueiros: %d" % [mission.progress.total_score(), totals["correct"], totals["planted"], totals["protected"], totals["drains"]], 19)
+			label(content, "Mapa esquemático. Estatísticas são ações no jogo, não impacto ambiental real." + (" Fases antigas não possuem estatísticas detalhadas." if mission.progress.legacy_stats_missing else ""), 16)
+			label(content, "Obrigado por cuidar da cidade. Coleta local, restauração orientada e prevenção exigem ações contínuas. O jogo não comprova aprendizagem nem elimina riscos reais.", 18)
 			label(content, "Guardião: " + Catalog.get_character(mission.profile.selected_id)["name"] + (" • Conclusão registrada localmente" if mission.save_ok else " • Conclusão nesta sessão; não foi possível gravar"), 17)
 			button("Voltar ao menu", mission.go_menu)
 			button("Rejogar Operação Araçatiba", func(): mission.open_level("aracatiba"))
@@ -172,18 +177,17 @@ func update_screen() -> void:
 			elif mission.mission_id == "itaipuacu":
 				label(content, "Resíduos levados ao mar: %d/5 • Meta: 20 destinos corretos" % session.lost_count, 18)
 			if won:
-				label(content, "Bônus de missão: +100 • Campanha concluída" if mission.mission_id == "centro" else "Bônus de missão: +100 • Próxima área: " + mission.definition()["next_name"], 18)
+				label(content, "Bônus de missão: +100 • Campanha concluída" if mission.mission_id == "ponta_negra" else "Bônus de missão: +100 • Próxima área: " + mission.definition()["next_name"], 18)
 				label(content, "Recuperação visual simbólica. O índice considera destinos corretos e bueiros limpos; não é uma medida real de segurança." if mission.mission_id == "centro" else "A área recebeu uma recuperação visual simbólica. O índice considera somente destinos corretos; a aparência não apaga erros.", 17)
 				if not mission.save_ok:
 					label(content, "Não foi possível gravar o desbloqueio em disco; ele vale nesta sessão.", 17)
 				button("Ver área recuperada", func(): overlay.hide(); results_button.show())
-				if mission.mission_id == "aracatiba":
-					button("Próxima fase • Resgate de Itaipuaçu", func(): mission.open_level("itaipuacu"))
+				var next_index: int = mission.definition()["number"]
+				if next_index < 5:
+					var next_id: String = mission.Definitions.IDS[next_index]
+					button("Próxima fase • " + mission.Definitions.get_mission(next_id)["title"], func(): mission.open_level(next_id))
 				else:
-					if mission.mission_id == "itaipuacu":
-						button("Próxima fase • Alerta de Tempestade", func(): mission.open_level("centro"))
-					else:
-						button("Ver conclusão da campanha", mission.show_campaign_completion)
+					button("Ver conclusão da campanha", mission.show_campaign_completion)
 			else:
 				if mission.mission_id == "centro":
 					label(content, "Dica: alterne rotas de coleta e bueiros; deixe as mãos livres antes de limpar. Conclua ambas as metas.", 18)

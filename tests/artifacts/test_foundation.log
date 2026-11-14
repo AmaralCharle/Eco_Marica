@@ -1,0 +1,19 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+PASS: Cena principal carrega
+PASS: Personagem repousa no chão
+PASS: Colisão impede atravessar o chão
+PASS: W desloca aproximadamente 2 m em 30 ticks
+PASS: Velocidade de caminhada configurada
+PASS: Corrida desloca mais que caminhada
+PASS: Velocidade de corrida configurada
+PASS: Diagonal não aumenta a velocidade
+PASS: Espaço inicia pulo
+PASS: Gravidade devolve ao chão
+PASS: Parede bloqueia o personagem
+PASS: Movimento acompanha a orientação da câmera
+PASS: Limite lateral impede saída da área
+PASS: Câmera limita inclinação superior
+PASS: Câmera limita inclinação inferior
+PASS: Câmera de terceira pessoa ativa
+RESULT: 16 verificações, 0 falhas

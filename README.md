@@ -1,105 +1,76 @@
 # ECO MARICÁ — Guardiões da Cidade
 
-Jogo acadêmico educativo 3D, offline, para Windows. Godot **4.7.2 Standard**, GDScript, renderizador Compatibility. Etapas 1 a 6 implementadas: três missões jogáveis e conclusão de campanha. Polimento e preparação da entrega acadêmica ainda pendentes.
+Jogo acadêmico 3D educativo para Windows, um jogador offline. Godot 4.7.2 Standard e GDScript, renderizador Compatibility. Campanha atual com cinco fases jogáveis. Sons, ajuste de volume, polimento e entrega acadêmica final serão tratados depois.
 
-## Executar
-1. Abra/importe o `project.godot` desta pasta no Godot 4.7.2.
-2. Pressione **F5**; a cena principal é `scenes/levels/aracatiba.tscn`.
-3. No menu, use **Escolher personagem** para comparar as quatro prévias 3D e confirme sua escolha. Depois escolha **Jogar • Operação Araçatiba**, leia as instruções e clique em **Começar missão**.
-4. Opcionalmente escolha o treino, que preserva as mecânicas da etapa 2. No treino, **M** volta ao menu e **R** reinicia.
+## Abrir e jogar
+1. Abra o `project.godot` desta pasta no Godot 4.7.2.
+2. Pare uma execução anterior com F8 e pressione F5.
+3. Escolha um dos quatro personagens e uma fase desbloqueada.
+4. Leia as instruções e clique em Começar missão. Cada vitória libera a próxima fase.
 
-## Personagens
-- **Lucas:** explorador ambiental, colete verde e mochila.
-- **Marina:** guardiã ambiental, uniforme turquesa e cabelo preso.
-- **Rafael:** agente ambiental, colete laranja, boné e botas.
-- **Bia:** protetora da natureza, jaqueta roxa e cabelo cacheado.
+WASD move, mouse gira câmera terrestre, Shift corre, Espaço pula, E interage e Esc pausa. No treino, R reinicia e M volta ao menu. Os quatro personagens usam o mesmo controlador e cápsula.
 
-As quatro aparências usam o mesmo controlador, velocidades, pulo, cápsula de colisão, câmera e animações procedurais simples de parado, caminhada, corrida e coleta. Os modelos são provisórios, feitos com primitivas nativas; não usam pacotes externos.
+## Campanha
+| Fase | Local | Objetivos | Prazo / derrota |
+|---|---|---|---|
+| 1 | Operação Araçatiba | 15 resíduos, pelo menos 12 destinos corretos | 300s; quarto erro |
+| 2 | Resgate de Itaipuaçu | 20 destinos corretos, papel/plástico/vidro/metal | 240s; quinta perda ao mar |
+| 3 | Alerta de Tempestade — Centro | 15 destinos corretos e três bueiros | 180s; tempo esgotado |
+| 4 | Ubatiba — Raízes da Vida | 12 avaliações, oito plantios e três proteções | 300s; quarta decisão incorreta |
+| 5 | Ponta Negra — Águas Limpas | Barco e 20 destinos corretos, carga máxima cinco | 360s; quinta saída da zona de coleta |
 
-Na seleção, os quatro personagens aparecem juntos. Clique no nome para ver a descrição; use **Girar prévias** para observar os acessórios. **Confirmar** salva a escolha e volta ao menu. **Voltar sem alterar** ou **Esc** cancela a prévia. O personagem confirmado aparece no treino e em Araçatiba, inclusive após reiniciar o jogo.
+Todas as fases perdem no tempo zero. O mapa final mostra cinco localidades esquemáticas; não é um mapa geográfico exato. Estatísticas são ações simuladas, não resultados ambientais reais.
 
-## Operação Araçatiba
-- Explore uma representação fictícia estilizada da orla, com lagoa, ciclovia, vegetação, bancos e três pares de coletores.
-- Recolha e destine **15 resíduos** (papel limpo e garrafas plásticas) em **300 segundos**.
-- Vença com pelo menos **12 destinos corretos** e no máximo **3 erros**, concluindo todos os itens antes do tempo acabar.
-- O **quarto erro** ou o tempo zerado encerra a missão. Na missão, o descarte errado consome o item; no treino, permite corrigir o mesmo item.
-- Carregue um item por vez. **E** interage com o alvo próximo destacado; não funciona através de obstáculos.
-- **WASD** move, **mouse** gira a câmera, **Shift** corre, **Espaço** pula, **Esc** pausa/retoma. Pausa e instruções suspendem o cronômetro; menus bloqueiam a coleta.
-- Resultados mostram pontos, tempo usado, acertos, erros e Índice de Limpeza. Há reinício e retorno ao menu.
+## Correção do Centro
+Os 12 coletores agora estão no nível da rua, em estações com acesso sem pulo. Há seis rampas para acessar as calçadas. `test_centro_access.gd` verifica os coletores e as duas rampas laterais caminhando com o controlador real.
 
-## Resgate de Itaipuaçu
-Após vencer Araçatiba, use **Próxima fase • Resgate de Itaipuaçu** nos resultados ou o botão correspondente no menu.
+## Ubatiba
+Aproxime-se de um ponto e use E. Inspecione aptidão, cobertura e solo exposto; escolha nos botões. Prepare os oito pontos aptos antes de plantar mudas nativas adequadas ao cenário. Os três expostos exigem proteção após o plantio. Preserve os quatro não aptos. Fechar/Esc volta ao terreno. O cronômetro continua durante a inspeção. Repetir ação concluída não gera pontos nem novas mudas.
 
-- Praia fictícia com mar, areia, restinga e três estações de quatro coletores.
-- Meta: **20 destinos corretos em 240 segundos**, com menos de **cinco perdas ao mar**.
-- Quatro materiais: papel (azul), plástico (vermelho), vidro (verde) e metal (amarelo), sempre com identificação textual.
-- Sete dos 20 resíduos iniciais se movem em direção ao mar. O texto **→ MAR** mostra a estimativa de segundos até a perda. Priorize os menores tempos.
-- Coletar interrompe o movimento do item. Pausar com Esc interrompe o relógio e todos os resíduos móveis.
-- Descarte incorreto: -5, quebra a sequência e mantém o item em mãos para correção. Não há derrota por quantidade de erros nesta fase.
-- Até a quarta perda, um novo item aparece parado na areia, com novo ID. Isso permite alcançar 20 destinos corretos; a perda continua no contador e no índice. A quinta perda encerra a missão sem gerar reposição.
-- Vitória concede +100, recupera simbolicamente o cenário e salva o desbloqueio do Centro. O Centro já é jogável após o desbloqueio, pela opção Próxima fase ou pelo menu.
-- Partida perfeita: **520 pontos**. Com quatro perdas e 20 acertos, o índice é **83%** (20/24); as perdas não são apagadas.
+A demonstração de chuva sobre solo exposto/protegido é ilustrativa. Plantio isolado não elimina risco de deslizamento; recuperação real exige orientação técnica.
 
-## Alerta de Tempestade — Centro de Maricá
-Após vencer Itaipuaçu, use **Próxima fase • Alerta de Tempestade**, ou inicie pelo menu se já estiver desbloqueado.
+## Ponta Negra
+1. Caminhe até o barco pelo píer e pressione E perto dele.
+2. W/S controlam aceleração/recuo; A/D giram gradualmente. A câmera acompanha o barco.
+3. Aproxime-se de um resíduo e pressione E. Capacidade: cinco; cheio, retorne ao píer.
+4. Próximo ao píer, solte os comandos para parar e pressione E para desembarcar.
+5. O primeiro item da carga vem às mãos. Vá ao coletor identificado e use E; os próximos itens são descarregados um de cada vez automaticamente, sem repetir pontos de coleta.
+6. Destine toda a carga antes de embarcar novamente.
 
-- Cidade fictícia com ruas, calçadas, casas, comércios e bueiros.
-- Conclua **15 destinos corretos e três bueiros limpos em 180 segundos**. Papel, plástico, vidro e metal.
-- Com as mãos livres, aproxime-se de um bueiro e pressione **E**. Cada um concede **+30**, uma única vez; os resíduos visuais sobre a grade desaparecem.
-- Erro de classificação permite corrigir, com penalidade e quebra de sequência. Não há limite de erros nessa fase.
-- Céu, nuvens, iluminação e chuva se intensificam conforme o tempo diminui. **Esc** congela tempo, chuva e interações.
-- Só os resíduos ou só os bueiros não bastam: as duas metas são obrigatórias. Tempo zero causa derrota.
-- O Índice de Limpeza inclui as 18 tarefas: 15 destinos e três bueiros. Partida perfeita: **515 pontos**.
-- Ao vencer, escolha **Ver conclusão da campanha**. A conclusão é salva e pode ser revista no menu; derrotas posteriores não a apagam.
+Somente resíduos que cruzam a linha de saída z=-17 contam como perdidos. Até a quarta perda outro ID aparece em área alcançável; a perda permanece registrada. A quinta causa derrota sem reposição. O barco colide com as margens e passa sob a ponte; o personagem tem limites terrestres para evitar caminhar no canal. Pausa suspende barco, resíduos e tempo.
 
-A limpeza é uma simulação de redução de um fator de risco, não garantia de evitar enchentes. Na vida real, comunique obstruções à prefeitura e evite áreas alagadas. As grades do jogo nunca são abertas; a ação não representa manutenção real de infraestrutura. Fontes oficiais e limites em `docs/escopo_e_creditos.md` e `docs/centro.md`.
+## Pontos e resultados
+Coleta única +5, destino correto +10, erro -5 (piso zero), bônus por bloco de três acertos consecutivos +20 e missão +100 único. Bueiro +30. Ubatiba: preparar +5, plantar +20, proteger +15, preservar +5; erro -5. Pontuações perfeitas por missão: 425, 520, 515, 365 e 520.
 
-## Pontuação e limpeza
-- Coleta única: +5; destino correto: +10; incorreto: -5; mínimo zero.
-- Cada bloco de três acertos consecutivos: +20. Um erro interrompe a sequência.
-- Vitória na missão: +100 uma única vez. Partida perfeita: 425 pontos.
-- Índice: destinos corretos / total de resíduos; no Centro, soma também os três bueiros no numerador e denominador. Em Araçatiba, uma vitória com 12 acertos e 3 erros mostra **80%**, sem apagar os erros pela transformação visual. Em Itaipuaçu, o denominador inclui os itens novos de reposição e as perdas permanecem contabilizadas.
+Araçatiba consome o item descartado errado; nas demais fases de classificação ele permanece em mãos para corrigir. O Índice inclui tarefas realmente concluídas e preserva perdas. Em Ubatiba usa avaliações/plantios/proteções. No Centro inclui bueiros.
 
-## Progresso local
-Ao vencer Araçatiba ou Itaipuaçu, o respectivo desbloqueio da próxima área é gravado em `user://mission_progress.json` com versão e validação de conteúdo. Arquivos ausentes/corrompidos usam o padrão seguro. Derrota não apaga desbloqueios e repetir uma fase anterior não rebaixa o progresso. A leitura continua compatível com o arquivo versão 1 já existente. Se a gravação falhar, os resultados avisam.
+## Salvamento e migração
+Perfil local em `user://player_profile.json`; progresso/resultado em `user://mission_progress.json`. Progresso versão 2 aceita saves antigos versão 1. Quem concluiu o antigo jogo de três fases recebe Ubatiba desbloqueada e a campanha expandida em aberto. Estatísticas antigas ausentes não são inventadas; o final informa a limitação.
 
-**As três fases são jogáveis, respeitando os desbloqueios.** A conclusão da campanha fica no campo `campaign_completed` do arquivo de progresso, preservando compatibilidade com os arquivos anteriores da versão 1. O desbloqueio continua em `user://mission_progress.json`; a escolha do personagem fica em **`user://player_profile.json`**, também versionado e validado, com gravação em temporário antes da substituição. Arquivo ausente/corrompido usa Lucas. Uma falha ao gravar mantém a escolha anterior e mostra aviso na seleção. Os dois arquivos são independentes; escolher personagem não apaga fases desbloqueadas. Melhores pontuações e áudio ainda pertencem às próximas etapas. Não há servidor ou banco externo.
+O acumulado é a soma dos melhores resultados registrados por fase. Repetir uma pontuação menor não soma pontos artificialmente. Derrota não apaga progresso. Os arquivos são validados e gravados em temporário antes de substituição. Não há serviços online, banco externo ou telemetria.
 
-## Testes por PowerShell
-Execute da raiz do projeto (ajuste o caminho do motor se necessário):
+## Verificação
+Execute na raiz do projeto:
 
 ```powershell
-& 'C:\Users\CHARLE\Downloads\Godot\Godot_v4.7.2-stable_win64_console.exe' --headless --path . --import
-& 'C:\Users\CHARLE\Downloads\Godot\Godot_v4.7.2-stable_win64_console.exe' --headless --path . --script res://tests/test_foundation.gd
-& 'C:\Users\CHARLE\Downloads\Godot\Godot_v4.7.2-stable_win64_console.exe' --headless --path . --script res://tests/test_recycling.gd
-& 'C:\Users\CHARLE\Downloads\Godot\Godot_v4.7.2-stable_win64_console.exe' --headless --path . --script res://tests/test_aracatiba.gd
-& 'C:\Users\CHARLE\Downloads\Godot\Godot_v4.7.2-stable_win64_console.exe' --headless --path . --script res://tests/test_characters.gd
-& 'C:\Users\CHARLE\Downloads\Godot\Godot_v4.7.2-stable_win64_console.exe' --headless --path . --script res://tests/test_itaipuacu.gd
-& 'C:\Users\CHARLE\Downloads\Godot\Godot_v4.7.2-stable_win64_console.exe' --headless --path . --script res://tests/test_centro.gd
-& 'C:\Users\CHARLE\Downloads\Godot\Godot_v4.7.2-stable_win64_console.exe' --headless --path . --script res://tests/test_campaign.gd
-& 'C:\Users\CHARLE\Downloads\Godot\Godot_v4.7.2-stable_win64_console.exe' --path . --script res://tests/capture_aracatiba.gd
-& 'C:\Users\CHARLE\Downloads\Godot\Godot_v4.7.2-stable_win64_console.exe' --path . --script res://tests/capture_characters.gd
-& 'C:\Users\CHARLE\Downloads\Godot\Godot_v4.7.2-stable_win64_console.exe' --path . --script res://tests/capture_itaipuacu.gd
-& 'C:\Users\CHARLE\Downloads\Godot\Godot_v4.7.2-stable_win64_console.exe' --path . --script res://tests/capture_centro.gd
+.\tests\run_all.ps1
+# Outro caminho do motor:
+.\tests\run_all.ps1 -Godot 'C:\caminho\Godot_v4.7.2-stable_win64_console.exe'
 ```
 
-226 verificações aprovadas na validação da etapa 6: 179 das etapas anteriores, 34 do Centro e 13 do fluxo completo de campanha. Testes da missão e dos personagens usam arquivos de progresso/perfil próprios em `tests/artifacts/`; não desbloqueiam fases no salvamento do jogador. As capturas usam estados simulados, não são evidência de uma partida humana. Detalhes e limites em `docs/validacao.md`.
+Validação atual: 306 verificações em 13 suítes, sem falhas nem erros nos logs finais. O executor confere código de saída e mensagens do motor, e salva logs próprios em `tests/artifacts/test_*.log`. Resumo em `validation_summary.json`. Testes usam saves próprios e não concluem a campanha real do jogador.
 
-## Organização
-- `scenes/player`, `scripts/player`: controlador compartilhado e visual reutilizado nas quatro aparências e prévias.
-- `scenes/levels`, `scripts/levels`: treino, missão, cenário e estados.
-- `scenes/objects`, `scripts/gameplay`: resíduos, coletores, sessão e interação.
-- `scripts/core`: regras, entradas, catálogo de personagens, perfil e desbloqueio local.
-- `scripts/ui`: HUD e telas da missão.
-- `tests`: testes no motor, capturas e evidências.
-- `docs`: rastreabilidade, regras, créditos e validação.
-- `.godot`: cache gerado; não versionar nem entregar.
+Há testes de física real e de estados com reposicionamento controlado; não substituem uma partida humana completa nem avaliação da dificuldade. Capturas `capture_ubatiba.gd`, `capture_ponta_negra.gd` e demais scripts geram estados simulados para inspeção gráfica. Não são evidência de teste externo.
 
-## Fontes e limitações
-Materiais identificados por nome e código de cores CONAMA 275/2001; fontes registradas em `docs/escopo_e_creditos.md`. Fora do jogo, consulte as regras de coleta local. Cenário fictício; não descreve condições atuais de Maricá. Arte e personagem feitos com primitivas; áudio, modelos finais, polimento, salvamento de melhores resultados, avaliação com pessoa externa e exportação Windows ainda pendentes.
+## Arquivos e documentação
+- `scripts/core`: configuração, personagens, perfil, definições e progresso.
+- `scripts/player`: controlador terrestre, aparências e barco.
+- `scripts/gameplay`: coleta, classificação, terreno e inventário.
+- `scripts/levels`, `scenes/levels`: objetivos e cenário de cada fase.
+- `scripts/ui`: menus, HUD, inspeção e mapa.
+- `docs/GDD_5_FASES.md`: GDD de trabalho com as 16 seções e rastreabilidade real na seção 13.
+- `docs/rastreabilidade.md`, `validacao.md`, `expansao.md`, `escopo_e_creditos.md`: regras, evidências e fontes.
 
-## Repositório de destino
-https://github.com/AmaralCharle/Eco_Marica.git
+Modelos/effects provisórios feitos com primitivas nativas, sem assets baixados. Usabilidade externa, métricas de aprendizagem, FPS sustentados, áudio/volume, polimento, DOCX/PDF final, vídeo e exportação Windows permanecem pendentes.
 
-## Próxima etapa
-Etapa 7 — Polimento: sons, ajuste de volume, melhorias de interface e aparência, salvamento de pontuação/melhores resultados, otimização e correções. Depois, preparar GDD final, teste externo, vídeo e exportação Windows.
+Repositório de destino: https://github.com/AmaralCharle/Eco_Marica.git . Checkpoints locais; nenhuma publicação automática.

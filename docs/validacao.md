@@ -74,3 +74,19 @@ Ainda pendentes: avaliação humana de dificuldade/priorização, teste externo 
 - Evidências: `tests/artifacts/centro-test.log`, `campaign-test.log`, `centro-visual.log`, `centro_*.png` e logs das regressões. Testes/capturas usam arquivos próprios em `tests/artifacts/`, não completam a campanha do jogador em `user://`.
 
 Limites: avanço de tempo controlado e reposicionamento perto dos objetos nos testes integrados. Não houve partida humana completa cronometrada, teste externo com perfil/métricas de aprendizagem, medição de FPS sustentados ou validação da dificuldade dos 180 segundos. A chuva é um efeito simples; não há simulação hidrológica ou previsão meteorológica. Áudio, polimento e salvamento de melhores resultados seguem para a etapa 7; GDD final, vídeo, validação externa e exportação Windows ainda pendentes.
+
+
+## Correção do Centro e expansão — execução atual
+Checkpoint de preservação: 6ea7e11. Resultado do executor `tests/run_all.ps1`: **306 verificações, zero suítes com falha**, em 13 suítes, com inspeção de códigos de saída e ausência de `ERROR`/`SCRIPT ERROR` nos logs finais. Resumo derivado dos logs: `tests/artifacts/validation_summary.json`.
+
+Suítes e contagens: Araçatiba 32; barco isolado 9; campanha cinco fases 18; acesso Centro 14; Centro 34; personagens 49; fundação 16; Itaipuaçu 47; acesso Ponta Negra 6; Ponta Negra 20; migração/estatísticas 8; reciclagem 35; Ubatiba 18.
+
+Ubatiba: inspeção antes de ação, preparo, plantio, proteção, preservação, duplicação bloqueada, quarta decisão incorreta, prazo de 300s, vitória 12/8/3 e migração de final antigo. Testes corrigiram leitura de versões numéricas em JSON e limpeza de painel ao trocar inspeção.
+
+Barco: teste isolado de aceleração/velocidade/rotação/desaceleração/colisão/embarque/desembarque. Na fase real: caminhada ao píer sem pular, pausa de barco e resíduos, passagem sob ponte, margem e limite terrestre. Integração: cinco itens, sexto rejeitado, quatro viagens, descarga/classificação, perdas apenas após cruzamento, quinto escape e vitória ainda possível com quatro perdas/reposição. Um teste de reposição ajustou a aproximação para selecionar o objeto desejado entre vizinhos próximos; não foram apagados objetos para fazê-lo passar.
+
+Campanha: cinco fases por botões de próxima fase, personagem e caminhos preservados, placares 425/520/515/365/520 em estados simulados sem erro, soma 2345 e 70 destinos corretos. Essas são saídas do teste, não estatísticas de jogadores externos. Repetir resultado pior não aumenta acumulado. Saves antigos não recebem dados fabricados.
+
+Verificação gráfica: quatro capturas de Ubatiba (instruções, terreno, inspeção e vitória) e sete de Ponta Negra (instruções, margem, barco, carga cheia, descarga, vitória e final). Renderizador real Compatibility/OpenGL, Intel UHD Graphics, 1280 × 720. Painéis inspecionados; modelos e efeitos são provisórios. Os estados são automatizados e não constituem uma partida manual.
+
+Limitações preservadas: tempo e reposicionamento controlados em parte dos testes; sem avaliação externa, medições de aprendizagem ou FPS sustentados. Balanceamento dos prazos e conforto da navegação ainda precisam de partida humana. Áudio/volume e polimento foram deliberadamente deixados para a próxima etapa, conforme solicitado. GDD de trabalho em Markdown atualizado; versão final DOCX/PDF, vídeo e exportação Windows ainda não preparados.

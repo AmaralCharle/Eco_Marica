@@ -4,9 +4,10 @@ extends Node
 signal changed
 signal feedback(message: String, positive: bool)
 const Config = preload("res://scripts/core/game_config.gd")
-enum WasteState { AVAILABLE, CARRIED, SORTED, DISCARDED_WRONG, LOST }
+enum WasteState { AVAILABLE, CARRIED, SORTED, DISCARDED_WRONG, LOST, STORED }
 @export var is_training: bool = true
 @export var retry_wrong: bool = false
+@export var loss_message: String = "Um resíduo alcançou o mar. Priorize os itens marcados com → MAR."
 var lost_count: int = 0
 var active: bool = true
 var records: Dictionary = {}
@@ -84,7 +85,7 @@ func mark_lost(id: String) -> bool:
 		return false
 	records[id]["state"] = WasteState.LOST
 	lost_count += 1
-	feedback.emit("Um resíduo alcançou o mar. Priorize os itens marcados com → MAR.", false)
+	feedback.emit(loss_message, false)
 	changed.emit()
 	return true
 

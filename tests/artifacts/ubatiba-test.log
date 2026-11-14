@@ -1,0 +1,21 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+PASS: Doze pontos registrados
+PASS: Menu bloqueia ações
+PASS: Exige inspeção antes da decisão
+PASS: E abre inspeção e libera controle do mouse
+PASS: Tempo continua durante decisões
+PASS: Plantio antes de preparo conta decisão incorreta
+PASS: Preparo correto aceito
+PASS: Preparo repetido não pontua
+PASS: Plantio adequado registrado
+PASS: Solo exposto exige proteção para concluir avaliação
+PASS: Proteção conclui ponto e altera visual
+PASS: Todas as metas de Ubatiba concluídas
+PASS: Placar exato após um erro e índice completo
+PASS: Vitória libera Ponta Negra sem finalizar campanha
+PASS: Três erros não criam muda nem encerram
+PASS: Quarta decisão incorreta encerra a fase
+PASS: Prazo de 300 segundos causa derrota
+PASS: Final antigo libera Ubatiba sem inventar pontuação
+RESULT: 18 verificações, 0 falhas

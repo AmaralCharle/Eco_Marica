@@ -9,8 +9,13 @@ PASS: Itaipuaçu recebe perfil e instruções corretos
 PASS: Itaipuaçu concluída libera fase final
 PASS: Resultado abre Centro pelo botão
 PASS: Centro recebe a mesma campanha e personagem
-PASS: Terceira vitória grava campanha concluída
+PASS: Centro libera Ubatiba
+PASS: Centro abre Ubatiba pelo botão
+PASS: Ubatiba concluída sem decisões incorretas
+PASS: Ubatiba abre Ponta Negra
+PASS: Quinta vitória conclui campanha
+PASS: Soma de cinco resultados reais: 2345 pontos e 70 destinos
 PASS: Botão de vitória abre encerramento da campanha
 PASS: Encerramento oferece retorno ao menu
 PASS: Menu preserva conclusão e oferece revisão
-RESULT: 13 verificações, 0 falhas
+RESULT: 18 verificações, 0 falhas

@@ -1,0 +1,9 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+
+PASS: Caminha da margem ao píer sem pulo
+PASS: Embarque alcançável caminhando
+PASS: Pausa congela barco, resíduos e prazo
+PASS: Embarcação passa sob ponte sem atravessar estrutura
+PASS: Margem da fase limita barco com colisão real
+PASS: Limite do píer impede caminhar para dentro do canal
+RESULT: 6 verificações, 0 falhas

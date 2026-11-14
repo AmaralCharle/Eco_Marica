@@ -10,8 +10,8 @@ Limpeza: mãos livres, dentro do alcance de 2,2 m e com linha de visão, pressio
 ## Tempestade
 Intensidade calculada pela fração do prazo transcorrido. Céu e nuvens ficam progressivamente mais cinzentos e a iluminação diminui moderadamente, preservando a leitura. Chuva aparece a partir de 35% do prazo, usando até 160 gotas em MultiMesh. Pausa congela o relógio e a evolução/posição das gotas. Vitória encerra as ações e a evolução do tempo, sem prometer que a chuva ou o risco desapareceram.
 
-## Conclusão
-Vitória grava `campaign_completed: true` no progresso versão 1, preservando os desbloqueios e a escolha do personagem. O botão Ver conclusão abre o estado FINALIZADO. O menu permite rever a conclusão e rejogar. Derrotas/repetições posteriores não apagam a conclusão. Arquivos anteriores sem esse campo são aceitos como campanha ainda não concluída.
+## Progressão atual
+Vitória agora libera Ubatiba e registra o melhor resultado do Centro. O encerramento da campanha expandida acontece apenas após Ponta Negra. A leitura do antigo final de três fases libera a quarta sem apagar o personagem ou inventar estatísticas. Os coletores ficam no nível da rua e há rampas para as calçadas, com teste de acesso sem pulo.
 
 ## Mensagem educativa e limites
 Limpeza simulada por guardiões; não é orientação para abrir tampas ou fazer manutenção urbana. Comunicar obstruções à prefeitura e evitar áreas alagadas são orientações da fonte oficial registrada nos créditos. Reduzir obstruções não garante prevenir enchentes, pois o jogo não modela chuva real, relevo, drenagem ou todos os fatores de risco. Resultados de jogo não demonstram, sozinhos, aprendizagem fora do jogo.

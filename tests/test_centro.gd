@@ -86,27 +86,27 @@ func run() -> void:
 	expect(level.state == Mission.State.JOGANDO and level.session.cleaning_index() == 83, "Só os 15 resíduos não vencem; índice considera bueiros")
 	clean_all(level)
 	expect(level.state == Mission.State.VITORIA and level.session.score == 515 and level.session.cleaning_index() == 100, "Quinze destinos e três bueiros: vitória, 515 pontos e 100%")
-	expect(level.progress.campaign_completed and Progress.new(level.progress_path).campaign_completed, "Conclusão salva e recuperada do disco")
+	expect(level.progress.unlocked_level == 4 and not Progress.new(level.progress_path).campaign_completed, "Centro salva desbloqueio de Ubatiba sem encerrar campanha")
 	expect(level.get_node("World/Recovery").visible, "Vitória ativa recuperação urbana simbólica")
 	level.finish(true, "duplicada")
 	expect(level.session.score == 515, "Bônus de missão final não duplica")
 	level.show_campaign_completion()
-	expect(level.state == Mission.State.FINALIZADO and not level.session.active, "Tela de conclusão usa estado FINALIZADO e trava ações")
+	expect(level.state == Mission.State.VITORIA and not level.session.active, "Terceira fase não abre final prematuro")
 	var path: String = level.progress_path
 	var profile_path: String = level.profile_path
 	level.go_menu()
 	await frames(6)
 	level = current_scene
-	expect(level.state == Mission.State.MENU and level.progress.campaign_completed and level.progress_path == path, "Menu recupera campanha concluída sem apagar perfil")
+	expect(level.state == Mission.State.MENU and level.progress.unlocked_level == 4 and level.progress_path == path, "Menu recupera campanha concluída sem apagar perfil")
 	level.show_campaign_completion()
-	expect(level.state == Mission.State.FINALIZADO, "Conclusão pode ser revista pelo menu")
+	expect(level.state == Mission.State.MENU, "Final permanece bloqueado até quinta fase")
 	expect(level.open_level("centro"), "Campanha concluída permite rejogar Centro")
 	await frames(6)
 	level = current_scene
 	level.set_physics_process(false)
 	level.start_mission()
 	level.advance_time(180)
-	expect(level.state == Mission.State.DERROTA and Progress.new(path).campaign_completed, "Derrota posterior preserva campanha concluída")
+	expect(level.state == Mission.State.DERROTA and Progress.new(path).unlocked_level == 4, "Derrota posterior preserva campanha concluída")
 	level.restart()
 	await frames(6)
 	level = current_scene
@@ -153,7 +153,7 @@ func run() -> void:
 	expect(level.state == Mission.State.VITORIA and level.session.correct == 15 and level.session.drains_cleaned == 3, "Ciclo integrado alcança os 15 resíduos e três bueiros")
 	await dispose(level)
 	var progress := Progress.new(path)
-	expect(progress.unlock_next_level(2) and Progress.new(path).campaign_completed and progress.unlocked_level == 3, "Repetir fase anterior preserva conclusão")
+	expect(progress.unlock_next_level(2) and not Progress.new(path).campaign_completed and progress.unlocked_level == 4, "Repetir fase anterior preserva conclusão")
 	var invalid_path := "res://tests/artifacts/centro_invalid_completion.json"
 	for payload: String in ["{\"version\":1,\"unlocked_level\":3,\"campaign_completed\":\"true\"}", "{\"version\":1,\"unlocked_level\":1,\"campaign_completed\":true}"]:
 		var file := FileAccess.open(invalid_path, FileAccess.WRITE)
