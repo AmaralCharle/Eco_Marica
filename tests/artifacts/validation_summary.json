@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-11-16T10:31:10.6313419-03:00",
-  "checks": 604,
+  "generated_at": "2026-11-16T11:02:46.0879489-03:00",
+  "checks": 661,
   "failed_suites": 0,
   "suites": [
     {
@@ -49,7 +49,15 @@
       "exit_code": 0,
       "log": "C:\\Users\\CHARLE\\Documents\\Eco-Maricá\\eco-marica\\tests\\artifacts\\test_centro.log",
       "has_errors": false,
-      "warnings": false
+      "warnings": true
+    },
+    {
+      "name": "test_character_visuals.gd",
+      "checks": 57,
+      "exit_code": 0,
+      "log": "C:\\Users\\CHARLE\\Documents\\Eco-Maricá\\eco-marica\\tests\\artifacts\\test_character_visuals.log",
+      "has_errors": false,
+      "warnings": true
     },
     {
       "name": "test_characters.gd",
@@ -81,7 +89,7 @@
       "exit_code": 0,
       "log": "C:\\Users\\CHARLE\\Documents\\Eco-Maricá\\eco-marica\\tests\\artifacts\\test_interface.log",
       "has_errors": false,
-      "warnings": false
+      "warnings": true
     },
     {
       "name": "test_itaipuacu.gd",

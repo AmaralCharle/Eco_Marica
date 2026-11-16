@@ -7,7 +7,7 @@ var settings_path: String = "user://eco_settings.cfg"
 var volumes: Dictionary = {"Master": 0.8, "Music": 0.35, "Ambience": 0.55, "SFX": 0.7}
 var sensitivity: float = 1.0
 var smoothing: bool = true
-var quality: int = 1
+var quality: int = 2
 var streams: Dictionary = {}
 var music: AudioStreamPlayer
 var ambience: AudioStreamPlayer
@@ -144,8 +144,8 @@ func load_settings() -> void:
 			sensitivity = clampf(float(mouse), 0.25, 2.5)
 		var smooth = config.get_value("camera", "smoothing", true)
 		smoothing = smooth if smooth is bool else true
-		var detail = config.get_value("graphics", "quality", 1)
-		quality = clampi(detail, 0, 2) if detail is int else 1
+		var detail = config.get_value("graphics", "quality", 2)
+		quality = clampi(detail, 0, 2) if detail is int else 2
 	for bus: String in BUSES:
 		set_volume(bus, volumes[bus], false)
 

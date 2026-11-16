@@ -378,10 +378,10 @@ func apply_quality() -> void:
 	var sun: DirectionalLight3D = mission.get_node("Sun")
 	sun.shadow_enabled = quality > 0
 	sun.directional_shadow_max_distance = 45.0 if quality == 1 else 65.0
-	sun.directional_shadow_mode = DirectionalLight3D.SHADOW_PARALLEL_2_SPLITS
+	sun.directional_shadow_mode = DirectionalLight3D.SHADOW_PARALLEL_4_SPLITS if quality == 2 else DirectionalLight3D.SHADOW_PARALLEL_2_SPLITS
 	extra.visible = quality == 2
 	grass.multimesh.visible_instance_count = [220, 500, 780][quality]
-	get_viewport().msaa_3d = [Viewport.MSAA_DISABLED, Viewport.MSAA_2X, Viewport.MSAA_4X][quality]
+	get_viewport().msaa_3d = [Viewport.MSAA_DISABLED, Viewport.MSAA_2X, Viewport.MSAA_8X][quality]
 
 func cloud_mesh() -> ArrayMesh:
 	var st := SurfaceTool.new()

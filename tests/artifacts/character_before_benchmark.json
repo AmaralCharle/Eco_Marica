@@ -1,0 +1,13 @@
+{
+	"msaa": "4x",
+	"renderer": "mobile",
+	"resolution": "1280x720",
+	"samples": [
+		{
+			"draw_calls": 39.0,
+			"fps": 60.0021200749093,
+			"id": "lucas",
+			"primitives": 10608.0
+		}
+	]
+}

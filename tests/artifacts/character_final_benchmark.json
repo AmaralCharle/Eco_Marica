@@ -1,0 +1,53 @@
+{
+	"adapter": "Intel(R) UHD Graphics",
+	"quality": "high",
+	"renderer": "mobile",
+	"resolution": "(1280, 720)",
+	"samples": [
+		{
+			"draw_calls": 308.0,
+			"elapsed_ms": 4967.811,
+			"mean_fps": 76.8047516539691,
+			"mission": "aracatiba",
+			"objects": 798.0,
+			"p95_ms": 15.246,
+			"worst_ms": 18.06
+		},
+		{
+			"draw_calls": 292.0,
+			"elapsed_ms": 3888.313,
+			"mean_fps": 82.9730153315694,
+			"mission": "itaipuacu",
+			"objects": 786.0,
+			"p95_ms": 14.365,
+			"worst_ms": 16.59
+		},
+		{
+			"draw_calls": 480.0,
+			"elapsed_ms": 4731.575,
+			"mean_fps": 66.121021305295,
+			"mission": "centro",
+			"objects": 993.0,
+			"p95_ms": 17.891,
+			"worst_ms": 19.256
+		},
+		{
+			"draw_calls": 338.0,
+			"elapsed_ms": 4399.653,
+			"mean_fps": 77.2679097356279,
+			"mission": "ubatiba",
+			"objects": 784.0,
+			"p95_ms": 15.294,
+			"worst_ms": 17.316
+		},
+		{
+			"draw_calls": 320.0,
+			"elapsed_ms": 4186.741,
+			"mean_fps": 80.8658758583014,
+			"mission": "ponta_negra",
+			"objects": 831.0,
+			"p95_ms": 15.562,
+			"worst_ms": 16.577
+		}
+	]
+}

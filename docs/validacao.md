@@ -98,3 +98,7 @@ Limitações preservadas: tempo e reposicionamento controlados em parte dos test
 ## Interface — 16/11/2026
 
 604 verificações em 17 suítes, sem falhas. `test_interface.gd` acrescenta 226 verificações de dados visíveis, limites de layout, bloqueios, personagens, pausa, inspeção, carga cheia e resultados nas cinco fases. Revisão gráfica Forward Mobile/Vulkan: 260 verificações, 34 capturas 1280 × 720, sem falhas. Capturas são estados automatizados, incluindo avisos de gravação deliberados; não constituem teste externo. Detalhes e limites em `INTERFACE_2026_11_16.md`; logs e `validation_summary.json` em `tests/artifacts`.
+
+## Personagens — 16/11/2026
+
+661 verificações em 18 suítes, sem falhas. A nova `test_character_visuals.gd` acrescenta 57 verificações da geometria, fronteira GLB sintética, animações mapeadas, fallback, qualidade e quatro passageiros. A suíte anterior mantém seus 49 casos de perfil e física dos quatro personagens. Revisão gráfica e limites em `PERSONAGENS_2026_11_16.md`; benchmark de vistas controladas Alto/MSAA 8×: 66,12–82,97 FPS médios em 1280 × 720. Não representa uma partida humana completa.

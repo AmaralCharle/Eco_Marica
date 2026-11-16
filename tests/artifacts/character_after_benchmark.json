@@ -1,0 +1,31 @@
+{
+	"msaa": "4x",
+	"renderer": "mobile",
+	"resolution": "1280x720",
+	"samples": [
+		{
+			"draw_calls": 51.0,
+			"fps": 59.9737315056005,
+			"id": "lucas",
+			"primitives": 27304.0
+		},
+		{
+			"draw_calls": 54.0,
+			"fps": 59.9926009125541,
+			"id": "marina",
+			"primitives": 31064.0
+		},
+		{
+			"draw_calls": 53.0,
+			"fps": 60.0065207085837,
+			"id": "rafael",
+			"primitives": 26364.0
+		},
+		{
+			"draw_calls": 51.0,
+			"fps": 60.0746928681327,
+			"id": "bia",
+			"primitives": 41952.0
+		}
+	]
+}

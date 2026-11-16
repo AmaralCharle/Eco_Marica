@@ -28,10 +28,14 @@ Os 12 coletores agora estão no nível da rua, em estações com acesso sem pulo
 
 HUD e telas redesenhadas em 16/11/2026: objetivos compactos, tempo/pontos separados, inventário/carga e limpeza nas bordas, cartões de fases, seleção com prévias maiores e resultados padronizados. Preserva todos os indicadores e controles. Detalhes, arquivos e limites em `docs/INTERFACE_2026_11_16.md`.
 
+## Personagens
+
+Polimento de 16/11/2026: quatro personagens com corpo contínuo, rostos/olhos/cabelos revistos, roupas e equipamentos próprios. Lucas foi validado antes da aplicação aos demais. Controlador, câmera, colisão e regras preservados. Estrutura opcional para GLB em `docs/MODELOS_GLB.md`; resultados e limites em `docs/PERSONAGENS_2026_11_16.md`.
+
 ## Áudio, câmera e gráficos
 
 Atualização de cenários de 16/11/2026: materiais de solo/pavimentação/madeira, vegetação, água, luz e atmosfera revistos nas cinco fases; detalhes adicionais no Centro, Ubatiba e Ponta Negra. Não muda as metas ou as posições dos objetivos. Ver `docs/CENARIOS_2026_11_16.md` para arquivos, evidências e limites.
-No menu ou na pausa, abra **Configurações**. Master, Music, Ambience e SFX possuem volumes independentes; zero silencia. Sensibilidade e suavização da câmera são ajustáveis. Qualidade Baixa remove sombras e reduz vegetação; Média usa sombras próximas e MSAA 2×; Alta acrescenta detalhes, mais vegetação e MSAA 4×. O nível não troca o renderizador nem reinicia a campanha. Preferências em `user://eco_settings.cfg`, separadas dos saves.
+No menu ou na pausa, abra **Configurações**. Master, Music, Ambience e SFX possuem volumes independentes; zero silencia. Sensibilidade e suavização da câmera são ajustáveis. Qualidade Baixa remove sombras e reduz vegetação; Média usa sombras próximas e MSAA 2×; Alta acrescenta detalhes, mais vegetação, MSAA 8× e quatro cascatas de sombras direcionais de 4096. Alta é o padrão para instalações sem preferências salvas. O nível não troca o renderizador nem reinicia a campanha. Preferências em `user://eco_settings.cfg`, separadas dos saves.
 
 As 34 faixas/efeitos WAV foram sintetizados originalmente por código, com auxílio de IA; não foram baixados. São provisórios e não gravações de ambientes reais. Há passos por superfície, sons de ações, menu, restauração, chuva, motor e trilhas instrumentais discretas. Veja `docs/ASSETS_E_CREDITOS.md` e `docs/POLIMENTO.md`.
 
@@ -71,7 +75,7 @@ Execute na raiz do projeto:
 .\tests\run_all.ps1 -Godot 'C:\caminho\Godot_v4.7.2-stable_win64_console.exe'
 ```
 
-Validação atual: 604 verificações em 17 suítes, sem falhas. Inclui áudio, apresentação, cenário, preservação física da camada decorativa e interface das cinco fases em 1280 × 720. Medições e limites em `docs/CENARIOS_2026_11_16.md`; resumo em `tests/artifacts/validation_summary.json`. O executor confere código de saída e mensagens do motor, salvando logs em `tests/artifacts/test_*.log`. Testes usam saves próprios e não concluem a campanha real do jogador.
+Validação atual: 661 verificações em 18 suítes, sem falhas. Inclui áudio, apresentação, cenário, preservação física da camada decorativa e interface das cinco fases em 1280 × 720. Medições e limites em `docs/CENARIOS_2026_11_16.md`; resumo em `tests/artifacts/validation_summary.json`. O executor confere código de saída e mensagens do motor, salvando logs em `tests/artifacts/test_*.log`. Testes usam saves próprios e não concluem a campanha real do jogador.
 
 Há testes de física real e de estados com reposicionamento controlado; não substituem uma partida humana completa nem avaliação da dificuldade. Capturas `capture_ubatiba.gd`, `capture_ponta_negra.gd` e demais scripts geram estados simulados para inspeção gráfica. Não são evidência de teste externo.
 

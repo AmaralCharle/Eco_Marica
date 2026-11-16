@@ -36,5 +36,5 @@ PASS: Ciclo completo de seis itens com placar e bônus exatos
 PASS: Conclusão exibe orientação de reinício
 PASS: R reinicia cena e sessão sem pontos antigos
 RESULT: 35 verificações, 0 falhas
-WARNING: 13 ObjectDB instances were leaked at exit (run with `--verbose` for details).
+WARNING: 12 ObjectDB instances were leaked at exit (run with `--verbose` for details).
    at: cleanup (core/object/object.cpp:2536)

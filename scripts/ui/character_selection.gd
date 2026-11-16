@@ -53,6 +53,7 @@ func _ready() -> void:
 	rotate_button.pressed.connect(func():
 		rotating = not rotating
 		preview.render_target_update_mode = SubViewport.UPDATE_ALWAYS if rotating else SubViewport.UPDATE_ONCE
+		for model in avatars.values(): model.set_face_animation(rotating)
 	)
 	var actions := HBoxContainer.new()
 	actions.add_theme_constant_override("separation",10)
@@ -90,7 +91,7 @@ func build_preview() -> void:
 	viewport.size = Vector2i(1000, 300)
 	viewport.own_world_3d = true
 	viewport.render_target_update_mode = SubViewport.UPDATE_ONCE
-	viewport.msaa_3d = Viewport.MSAA_2X
+	viewport.msaa_3d = Viewport.MSAA_8X
 	container.add_child(viewport)
 	var environment := WorldEnvironment.new()
 	var settings := Environment.new()
@@ -98,13 +99,19 @@ func build_preview() -> void:
 	settings.background_color = Color("18343b")
 	settings.ambient_light_source = Environment.AMBIENT_SOURCE_COLOR
 	settings.ambient_light_color = Color("d1e9f1")
-	settings.ambient_light_energy = 0.75
+	settings.ambient_light_energy = 0.55
 	environment.environment = settings
 	viewport.add_child(environment)
 	var light := DirectionalLight3D.new()
 	light.rotation_degrees = Vector3(-45, -30, 0)
-	light.light_energy = 1.0
+	light.light_energy = 1.1
+	light.shadow_enabled = true
 	viewport.add_child(light)
+	var fill := DirectionalLight3D.new()
+	fill.rotation_degrees = Vector3(-18,145,0)
+	fill.light_color = Color("bad9e8")
+	fill.light_energy = 0.25
+	viewport.add_child(fill)
 	var camera := Camera3D.new()
 	camera.position = Vector3(0, 1.8, 5)
 	camera.fov = 32
@@ -115,6 +122,7 @@ func build_preview() -> void:
 		var id: String = Catalog.IDS[i]
 		var model := VisualScene.instantiate()
 		model.character_id = id
+		model.set_face_animation(false)
 		model.position.x = -3.15 + i * 2.1
 		model.rotation.y = PI + 0.18
 		viewport.add_child(model)
