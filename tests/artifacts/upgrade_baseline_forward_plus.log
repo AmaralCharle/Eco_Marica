@@ -1,0 +1,8 @@
+Godot Engine v4.7.2.stable.official.ed1daf0bf - https://godotengine.org
+Vulkan 1.4.323 - Forward+ - Using Device #0: Intel - Intel(R) UHD Graphics
+
+SAMPLE: {"collision_shapes":43,"draw_calls":633.0,"fps":45.0512954049481,"gpu_particles":0,"lights":1,"load_ms":1054.178,"materials":198,"objects":1123.0,"p95_ms":27.329,"phase":"aracatiba","primitives":205658.0,"private_mib":1021.625,"rss_mib":1081.8828125,"vram_mib":272.587097167969,"worst_ms":31.635}
+SAMPLE: {"collision_shapes":23,"draw_calls":652.0,"fps":47.3982769778353,"gpu_particles":0,"lights":1,"load_ms":640.749,"materials":187,"objects":1146.0,"p95_ms":23.541,"phase":"itaipuacu","primitives":180290.0,"private_mib":1023.01953125,"rss_mib":1090.33984375,"vram_mib":273.98876953125,"worst_ms":25.793}
+SAMPLE: {"collision_shapes":34,"draw_calls":1000.0,"fps":43.6017866268088,"gpu_particles":0,"lights":1,"load_ms":991.265,"materials":277,"objects":1513.0,"p95_ms":25.627,"phase":"centro","primitives":221812.0,"private_mib":1064.87890625,"rss_mib":1129.79296875,"vram_mib":275.523071289063,"worst_ms":29.623}
+SAMPLE: {"collision_shapes":14,"draw_calls":762.0,"fps":42.5253358863655,"gpu_particles":0,"lights":1,"load_ms":1880.399,"materials":202,"objects":1208.0,"p95_ms":26.991,"phase":"ubatiba","primitives":515842.0,"private_mib":1071.30078125,"rss_mib":1134.64453125,"vram_mib":282.410400390625,"worst_ms":35.607}
+SAMPLE: {"collision_shapes":29,"draw_calls":700.0,"fps":44.1724989089393,"gpu_particles":0,"lights":1,"load_ms":1421.365,"materials":210,"objects":1211.0,"p95_ms":26.89,"phase":"ponta_negra","primitives":459234.0,"private_mib":1074.60546875,"rss_mib":1137.96875,"vram_mib":281.524658203125,"worst_ms":30.158}
