@@ -241,6 +241,9 @@ func palm_fronds() -> ArrayMesh:
 
 func tree(pos: Vector3, seed_index: int = 0) -> void:
 	if AssetLibrary.enabled(mission.mission_id):
+		# A continuação visual do canal também é água: copas de fundo ficam nas margens.
+		if mission.mission_id == "ponta_negra" and absf(pos.x)<9.5:
+			pos.x = -11.0-fposmod(seed_index*0.37,1.4) if seed_index%2 else 12.0+fposmod(seed_index*0.37,1.4)
 		AssetLibrary.place(imported,"stylized-nature","CommonTree_3" if seed_index%2 else "CommonTree_5",pos,Vector3(4.6,5.2+(seed_index%4)*0.3,4.6),seed_index*1.37)
 		return
 	var height: float = 3.45 + (seed_index % 4) * 0.27

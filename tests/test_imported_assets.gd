@@ -76,6 +76,10 @@ func run() -> void:
 				await frames()
 				check(adapter.animator.speed_scale==1,character+": rig retoma")
 		if id == "ponta_negra":
+			var roots_on_land := true
+			for node: Node3D in imported.get_children():
+				if node.has_meta("asset_source") and "CommonTree" in str(node.get_meta("asset_source")) and absf(node.position.x)<9.5: roots_on_land = false
+			check(roots_on_land,"Árvores de fundo permanecem nas margens, sem raízes no canal")
 			var boat: Node3D = level.get_node("Boat")
 			var old_shape: Shape3D = boat.get_node("Collision").shape
 			level.player.position = boat.landing_position
