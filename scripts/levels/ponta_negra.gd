@@ -7,6 +7,9 @@ func _ready() -> void:
 	super._ready()
 	player.collision_mask = player.collision_mask | 8
 	session.changed.connect(auto_unload)
+	var fisheries := preload("res://scripts/gameplay/canal_fisheries.gd").new()
+	fisheries.name = "Fisheries"
+	add_child(fisheries)
 func spawn_objects() -> void:
 	for i in Config.PONTA_TARGET:
 		spawn_float(Vector3(-5 + (i % 5) * 2.5, 0.08, -13 + (i / 5) * 6), Config.MATERIAL_ORDER[i % 4], 0.035 + (i % 5) * 0.004 if i < 5 else 0.0)

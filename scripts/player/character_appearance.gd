@@ -26,6 +26,9 @@ var eyes: Array[Node3D] = []
 var blink_clock: float = 0.0
 var rebuilding: bool = false
 var forearms: Array[Node3D] = []
+var seated: bool = false
+var rowing_phase: float = 0.0
+var rowing_amount: float = 0.0
 
 func _ready() -> void:
 	for title: String in ["Torso","Head","Backpack","Details","LeftLeg","RightLeg","LeftArm","RightArm"]:
@@ -351,3 +354,15 @@ func set_animation(state: String) -> void:
 	animation_state = state
 	var external := get_node_or_null("ExternalModel")
 	if external: external.request_state(state)
+
+func set_seated(enabled: bool, phase: float = 0.0, amount: float = 0.0) -> void:
+	seated = enabled
+	rowing_phase = phase
+	rowing_amount = amount if enabled else 0.0
+	if enabled:
+		set_animation("boat")
+		if not has_node("ExternalModel"):
+			parts.LeftLeg.rotation.x = 1.2
+			parts.RightLeg.rotation.x = 1.2
+			parts.LeftArm.rotation.x = 0.6+sin(phase)*amount*0.2
+			parts.RightArm.rotation.x = 0.6+sin(phase)*amount*0.2

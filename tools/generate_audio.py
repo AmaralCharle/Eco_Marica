@@ -73,7 +73,7 @@ def main():
             samples[i] *= i / 220
             samples[-1-i] *= i / 220
         save('sounds', name, samples)
-    for index, name in enumerate(('menu', 'aracatiba', 'itaipuacu', 'centro', 'ubatiba', 'ponta_negra')):
+    for index, name in enumerate(('menu',)):
         n = RATE * 16
         samples = [0.0] * n
         scale = (261.626, 329.628, 391.995, 440.0, 523.251, 391.995, 329.628, 293.665)
@@ -86,6 +86,8 @@ def main():
                 samples[begin+j] += .10 * env * (math.sin(TAU * freq * t) + .22 * math.sin(TAU * freq * 2 * t))
                 samples[begin+j] += .035 * env * math.sin(TAU * freq * .5 * t)
         save('music', name, samples)
+    from compose_phase_music import generate_all
+    generate_all()
 
 if __name__ == '__main__':
     main()

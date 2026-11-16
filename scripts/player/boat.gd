@@ -44,6 +44,8 @@ func embark(player: CharacterBody3D) -> bool:
 	create_tween().tween_property($Passenger, "rotation:x", 0.0, 0.45)
 	$Passenger.get_node("LeftArm").rotation.x = -0.55
 	$Passenger.get_node("RightArm").rotation.x = -0.55
+	$Passenger.set_seated(true)
+	$BoatArt.set_passenger($Passenger)
 	preload("res://scripts/player/camera_transition.gd").blend(player.camera_pivot.get_node("SpringArm3D/Camera3D"), camera)
 	active = true
 	set_physics_process(true)
@@ -67,6 +69,7 @@ func disembark() -> bool:
 	player.set_process_unhandled_input(true)
 	preload("res://scripts/player/camera_transition.gd").blend(camera, player.camera_pivot.get_node("SpringArm3D/Camera3D"))
 	$Passenger.hide()
+	$Passenger.set_seated(false)
 	player.play_action("disembark")
 	if has_node("/root/GameAudio"):
 		get_node("/root/GameAudio").play_event("disembark")
@@ -81,6 +84,8 @@ func _physics_process(delta: float) -> void:
 	rotation.y += steering * Config.BOAT_TURN_SPEED * delta * (0.35 + 0.65 * minf(absf(speed) / Config.BOAT_MAX_SPEED, 1))
 	velocity = -global_basis.z * speed
 	velocity.y = 0
+	var fisheries := get_parent().get_node_or_null("Fisheries")
+	if fisheries: fisheries.constrain_boat(self,delta)
 	move_and_slide()
 	if get_slide_collision_count() > 0:
 		speed = move_toward(speed, 0, 6 * delta)

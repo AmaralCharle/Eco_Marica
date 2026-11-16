@@ -59,7 +59,8 @@ func _process(delta: float) -> void:
 				audio.play_event("thunder")
 	if mission.mission_id == "ponta_negra":
 		var boat := mission.get_node("Boat")
-		audio.set_engine(playing and mission.on_boat, boat.speed)
+		# A embarcação atual é a remo; a ambiência de água permanece sem motor fictício.
+		audio.set_engine(false, boat.speed)
 	if last_state != mission.state:
 		last_state = mission.state
 		if mission.state == mission.State.VITORIA:

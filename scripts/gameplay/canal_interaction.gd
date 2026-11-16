@@ -1,11 +1,16 @@
 extends "res://scripts/gameplay/interaction.gd"
 func refresh_target() -> void:
+	var fisheries := get_parent().get_node_or_null("Fisheries")
+	if fisheries:
+		var camera := get_viewport().get_camera_3d()
+		var point := get_viewport().get_visible_rect().size*0.5 if Input.mouse_mode == Input.MOUSE_MODE_CAPTURED else get_viewport().get_mouse_position()
+		fisheries.update_focus(camera,point)
 	if not session.active:
 		prompt_changed.emit("Interações suspensas")
 		return
 	var mission = get_parent()
 	if mission.on_boat:
-		prompt_changed.emit(mission.boat_prompt())
+		prompt_changed.emit("Tarrafa na água — contorne ou aguarde." if fisheries and fisheries.feedback_left>0 else mission.boat_prompt())
 		return
 	super.refresh_target()
 	# Em terra, só coletores e acesso ao barco; resíduos flutuantes exigem embarcação.

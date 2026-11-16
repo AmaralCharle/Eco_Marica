@@ -25,7 +25,7 @@ static func mount(appearance: Node3D) -> void:
 	var prefix := "CharacterArmature|" if id == "rafael" else "HumanArmature|"+ ("Man_" if id == "lucas" else "Female_")
 	var idle := prefix+"Idle"
 	var saved_map: Dictionary = appearance.external_animations
-	appearance.external_animations = {"idle":idle,"walk":prefix+"Walk","run":prefix+"Run","jump":idle if id == "rafael" else prefix+"Jump","collect":prefix+"Interact" if id == "rafael" else idle,"plant":idle,"interact":prefix+"Interact" if id == "rafael" else idle,"boat":idle if id == "rafael" else prefix+"Sitting","embark":idle,"disembark":idle}
+	appearance.external_animations = {"idle":idle,"walk":prefix+"Walk","run":prefix+"Run","jump":idle if id == "rafael" else prefix+"Jump","collect":prefix+"Interact" if id == "rafael" else idle,"plant":idle,"interact":prefix+"Interact" if id == "rafael" else idle,"boat":idle,"embark":idle,"disembark":idle}
 	var model: Node3D = appearance.attach_external_model(cache[path].scene,cache[path].adjustment)
 	appearance.external_animations = saved_map
 	if model == null: return
@@ -53,6 +53,10 @@ static func mount(appearance: Node3D) -> void:
 		reach.name = "EnvironmentalReach"
 		reach.appearance = appearance
 		skeleton.add_child(reach)
+		var rowing := preload("res://scripts/player/seated_rowing_pose.gd").new()
+		rowing.name = "SeatedRowingPose"
+		rowing.appearance = appearance
+		skeleton.add_child(rowing)
 		var attachment := BoneAttachment3D.new()
 		attachment.name = "EcoEquipment"
 		attachment.bone_name = "Torso"

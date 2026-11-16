@@ -1,0 +1,267 @@
+[
+  {
+    "id": "aracatiba",
+    "title": "Manhã na Orla",
+    "bpm": 96,
+    "root": 62,
+    "style": "bossa leve",
+    "lead": "flute",
+    "chords": [
+      [
+        0,
+        "maj"
+      ],
+      [
+        5,
+        "maj"
+      ],
+      [
+        2,
+        "min"
+      ],
+      [
+        7,
+        "dom"
+      ]
+    ],
+    "motif": [
+      0,
+      4,
+      7,
+      9,
+      7,
+      4,
+      2,
+      4,
+      7,
+      12,
+      9,
+      7,
+      4,
+      2,
+      0,
+      2
+    ],
+    "seconds": 40.0,
+    "bars": 16,
+    "rate": 22050,
+    "channels": 2,
+    "peak": 0.65,
+    "rms": 0.1064453992434591,
+    "seam_jump": 0.0,
+    "sha256": "cf540dd48412d0755a655706978f33db15c96401373bd21d29f548c76fc2b46c",
+    "origin": "Composição e síntese originais do projeto com assistência Codex; sem samples externos"
+  },
+  {
+    "id": "itaipuacu",
+    "title": "Brisa de Itaipuaçu",
+    "bpm": 112,
+    "root": 69,
+    "style": "tropical sincopado",
+    "lead": "marimba",
+    "chords": [
+      [
+        0,
+        "maj"
+      ],
+      [
+        -2,
+        "maj"
+      ],
+      [
+        -5,
+        "maj"
+      ],
+      [
+        0,
+        "dom"
+      ]
+    ],
+    "motif": [
+      0,
+      7,
+      9,
+      7,
+      4,
+      2,
+      4,
+      7,
+      9,
+      12,
+      14,
+      12,
+      9,
+      7,
+      4,
+      2
+    ],
+    "seconds": 34.285714285714285,
+    "bars": 16,
+    "rate": 22050,
+    "channels": 2,
+    "peak": 0.5755570989726235,
+    "rms": 0.10994950298277316,
+    "seam_jump": 0.0,
+    "sha256": "0bff5f17193680585fdd6bef352ed47672ee2382eeedb3bc325fe16a139ca1e3",
+    "origin": "Composição e síntese originais do projeto com assistência Codex; sem samples externos"
+  },
+  {
+    "id": "centro",
+    "title": "Antes da Chuva",
+    "bpm": 104,
+    "root": 62,
+    "style": "ostinato urbano",
+    "lead": "felt",
+    "chords": [
+      [
+        0,
+        "min"
+      ],
+      [
+        -2,
+        "maj"
+      ],
+      [
+        -4,
+        "maj"
+      ],
+      [
+        7,
+        "min"
+      ]
+    ],
+    "motif": [
+      0,
+      7,
+      3,
+      7,
+      2,
+      7,
+      5,
+      7,
+      3,
+      10,
+      7,
+      5,
+      2,
+      5,
+      3,
+      0
+    ],
+    "seconds": 36.92307692307692,
+    "bars": 16,
+    "rate": 22050,
+    "channels": 2,
+    "peak": 0.5853409920841769,
+    "rms": 0.10994725074164713,
+    "seam_jump": 0.0,
+    "sha256": "b00167957a9fac8b65dcf9d30130785ab8fd44e43cd4a04b1ffd5420a997f796",
+    "origin": "Composição e síntese originais do projeto com assistência Codex; sem samples externos"
+  },
+  {
+    "id": "ubatiba",
+    "title": "Caminhos Verdes",
+    "bpm": 76,
+    "root": 67,
+    "style": "pastoral acústico",
+    "lead": "flute",
+    "chords": [
+      [
+        0,
+        "maj"
+      ],
+      [
+        -5,
+        "maj"
+      ],
+      [
+        -3,
+        "min"
+      ],
+      [
+        2,
+        "min"
+      ]
+    ],
+    "motif": [
+      7,
+      4,
+      2,
+      0,
+      2,
+      4,
+      7,
+      9,
+      7,
+      12,
+      9,
+      7,
+      4,
+      2,
+      4,
+      0
+    ],
+    "seconds": 50.526315789473685,
+    "bars": 16,
+    "rate": 22050,
+    "channels": 2,
+    "peak": 0.48437433621289444,
+    "rms": 0.10995524223082917,
+    "seam_jump": 0.0,
+    "sha256": "a973f6726762b9f6439ddd4ad011cc016ce9ae19715241bccc606bfc6c801ba4",
+    "origin": "Composição e síntese originais do projeto com assistência Codex; sem samples externos"
+  },
+  {
+    "id": "ponta_negra",
+    "title": "Remada no Canal",
+    "bpm": 100,
+    "root": 60,
+    "style": "baião suave",
+    "lead": "reed",
+    "chords": [
+      [
+        0,
+        "dom"
+      ],
+      [
+        5,
+        "maj"
+      ],
+      [
+        7,
+        "dom"
+      ],
+      [
+        0,
+        "maj"
+      ]
+    ],
+    "motif": [
+      0,
+      4,
+      7,
+      9,
+      7,
+      4,
+      2,
+      0,
+      2,
+      4,
+      5,
+      9,
+      7,
+      5,
+      4,
+      2
+    ],
+    "seconds": 38.4,
+    "bars": 16,
+    "rate": 22050,
+    "channels": 2,
+    "peak": 0.5759051341708266,
+    "rms": 0.10995057657174954,
+    "seam_jump": 0.0,
+    "sha256": "33e0dbc4ea9efafeb09ed64cbbc38823d22c27e62d9665607167494c1027555c",
+    "origin": "Composição e síntese originais do projeto com assistência Codex; sem samples externos"
+  }
+]

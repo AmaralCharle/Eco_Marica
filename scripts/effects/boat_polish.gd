@@ -3,6 +3,11 @@ var boat: CharacterBody3D
 var clock: float = 0.0
 var wake: Array[MeshInstance3D] = []
 var paddles: Node3D
+var oars: Array[Node3D] = []
+var rowing_phase: float = 0.0
+var rowing_amount: float = 0.0
+var passenger_rig: Skeleton3D
+var hips_index: int = -1
 func _ready() -> void:
 	boat = get_parent()
 	var art = preload("res://scripts/effects/world_polish.gd").new()
@@ -62,7 +67,9 @@ func _ready() -> void:
 			if node is MeshInstance3D: node.hide()
 		var imported: Node3D = library.place(self,"watercraft-kit","boat-row-small",Vector3(0,-0.08,0),Vector3(2.8,0.9,2.6),PI)
 		var found := imported.find_children("*paddles*","Node3D",true,false)
-		if not found.is_empty(): paddles = found[0]
+		if not found.is_empty():
+			paddles = found[0]
+			split_oars()
 	art.free()
 
 func _process(delta: float) -> void:
@@ -71,8 +78,67 @@ func _process(delta: float) -> void:
 	clock += delta
 	rotation.z = sin(clock * 1.6) * 0.018
 	position.y = sin(clock * 2) * 0.018
-	if paddles: paddles.rotation.x = sin(clock*3.5)*0.10 if boat.active and absf(boat.speed)>0.6 else 0.0
+	rowing_amount = move_toward(rowing_amount,clampf(absf(boat.speed)/3.0,0,1) if boat.active else 0.0,delta*3)
+	if rowing_amount>0.03: rowing_phase += delta*3.0
+	for oar in oars:
+		var side: float = oar.get_meta("side")
+		oar.rotation.y = side*sin(rowing_phase)*0.24*rowing_amount
+		oar.rotation.z = side*maxf(0,cos(rowing_phase))*0.14*rowing_amount
+	if paddles and oars.is_empty(): paddles.rotation.x = sin(rowing_phase)*0.10*rowing_amount
+	if boat.pilot != null:
+		boat.get_node("Passenger").set_seated(true,rowing_phase,rowing_amount)
+		align_passenger()
 	for i in wake.size():
 		wake[i].visible = boat.active and absf(boat.speed) > 0.6
 		wake[i].position.x = sin(clock * 5 + i * 2) * 0.35
 		wake[i].scale.x = 1.0 + fposmod(clock * 2 + i, 1.0)
+
+func set_passenger(passenger: Node3D) -> void:
+	var rigs := passenger.find_children("*","Skeleton3D",true,false)
+	passenger_rig = rigs[0] if not rigs.is_empty() else null
+	hips_index = passenger_rig.find_bone("Hips") if passenger_rig else -1
+	align_passenger()
+
+func align_passenger() -> void:
+	var passenger: Node3D = boat.get_node("Passenger")
+	if is_instance_valid(passenger_rig) and hips_index>=0:
+		var hips := passenger_rig.global_transform*passenger_rig.get_bone_global_pose(hips_index).origin
+		var offset := boat.to_local(hips)-passenger.position
+		passenger.position = Vector3(0,0.48,0.35)-offset
+	else:
+		passenger.position = Vector3(0,-0.06,0.35)
+
+func split_oars() -> void:
+	if not paddles is MeshInstance3D: return
+	var original: MeshInstance3D = paddles
+	for side: float in [-1,1]:
+		var pivot := Node3D.new()
+		pivot.name = "RowingOarLeft" if side<0 else "RowingOarRight"
+		pivot.set_meta("side",side)
+		var hinge := Vector3(side*0.62,0.35,0)
+		original.get_parent().add_child(pivot)
+		pivot.transform = original.transform*Transform3D(Basis.IDENTITY,hinge)
+		var builder := SurfaceTool.new()
+		builder.begin(Mesh.PRIMITIVE_TRIANGLES)
+		for surface in original.mesh.get_surface_count():
+			var arrays := original.mesh.surface_get_arrays(surface)
+			var vertices: PackedVector3Array = arrays[Mesh.ARRAY_VERTEX]
+			var normals: PackedVector3Array = arrays[Mesh.ARRAY_NORMAL]
+			var uv: PackedVector2Array = arrays[Mesh.ARRAY_TEX_UV]
+			var indices: PackedInt32Array = arrays[Mesh.ARRAY_INDEX]
+			if indices.is_empty():
+				for i in vertices.size(): indices.append(i)
+			for i in range(0,indices.size(),3):
+				var center := (vertices[indices[i]]+vertices[indices[i+1]]+vertices[indices[i+2]])/3
+				if center.x*side<0: continue
+				for j in 3:
+					var index := indices[i+j]
+					if normals.size()>index: builder.set_normal(normals[index])
+					if uv.size()>index: builder.set_uv(uv[index])
+					builder.add_vertex(vertices[index]-hinge)
+		var mesh := MeshInstance3D.new()
+		mesh.mesh = builder.commit()
+		mesh.material_override = original.mesh.surface_get_material(0)
+		pivot.add_child(mesh)
+		oars.append(pivot)
+	original.hide()
