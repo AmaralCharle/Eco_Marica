@@ -10,6 +10,7 @@ const WATER = preload("res://assets/materials/water.gdshader")
 const LEAVES = preload("res://assets/materials/foliage.gdshader")
 const SURFACE = preload("res://assets/materials/environment_surface.gdshader")
 const Meshes = preload("res://scripts/effects/environment_meshes.gd")
+const Config = preload("res://scripts/core/game_config.gd")
 const ArtMeshes = preload("res://scripts/effects/art_direction_meshes.gd")
 var grass_capacity: int = 780
 var sky_material: ProceduralSkyMaterial
@@ -413,6 +414,7 @@ func apply_quality() -> void:
 	extra.visible = quality == 2
 	grass.multimesh.visible_instance_count = int(grass_capacity*[0.22,0.55,1.0][quality])
 	get_viewport().msaa_3d = [Viewport.MSAA_DISABLED, Viewport.MSAA_2X, Viewport.MSAA_8X][quality]
+	get_viewport().scaling_3d_scale = 0.8 if quality == 0 else 1.0
 
 func cloud_mesh() -> ArrayMesh:
 	var st := SurfaceTool.new()
@@ -540,7 +542,7 @@ func batch_decoration(parent: Node) -> void:
 	for node in parent.get_children():
 		if node is MeshInstance3D and node.visible:
 			instances.append(node)
-	merge_instances(parent, instances)
+	merge_instances(parent, instances,true)
 
 func batch_world() -> void:
 	var instances: Array[MeshInstance3D] = []
@@ -552,7 +554,7 @@ func batch_world() -> void:
 				instances.append(child)
 	merge_instances(self, instances)
 
-func merge_instances(parent: Node, instances: Array[MeshInstance3D]) -> void:
+func merge_instances(parent: Node, instances: Array[MeshInstance3D], release_sources: bool = false) -> void:
 	var groups: Dictionary = {}
 	for instance in instances:
 		if instance.mesh == null or instance.mesh.get_surface_count() != 1: continue
@@ -565,7 +567,10 @@ func merge_instances(parent: Node, instances: Array[MeshInstance3D]) -> void:
 			groups[key] = {"builder": builder, "material": mat, "shadow": instance.cast_shadow}
 		var transform: Transform3D = (parent as Node3D).global_transform.affine_inverse() * instance.global_transform
 		groups[key].builder.append_from(instance.mesh, 0, transform)
-		instance.hide()
+		if release_sources:
+			instance.get_parent().remove_child(instance)
+			instance.queue_free()
+		else: instance.hide()
 	for group: Dictionary in groups.values():
 		var combined := MeshInstance3D.new()
 		combined.name = "StaticBatch"
@@ -589,6 +594,8 @@ func _process(_delta: float) -> void:
 	var sun: DirectionalLight3D = mission.get_node("Sun")
 	sun.light_energy = lerpf(1.30,0.88,intensity)
 	sun.light_color = Color("fff0d9").lerp(Color("cfdae2"),intensity)
+	var rain_fraction := clampf((intensity-Config.STORM_RAIN_THRESHOLD)/(1.0-Config.STORM_RAIN_THRESHOLD),0,1)
+	world.rain.multimesh.visible_instance_count = roundi(rain_fraction*[32,96,Config.STORM_RAIN_COUNT][settings.quality])
 	if absf(intensity - storm_last) < 0.01: return
 	storm_last = intensity
 	env.fog_density = lerpf(0.0038, 0.0075, intensity)

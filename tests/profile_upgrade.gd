@@ -5,8 +5,8 @@ func _initialize() -> void: call_deferred("run")
 func run() -> void:
 	root.size = Vector2i(1280,720)
 	DisplayServer.window_set_vsync_mode(DisplayServer.VSYNC_DISABLED)
-	root.get_node("GameAudio").quality = 2
 	var args := OS.get_cmdline_user_args()
+	root.get_node("GameAudio").quality = int(args[1]) if args.size() > 1 else 2
 	var prefix: String = args[0] if args.size() else "upgrade_baseline"
 	for id: String in ["aracatiba","itaipuacu","centro","ubatiba","ponta_negra"]:
 		var started := Time.get_ticks_usec()
@@ -49,6 +49,6 @@ func run() -> void:
 		level.queue_free()
 		for i in 5: await process_frame
 	var file := FileAccess.open("res://tests/artifacts/"+prefix+".json",FileAccess.WRITE)
-	file.store_string(JSON.stringify({"renderer":RenderingServer.get_current_rendering_method(),"gpu":RenderingServer.get_video_adapter_name(),"resolution":"1280x720","quality":2,"samples":samples},"\t"))
+	file.store_string(JSON.stringify({"renderer":RenderingServer.get_current_rendering_method(),"gpu":RenderingServer.get_video_adapter_name(),"resolution":"1280x720","quality":root.get_node("GameAudio").quality,"samples":samples},"\t"))
 	file.close()
 	quit()

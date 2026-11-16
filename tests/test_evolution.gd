@@ -32,6 +32,20 @@ func run() -> void:
 		check(service.answer(service.question.correct) and level.session.active,"Resposta fundamentada retoma missão: "+id)
 		check(level.session.records.size() == count and level.session.score == 0,"Decisão não duplica objetos nem pontos: "+id)
 		check(not service.answer(0),"Resposta não pode repetir com modal fechado: "+id)
+		var notes := InputEventAction.new()
+		notes.action = "field_notes"
+		notes.pressed = true
+		Input.parse_input_event(notes)
+		await frames()
+		Input.action_release("field_notes")
+		check(is_instance_valid(service.modal) and level.state == level.State.PAUSADO,"Q real abre a decisão: "+id)
+		var escape := InputEventAction.new()
+		escape.action = "release_mouse"
+		escape.pressed = true
+		Input.parse_input_event(escape)
+		await frames()
+		Input.action_release("release_mouse")
+		check(not is_instance_valid(service.modal) and level.state == level.State.JOGANDO,"Esc fecha só o caderno e retoma uma vez: "+id)
 		if id == "aracatiba":
 			var compounds := 0
 			for item in get_nodes_in_group("training_waste"):

@@ -50,3 +50,27 @@ Resultados iniciais e comparação serão completados após os três processos t
 | forward_plus | ponta_negra | 44.17 | 26.89 | 1138.0 | 210 | 1 | 29 |
 
 Decisão: manter Mobile. Forward+ consumiu aproximadamente 1,08–1,14 GiB de working set e entregou cerca de 43–47 FPS nas vistas, sem benefício artístico que justificasse a troca nesta etapa. Compatibility apresentou piores oscilações (p95 em algumas vistas acima de 30 ms). Mobile manteve aproximadamente 63–85 FPS nas amostras, com working set de cerca de 809–870 MiB. Todos os três processos terminaram com exit 0. Os recursos procedurais/shaders foram carregados nos três; capturas permitem comparar o acabamento. Valores são amostras controladas, não garantia de desempenho mínimo.
+
+## Perfis finais e memória
+
+| Perfil | Fase | FPS médio | p95 ms | RSS MiB | Carga ms |
+|---|---|---:|---:|---:|---:|
+| 0 | aracatiba | 187.22 | 7.88 | 696.8 | 1027 |
+| 0 | itaipuacu | 395.55 | 3.51 | 712.3 | 613 |
+| 0 | centro | 217.62 | 8.52 | 752.3 | 1147 |
+| 0 | ubatiba | 291.45 | 4.39 | 761.1 | 1927 |
+| 0 | ponta_negra | 310.59 | 4.19 | 769.6 | 1621 |
+| 1 | aracatiba | 107.15 | 10.83 | 812.8 | 1043 |
+| 1 | itaipuacu | 121.53 | 9.41 | 829.0 | 692 |
+| 1 | centro | 99.11 | 12.97 | 881.0 | 1252 |
+| 1 | ubatiba | 99.98 | 12.07 | 883.7 | 1768 |
+| 1 | ponta_negra | 110.43 | 11.26 | 894.7 | 1549 |
+| 2 | aracatiba | 77.34 | 14.44 | 812.0 | 993 |
+| 2 | itaipuacu | 80.73 | 13.92 | 829.9 | 633 |
+| 2 | centro | 61.43 | 17.63 | 878.5 | 1200 |
+| 2 | ubatiba | 64.93 | 16.64 | 889.2 | 2018 |
+| 2 | ponta_negra | 69.11 | 16.23 | 895.9 | 1547 |
+
+Perfis: 0 Baixo (3D 80%, UI nativa), 1 Médio, 2 Alto. Colisões preservadas: 43/23/34/14/29 por fase na ordem da campanha. Não se promete FPS sustentado em toda partida; estes ensaios não substituem jogo humano, carregamento a frio ou outras aplicações concorrentes. Alto ficou próximo da meta preferencial; Médio oferece maior folga neste notebook.
+
+Quatro ciclos gráficos de carga/descarga das cinco fases: 18 nós remanescentes e zero órfãos a cada ciclo; RSS 889,1 / 900,3 / 896,3 / 897,9 MiB. Não houve crescimento contínuo nem acúmulo de nós nesse ensaio. O encerramento suave aguardou o mixer e terminou sem avisos nesse processo. Em testes headless que usam quit imediato, avisos de AudioStreamWAV/PlaybackWAV ainda podem aparecer. Isso é registrado como limitação da evidência, não escondido nem convertido em afirmação de zero vazamentos.

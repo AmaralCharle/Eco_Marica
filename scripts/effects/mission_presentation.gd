@@ -29,7 +29,7 @@ func burst(event: String) -> void:
 	var mat := StandardMaterial3D.new()
 	mat.albedo_color = Color("ffb46d") if event == "wrong" else Color("80f4b6")
 	mat.shading_mode = BaseMaterial3D.SHADING_MODE_UNSHADED
-	for i in 7:
+	for i in [3,5,7][audio.quality]:
 		var particle := MeshInstance3D.new()
 		var mesh := SphereMesh.new()
 		mesh.radius = 0.045
@@ -39,7 +39,7 @@ func burst(event: String) -> void:
 		mesh.material = mat
 		particle.mesh = mesh
 		group.add_child(particle)
-		var angle := TAU * i / 7.0
+		var angle: float = TAU * i / 7.0
 		var tween := group.create_tween().set_parallel(true)
 		tween.tween_property(particle, "position", Vector3(cos(angle) * 0.65, 0.5, sin(angle) * 0.65), 0.5).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
 		tween.tween_property(particle, "scale", Vector3.ZERO, 0.5)

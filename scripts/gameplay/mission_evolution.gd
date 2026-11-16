@@ -95,6 +95,9 @@ func refresh_hint() -> void:
 		"centro":
 			var ranked := priorities()
 			if not ranked.is_empty(): detail = "Prioridade: bueiro %d · %d resíduos próximos" % [int(ranked[0].node.drain_id.get_slice("_",2))+1,ranked[0].nearby]
+			for entry in ranked:
+				entry.node.priority_hint = "Prioritário" if entry.nearby == ranked[0].nearby else "Obstruído"
+				entry.node.set_highlight(entry.node.highlighted)
 		"ponta_negra":
 			var boat = mission.get_node("Boat")
 			var origin: Vector3 = boat.position if mission.on_boat else mission.player.position

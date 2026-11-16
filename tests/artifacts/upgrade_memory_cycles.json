@@ -1,0 +1,30 @@
+[
+	{
+		"cycle": 1,
+		"nodes": 18.0,
+		"orphans": 0.0,
+		"private_mib": 826.30859375,
+		"rss_mib": 889.11328125
+	},
+	{
+		"cycle": 2,
+		"nodes": 18.0,
+		"orphans": 0.0,
+		"private_mib": 839.70703125,
+		"rss_mib": 900.296875
+	},
+	{
+		"cycle": 3,
+		"nodes": 18.0,
+		"orphans": 0.0,
+		"private_mib": 832.41796875,
+		"rss_mib": 896.32421875
+	},
+	{
+		"cycle": 4,
+		"nodes": 18.0,
+		"orphans": 0.0,
+		"private_mib": 834.40625,
+		"rss_mib": 897.92578125
+	}
+]

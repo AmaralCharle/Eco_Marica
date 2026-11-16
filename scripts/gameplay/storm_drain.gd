@@ -3,8 +3,12 @@ extends Node3D
 var debris: Node3D
 var label: Label3D
 var cleaned: bool = false
+var priority_hint: String = "Obstruído"
+var display_number: int = 1
+var highlighted: bool = false
 
 func _ready() -> void:
+	display_number = drain_id.get_slice("_",2).to_int()+1
 	add_to_group("mission_drains")
 	debris = Node3D.new()
 	add_child(debris)
@@ -47,7 +51,7 @@ func _ready() -> void:
 		item.position = Vector3(-0.26 + i * 0.17, 0.13, -0.2 + (i % 2) * 0.32)
 		debris.add_child(item)
 	label = Label3D.new()
-	label.text = "BUEIRO • Obstruído"
+	label.text = "BUEIRO %d • Obstruído" % display_number
 	label.position.y = 0.85
 	label.font_size = 34
 	label.pixel_size = 0.006
@@ -55,11 +59,12 @@ func _ready() -> void:
 	add_child(label)
 
 func set_highlight(active: bool) -> void:
+	highlighted = active
 	if not cleaned:
-		label.text = ("[E] " if active else "") + "BUEIRO • Obstruído"
+		label.text = ("[E] " if active else "") + "BUEIRO %d • %s" % [display_number,priority_hint]
 
 func show_cleaned() -> void:
 	cleaned = true
 	debris.hide()
-	label.text = "BUEIRO • Limpo"
+	label.text = "BUEIRO %d • Limpo" % display_number
 	label.modulate = Color("9aebbe")

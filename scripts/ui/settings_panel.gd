@@ -45,7 +45,7 @@ func _ready() -> void:
 	rows.add_child(smooth)
 	smooth.toggled.connect(func(value: bool): audio.smoothing = value; audio.save_settings())
 	var quality := OptionButton.new()
-	for title: String in ["Baixo • sem sombras", "Médio • sombras próximas", "Alto • sombras e vegetação extra"]:
+	for title: String in ["Baixo • 3D a 80%, sem sombras", "Médio • sombras próximas", "Alto • 3D nativo, sombras e vegetação extra"]:
 		quality.add_item(title)
 	quality.select(audio.quality)
 	rows.add_child(quality)

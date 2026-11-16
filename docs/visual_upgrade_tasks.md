@@ -16,7 +16,7 @@ Branch: `upgrade-visual-4`. Base aprovada: `3fc476c` (tag `fase-1-final`, public
 | 10 Decisões ambientais | validada | Composição, vento, prioridade de bueiros, solo e rota |
 | 11 Estrelas/opcionais | validada | Critérios numéricos, sem bloquear progressão |
 | 12 Estatísticas/resultados | validada | Tentativas e melhores avaliações, migração compatível |
-| 13 Perfis/otimização | pendente | Baixo/Médio/Alto; cargas e memória |
+| 13 Perfis/otimização | validada | Baixo/Médio/Alto; cargas e memória |
 | 14 Regressão completa | pendente | Cinco fases, saves próprios; revisão gráfica e limites |
 | 15 GDD/rastreabilidade/créditos | pendente | Documentar somente o implementado e validado |
 
@@ -65,3 +65,7 @@ Estrelas: vitória garante 1; 2 com até 2 erros e até 2 perdas (Ubatiba até 1
 ### TASK 12 — validada
 
 Resultados mostram nota por estrelas, precisão de reciclagem (quando há descartes), melhor sequência, tentativas e opcional da rodada; Ubatiba distingue leituras/revisões opcionais. Campanha mostra estrelas de 15, opcionais de 5 e tentativas acumuladas. Instruções explicitam limites numéricos e ausência de nota por velocidade. Tentativas contam no início, pausas não duplicam e resultados são idempotentes. Testes ratings 36, interface 226, resoluções 110, campanha 18 sem falhas. Arquivos: mission_hud.gd, expansion_hud.gd e test_ratings.gd; dados já adicionados na TASK 11.
+
+### TASK 13 — validada
+
+Fontes decorativas estáticas liberadas depois do agrupamento; nós físicos/animados mantidos. Baixo usa 3D a 80%, menos chuva/respingos/partículas/vegetação e preserva HUD/objetivos; Médio/Alto nativos. Três perfis medidos nas cinco fases por profile_upgrade.gd. Alto: 61,43–80,73 FPS médios nas vistas. Quatro ciclos gráficos das cinco fases: 18 nós após descarregar e zero órfãos em todos; RSS 889–900 MiB sem crescimento contínuo. Fechamento suave sem avisos no ensaio; testes com quit imediato podem manter avisos AudioStreamWAV, sem declarar prova universal de ausência de vazamentos. Bueiros receberam números legíveis e estado de prioridade. Testes focados: evolução 57, Centro 34, ambiente 22 sem falhas.
