@@ -29,6 +29,7 @@ func _ready() -> void:
 	landscape()
 	configure_light()
 	preload("res://scripts/effects/reference_art_pass.gd").new().apply(self)
+	add_child(preload("res://scripts/effects/upgrade_visuals.gd").new())
 	batch_decoration(self)
 	batch_decoration(extra)
 	batch_world()

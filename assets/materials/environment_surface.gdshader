@@ -23,9 +23,12 @@ void fragment() {
     float rough = 0.93;
     if (surface_type == 0) {
         color *= 0.93 + noise(uv * 1.2) * 0.13;
+        color = mix(color,color*vec3(1.08,0.98,0.84),smoothstep(0.64,0.84,noise(uv*0.55))*0.28);
     } else if (surface_type == 1 || surface_type == 2) {
         color *= 0.96 + small * 0.055;
         if (surface_type == 2) { color += sin(uv.y * 5.0 + broad * 4.0) * 0.008; }
+        float pebble = step(0.968,hash(floor(uv*12.0)));
+        color += pebble*0.028;
     } else if (surface_type == 3) {
         vec2 tile = uv * vec2(1.25, 0.82);
         tile.x += mod(floor(tile.y), 2.0) * 0.5;
@@ -33,12 +36,14 @@ void fragment() {
         float edge = min(min(f.x, 1.0-f.x), min(f.y, 1.0-f.y));
         color *= 0.92 + hash(floor(tile)) * 0.14;
         color *= mix(0.78, 1.0, smoothstep(0.007, 0.025, edge));
+        color += smoothstep(0.025,0.030,edge)*(1.0-smoothstep(0.030,0.040,edge))*0.012;
         rough = 0.87;
     } else if (surface_type == 4) {
         color *= 0.96 + small * 0.07;
         float puddle = smoothstep(0.60, 0.77, broad) * wetness;
         color *= 1.0 - wetness * 0.13 - puddle * 0.06;
         rough = mix(0.91, 0.36, puddle);
+        color += smoothstep(0.78,0.92,small)*0.012;
     } else if (surface_type == 5) {
         color *= 0.97 + noise(uv * 2.1) * 0.055;
         rough = 0.86;
@@ -52,5 +57,5 @@ void fragment() {
         color *= mix(0.76, 1.0, smoothstep(0.0, 0.055, tile.y));
         rough = 0.82;
     }
-    ALBEDO = color; ROUGHNESS = rough; SPECULAR = 0.22;
+    ALBEDO = color; ROUGHNESS = clamp(rough+(small-0.5)*0.06,0.2,1.0); SPECULAR = 0.22;
 }

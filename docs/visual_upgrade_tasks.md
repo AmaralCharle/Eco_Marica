@@ -7,7 +7,7 @@ Branch: `upgrade-visual-4`. Base aprovada: `3fc476c` (tag `fase-1-final`, public
 | 01 Backup, branch e auditoria | validada | ZIP da base, patch da configuração, arquivos locais e saves preservados fora do repositório; branch/tag publicadas |
 | 02 Medição e renderizador | validada | `tests/profile_upgrade.gd`, três renderizadores, cinco fases, FPS/p95/carga/RSS/VRAM/inventário |
 | 03 HUD e problemas visuais | validada | 720p/1080p, espaço para novas informações, menus e modais |
-| 04 Piloto Centro | em execução | Materiais, arquitetura, vegetação, tempestade |
+| 04 Piloto Centro | validada | Materiais, arquitetura, vegetação, tempestade |
 | 05 Ubatiba | pendente | Ambiente rural e recuperação simbólica |
 | 06 Ponta Negra | pendente | Água, barco e margens |
 | 07 Araçatiba/Itaipuaçu | pendente | Coerência entre as cinco fases |
@@ -29,3 +29,7 @@ Backup local: pasta `outputs/upgrade-visual-4/backup_pre_upgrade` do chat. Cont�
 ### TASK 03
 
 Painéis de menu/resultados agora possuem limite de altura e rolagem que acompanha o foco do teclado, preservando o conteúdo. `test_resolutions.gd`: 110 verificações em 1280×720 e 1920×1080 nas cinco fases; `test_interface.gd`: 226 verificações, sem falhas. Arquivos: `scripts/ui/mission_hud.gd`, `tests/test_resolutions.gd`.
+
+### TASK 04 — validada
+
+Centro piloto: vitrines, esquadrias, bancos, vasos, materiais e 64 respingos limitados por qualidade. Arquivos: upgrade_visuals.gd, world_polish.gd, environment_surface.gdshader, stylized_glass.gdshader, rain_splash.gdshader. Testes: Centro 34 e acesso 14 sem falhas; captura Vulkan de céu claro/tempestade/café sem erros de shader.
