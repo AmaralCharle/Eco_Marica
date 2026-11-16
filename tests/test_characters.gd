@@ -129,7 +129,8 @@ func run() -> void:
 			cuffs += 1
 	expect(cuffs == 1, "Troca repetida não duplica acessórios")
 	player.set_character("invalid")
-	expect(player.visual.character_id == "lucas" and player.visual.get_node("Backpack").visible, "Aparência inválida volta ao padrão seguro")
+	var equipment_visible: bool = player.visual.get_node("Backpack").visible or not player.visual.find_children("IdentityEquipment","Node3D",true,false).is_empty()
+	expect(player.visual.character_id == "lucas" and equipment_visible, "Aparência inválida volta ao padrão seguro com equipamento procedural ou rigado")
 	scene.queue_free()
 	await process_frame
 	print("RESULT: %d verificações, %d falhas" % [checks, failures])

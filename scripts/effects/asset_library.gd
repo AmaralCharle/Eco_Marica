@@ -4,7 +4,8 @@ const BASE := "res://assets/imported/kenney/"
 static var scenes: Dictionary = {}
 static var bounds_cache: Dictionary = {}
 static var crown_proxy: SphereMesh
-static var enabled_phases: Array[String] = ["centro", "ubatiba", "ponta_negra"]
+static var harmonized_meshes: Dictionary = {}
+static var enabled_phases: Array[String] = ["centro", "ubatiba", "ponta_negra", "aracatiba", "itaipuacu"]
 
 static func enabled(id: String) -> bool:
 	return id in enabled_phases and not OS.get_cmdline_user_args().has("--legacy-art")
@@ -24,8 +25,8 @@ static func bounds(node: Node3D) -> AABB:
 	return result
 
 static func place(parent: Node3D, pack: String, model_name: String, at: Vector3, size: Vector3, angle: float = 0.0, stretch: bool = false) -> Node3D:
-	var quaternius := pack == "stylized-nature"
-	var path := ("res://assets/imported/quaternius/" if quaternius else BASE) + pack + "/" + model_name + (".gltf" if quaternius else ".glb")
+	var quaternius := pack in ["stylized-nature","characters"]
+	var path := ("res://assets/imported/quaternius/" if quaternius else BASE) + pack + "/" + model_name + (".gltf" if pack == "stylized-nature" else ".glb")
 	if not scenes.has(path): scenes[path] = load(path)
 	var model: Node3D = scenes[path].instantiate()
 	var pivot := Node3D.new()
@@ -44,6 +45,21 @@ static func place(parent: Node3D, pack: String, model_name: String, at: Vector3,
 	pivot.position = at
 	pivot.rotation.y = angle
 	for mesh: MeshInstance3D in model.find_children("*", "MeshInstance3D", true, false):
+		if pack == "nature-kit":
+			var key := mesh.mesh.get_instance_id()
+			if not harmonized_meshes.has(key):
+				var shared: Mesh = mesh.mesh.duplicate()
+				for surface in shared.get_surface_count():
+					var mat: StandardMaterial3D = shared.surface_get_material(surface)
+					if mat == null: continue
+					var title := String(mat.resource_name).to_lower()
+					if "leaf" in title or "grass" in title:
+						var leaf: StandardMaterial3D = mat.duplicate()
+						leaf.albedo_color = Color("558b47") if not "dark" in title else Color("396b44")
+						leaf.roughness = 0.90
+						shared.surface_set_material(surface,leaf)
+				harmonized_meshes[key] = shared
+			mesh.mesh = harmonized_meshes[key]
 		mesh.visibility_range_end = 100.0
 		# Copas recortadas têm alto custo nas quatro cascatas; sombras usam proxy opaco.
 		if quaternius and not model_name.begins_with("Rock"):
@@ -65,8 +81,12 @@ static func place(parent: Node3D, pack: String, model_name: String, at: Vector3,
 static func batch(parent: Node3D) -> void:
 	# Uma MultiMesh por malha/material, sem duplicar geometria ou gerar colisões.
 	var groups: Dictionary = {}
+	var sources: Array[MeshInstance3D] = []
 	for mesh: MeshInstance3D in parent.find_children("*", "MeshInstance3D", true, false):
 		if not mesh.is_visible_in_tree() or not mesh.mesh: continue
+		sources.append(mesh)
+	# Colher toda a hierarquia antes de ocultar pais MeshInstance3D (palmeiras têm folhas filhas).
+	for mesh in sources:
 		var key := str(mesh.mesh.get_instance_id()) + "_" + str(mesh.material_override) + "_" + str(mesh.cast_shadow)
 		if not groups.has(key): groups[key] = {"mesh":mesh.mesh,"material":mesh.material_override,"shadow":mesh.cast_shadow,"transforms":[]}
 		groups[key].transforms.append(parent.global_transform.affine_inverse() * mesh.global_transform)

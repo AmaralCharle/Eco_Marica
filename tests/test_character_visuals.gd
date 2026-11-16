@@ -58,6 +58,7 @@ func run() -> void:
 		if normal.dot(Vector3(point.x,0,point.z)) < -0.01: normals_ok = false
 	check(normals_ok,"Normais das superfícies apontam para fora")
 	var visual = Visual.instantiate()
+	visual.use_production_assets = false # Este bloco cobre o fallback procedural e o adaptador sintético.
 	root.add_child(visual)
 	await frames()
 	var pivots: Array[Node] = [visual.get_node("LeftLeg"),visual.get_node("RightLeg"),visual.get_node("LeftArm"),visual.get_node("RightArm")]
@@ -143,7 +144,7 @@ func run() -> void:
 		preferences.quality = quality
 		scene.get_node("Presentation/WorldPolish").apply_quality()
 		check(scene.player.get_node("CollisionShape3D") == collision and scene.player.camera_pivot == camera,"Qualidade mantém corpo e câmera: "+str(quality))
-	check(root.msaa_3d == Viewport.MSAA_8X and scene.get_node("Sun").directional_shadow_mode == DirectionalLight3D.SHADOW_PARALLEL_4_SPLITS,"Alto ativa MSAA 8x e quatro cascatas de sombra")
+	check(root.msaa_3d == Viewport.MSAA_4X and scene.get_node("Sun").directional_shadow_mode == DirectionalLight3D.SHADOW_PARALLEL_4_SPLITS,"Alto equilibra MSAA 4x e quatro cascatas após medição das copas importadas")
 	scene.queue_free()
 	await frames()
 	scene = load("res://scenes/levels/ponta_negra.tscn").instantiate()

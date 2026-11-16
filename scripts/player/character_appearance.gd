@@ -12,6 +12,7 @@ const ModelAdapter = preload("res://scripts/player/character_model_adapter.gd")
 ## Estados do jogo -> nomes dos clipes do rig importado.
 @export var external_animations: Dictionary = {}
 @export var animate_face: bool = true
+@export var use_production_assets: bool = true
 var external_error: String = ""
 var parts: Dictionary = {}
 var decorations: Node3D
@@ -71,6 +72,8 @@ func apply_character(id: String) -> void:
 		attach_external_model(imported,external_transforms.get(character_id,Transform3D.IDENTITY))
 	elif get_node_or_null("ExternalModel"):
 		attach_external_model()
+	if use_production_assets and external_models.is_empty():
+		preload("res://scripts/player/production_character.gd").mount(self)
 
 func build_body() -> void:
 	var body: Node3D = parts.Torso
@@ -302,6 +305,11 @@ func rounded(parent: Node, title: String, pos: Vector3, size: Vector3, surface: 
 	return node
 
 func _process(delta: float) -> void:
+	var adapter := get_node_or_null("ExternalModel")
+	if adapter and adapter.get_meta("production_character",false) and adapter.animator:
+		var level := get_parent().get_parent()
+		var stopped: bool = level.get("state") != null and level.state != level.State.JOGANDO
+		adapter.animator.speed_scale = 0.0 if stopped or not animate_face else 1.0
 	if rebuilding or not animate_face or not is_visible_in_tree(): return
 	var bend: float = {"idle":0.08,"walk":0.18,"run":0.48,"jump":0.25,"collect":0.50,"plant":0.64,"interact":0.55,"embark":0.38,"disembark":0.30}.get(animation_state,0.08)
 	for elbow in forearms: elbow.rotation.x = lerpf(elbow.rotation.x,bend,1.0-exp(-12.0*delta))

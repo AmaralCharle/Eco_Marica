@@ -1,0 +1,5 @@
+Bird by AssetQuest
+https://poly.pizza/m/ZQmkPfCsNQ
+CC0 1.0, verified on source page and public download dialog.
+https://creativecommons.org/publicdomain/zero/1.0/
+194 triangles, no rig or animation. Project adds lightweight flight.

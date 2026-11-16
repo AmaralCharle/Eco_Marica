@@ -39,6 +39,7 @@ func _ready() -> void:
 	if AssetLibrary.enabled(mission.mission_id):
 		if mission.mission_id == "centro": preload("res://scripts/effects/asset_revolution.gd").urban(self)
 		AssetLibrary.batch(imported)
+		add_child(preload("res://scripts/effects/ambient_birds.gd").new())
 	batch_decoration(self)
 	batch_decoration(extra)
 	batch_world()
@@ -271,6 +272,11 @@ func garden(pos: Vector3, index: int) -> void:
 			AssetLibrary.place(imported,"nature-kit","plant_bushDetailed" if index%2 else "plant_bushSmall",pos,Vector3(1.25,0.8,1.15),index*1.3)
 		for i in 3:
 			AssetLibrary.place(imported,"nature-kit","flower_yellowC" if index%2 else "flower_purpleC",pos+Vector3(sin(i*2.4)*0.5,0,cos(i*2.4)*0.4),Vector3.ONE*0.38,index+i)
+		if index%4 == 0:
+			AssetLibrary.place(imported,"stylized-nature","Flower_3_Group",pos+Vector3(-0.48,0,0.35),Vector3.ONE*0.4,index)
+			AssetLibrary.place(imported,"stylized-nature","Grass_Common_Short",pos+Vector3(0.58,0,-0.38),Vector3(0.5,0.35,0.5),index)
+		if index%3 == 1:
+			AssetLibrary.place(imported,"nature-kit","rock_smallA",pos+Vector3(-0.45,0,-0.4),Vector3(0.3,0.2,0.3),index)
 		return
 	var shrub := mesh_at(self, Meshes.canopy(index), pos + Vector3.UP * 0.28, Color.WHITE)
 	shrub.scale = Vector3(1.25, 0.70 + (index % 3) * 0.13, 0.95)

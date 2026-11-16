@@ -9,8 +9,11 @@
     "path": "assets/imported/kenney/city-kit-commercial/building-a.glb",
     "archive_sha256": "f8b09b081c2bb88bcc126e2dec1cb40fd0dad7e7e591b6c26aaefe96fb35276b",
     "download": "verified",
-    "import": "pending",
-    "integration": "pending"
+    "import": "verified in Godot 4.7.2",
+    "integration": "visible in game",
+    "phases": [
+      "centro"
+    ]
   },
   {
     "name": "building-b",
@@ -22,8 +25,11 @@
     "path": "assets/imported/kenney/city-kit-commercial/building-b.glb",
     "archive_sha256": "f8b09b081c2bb88bcc126e2dec1cb40fd0dad7e7e591b6c26aaefe96fb35276b",
     "download": "verified",
-    "import": "pending",
-    "integration": "pending"
+    "import": "verified in Godot 4.7.2",
+    "integration": "visible in game",
+    "phases": [
+      "centro"
+    ]
   },
   {
     "name": "building-c",
@@ -35,8 +41,11 @@
     "path": "assets/imported/kenney/city-kit-commercial/building-c.glb",
     "archive_sha256": "f8b09b081c2bb88bcc126e2dec1cb40fd0dad7e7e591b6c26aaefe96fb35276b",
     "download": "verified",
-    "import": "pending",
-    "integration": "pending"
+    "import": "verified in Godot 4.7.2",
+    "integration": "visible in game",
+    "phases": [
+      "centro"
+    ]
   },
   {
     "name": "building-d",
@@ -48,8 +57,11 @@
     "path": "assets/imported/kenney/city-kit-commercial/building-d.glb",
     "archive_sha256": "f8b09b081c2bb88bcc126e2dec1cb40fd0dad7e7e591b6c26aaefe96fb35276b",
     "download": "verified",
-    "import": "pending",
-    "integration": "pending"
+    "import": "verified in Godot 4.7.2",
+    "integration": "visible in game",
+    "phases": [
+      "centro"
+    ]
   },
   {
     "name": "detail-awning",
@@ -61,8 +73,11 @@
     "path": "assets/imported/kenney/city-kit-commercial/detail-awning.glb",
     "archive_sha256": "f8b09b081c2bb88bcc126e2dec1cb40fd0dad7e7e591b6c26aaefe96fb35276b",
     "download": "verified",
-    "import": "pending",
-    "integration": "pending"
+    "import": "verified in Godot 4.7.2",
+    "integration": "visible in game",
+    "phases": [
+      "centro"
+    ]
   },
   {
     "name": "tree_detailed",
@@ -74,8 +89,9 @@
     "path": "assets/imported/kenney/nature-kit/tree_detailed.glb",
     "archive_sha256": "fa7974a0d342bfe63c38664ba9f8ec1a4aab8ea25f099bdc56870e33588c4d9d",
     "download": "verified",
-    "import": "pending",
-    "integration": "pending"
+    "import": "candidate inspected",
+    "integration": "rejected; original retained outside project",
+    "purpose": "Candidate rejected: style/fit; see report"
   },
   {
     "name": "tree_oak",
@@ -87,8 +103,9 @@
     "path": "assets/imported/kenney/nature-kit/tree_oak.glb",
     "archive_sha256": "fa7974a0d342bfe63c38664ba9f8ec1a4aab8ea25f099bdc56870e33588c4d9d",
     "download": "verified",
-    "import": "pending",
-    "integration": "pending"
+    "import": "candidate inspected",
+    "integration": "rejected; original retained outside project",
+    "purpose": "Candidate rejected: style/fit; see report"
   },
   {
     "name": "tree_palmDetailedTall",
@@ -100,8 +117,13 @@
     "path": "assets/imported/kenney/nature-kit/tree_palmDetailedTall.glb",
     "archive_sha256": "fa7974a0d342bfe63c38664ba9f8ec1a4aab8ea25f099bdc56870e33588c4d9d",
     "download": "verified",
-    "import": "pending",
-    "integration": "pending"
+    "import": "verified in Godot 4.7.2",
+    "integration": "visible in game",
+    "phases": [
+      "ubatiba",
+      "aracatiba",
+      "itaipuacu"
+    ]
   },
   {
     "name": "tree_palmDetailedShort",
@@ -113,8 +135,13 @@
     "path": "assets/imported/kenney/nature-kit/tree_palmDetailedShort.glb",
     "archive_sha256": "fa7974a0d342bfe63c38664ba9f8ec1a4aab8ea25f099bdc56870e33588c4d9d",
     "download": "verified",
-    "import": "pending",
-    "integration": "pending"
+    "import": "verified in Godot 4.7.2",
+    "integration": "visible in game",
+    "phases": [
+      "ponta_negra",
+      "aracatiba",
+      "itaipuacu"
+    ]
   },
   {
     "name": "plant_bushDetailed",
@@ -126,8 +153,15 @@
     "path": "assets/imported/kenney/nature-kit/plant_bushDetailed.glb",
     "archive_sha256": "fa7974a0d342bfe63c38664ba9f8ec1a4aab8ea25f099bdc56870e33588c4d9d",
     "download": "verified",
-    "import": "pending",
-    "integration": "pending"
+    "import": "verified in Godot 4.7.2",
+    "integration": "visible in game",
+    "phases": [
+      "centro",
+      "ubatiba",
+      "ponta_negra",
+      "aracatiba",
+      "itaipuacu"
+    ]
   },
   {
     "name": "plant_bushSmall",
@@ -139,8 +173,15 @@
     "path": "assets/imported/kenney/nature-kit/plant_bushSmall.glb",
     "archive_sha256": "fa7974a0d342bfe63c38664ba9f8ec1a4aab8ea25f099bdc56870e33588c4d9d",
     "download": "verified",
-    "import": "pending",
-    "integration": "pending"
+    "import": "verified in Godot 4.7.2",
+    "integration": "visible in game",
+    "phases": [
+      "centro",
+      "ubatiba",
+      "ponta_negra",
+      "aracatiba",
+      "itaipuacu"
+    ]
   },
   {
     "name": "flower_yellowC",
@@ -152,8 +193,15 @@
     "path": "assets/imported/kenney/nature-kit/flower_yellowC.glb",
     "archive_sha256": "fa7974a0d342bfe63c38664ba9f8ec1a4aab8ea25f099bdc56870e33588c4d9d",
     "download": "verified",
-    "import": "pending",
-    "integration": "pending"
+    "import": "verified in Godot 4.7.2",
+    "integration": "visible in game",
+    "phases": [
+      "centro",
+      "ubatiba",
+      "ponta_negra",
+      "aracatiba",
+      "itaipuacu"
+    ]
   },
   {
     "name": "flower_purpleC",
@@ -165,8 +213,15 @@
     "path": "assets/imported/kenney/nature-kit/flower_purpleC.glb",
     "archive_sha256": "fa7974a0d342bfe63c38664ba9f8ec1a4aab8ea25f099bdc56870e33588c4d9d",
     "download": "verified",
-    "import": "pending",
-    "integration": "pending"
+    "import": "verified in Godot 4.7.2",
+    "integration": "visible in game",
+    "phases": [
+      "centro",
+      "ubatiba",
+      "ponta_negra",
+      "aracatiba",
+      "itaipuacu"
+    ]
   },
   {
     "name": "rock_largeA",
@@ -178,8 +233,14 @@
     "path": "assets/imported/kenney/nature-kit/rock_largeA.glb",
     "archive_sha256": "fa7974a0d342bfe63c38664ba9f8ec1a4aab8ea25f099bdc56870e33588c4d9d",
     "download": "verified",
-    "import": "pending",
-    "integration": "pending"
+    "import": "verified in Godot 4.7.2",
+    "integration": "visible in game",
+    "phases": [
+      "ubatiba",
+      "ponta_negra",
+      "aracatiba",
+      "itaipuacu"
+    ]
   },
   {
     "name": "rock_largeC",
@@ -191,8 +252,14 @@
     "path": "assets/imported/kenney/nature-kit/rock_largeC.glb",
     "archive_sha256": "fa7974a0d342bfe63c38664ba9f8ec1a4aab8ea25f099bdc56870e33588c4d9d",
     "download": "verified",
-    "import": "pending",
-    "integration": "pending"
+    "import": "verified in Godot 4.7.2",
+    "integration": "visible in game",
+    "phases": [
+      "ubatiba",
+      "ponta_negra",
+      "aracatiba",
+      "itaipuacu"
+    ]
   },
   {
     "name": "rock_smallA",
@@ -204,8 +271,15 @@
     "path": "assets/imported/kenney/nature-kit/rock_smallA.glb",
     "archive_sha256": "fa7974a0d342bfe63c38664ba9f8ec1a4aab8ea25f099bdc56870e33588c4d9d",
     "download": "verified",
-    "import": "pending",
-    "integration": "pending"
+    "import": "verified in Godot 4.7.2",
+    "integration": "visible in game",
+    "phases": [
+      "centro",
+      "ubatiba",
+      "ponta_negra",
+      "aracatiba",
+      "itaipuacu"
+    ]
   },
   {
     "name": "grass_large",
@@ -217,8 +291,9 @@
     "path": "assets/imported/kenney/nature-kit/grass_large.glb",
     "archive_sha256": "fa7974a0d342bfe63c38664ba9f8ec1a4aab8ea25f099bdc56870e33588c4d9d",
     "download": "verified",
-    "import": "pending",
-    "integration": "pending"
+    "import": "candidate inspected",
+    "integration": "rejected; original retained outside project",
+    "purpose": "Candidate rejected: style/fit; see report"
   },
   {
     "name": "boat-row-small",
@@ -230,8 +305,11 @@
     "path": "assets/imported/kenney/watercraft-kit/boat-row-small.glb",
     "archive_sha256": "cd1470c1cf441c7f46d0944ae6d0d897242365dc97677c5079b3238965d659f3",
     "download": "verified",
-    "import": "pending",
-    "integration": "pending"
+    "import": "verified in Godot 4.7.2",
+    "integration": "visible in game",
+    "phases": [
+      "ponta_negra"
+    ]
   },
   {
     "name": "boat-fishing-small",
@@ -243,8 +321,9 @@
     "path": "assets/imported/kenney/watercraft-kit/boat-fishing-small.glb",
     "archive_sha256": "cd1470c1cf441c7f46d0944ae6d0d897242365dc97677c5079b3238965d659f3",
     "download": "verified",
-    "import": "pending",
-    "integration": "pending"
+    "import": "candidate inspected",
+    "integration": "rejected; original retained outside project",
+    "purpose": "Candidate rejected: style/fit; see report"
   },
   {
     "name": "light-curved",
@@ -256,8 +335,12 @@
     "path": "assets/imported/kenney/city-kit-roads/light-curved.glb",
     "archive_sha256": "374a4552115cbd11b4ec5c930ee31a533562dc78a09af249a655d03f7ea3b959",
     "download": "verified",
-    "import": "pending",
-    "integration": "pending"
+    "import": "verified in Godot 4.7.2",
+    "integration": "visible in game",
+    "phases": [
+      "centro",
+      "aracatiba"
+    ]
   },
   {
     "name": "construction-cone",
@@ -269,8 +352,11 @@
     "path": "assets/imported/kenney/city-kit-roads/construction-cone.glb",
     "archive_sha256": "374a4552115cbd11b4ec5c930ee31a533562dc78a09af249a655d03f7ea3b959",
     "download": "verified",
-    "import": "pending",
-    "integration": "pending"
+    "import": "verified in Godot 4.7.2",
+    "integration": "visible in game",
+    "phases": [
+      "centro"
+    ]
   },
   {
     "name": "electricity-pole",
@@ -282,8 +368,11 @@
     "path": "assets/imported/kenney/city-kit-roads/electricity-pole.glb",
     "archive_sha256": "374a4552115cbd11b4ec5c930ee31a533562dc78a09af249a655d03f7ea3b959",
     "download": "verified",
-    "import": "pending",
-    "integration": "pending"
+    "import": "verified in Godot 4.7.2",
+    "integration": "visible in game",
+    "phases": [
+      "centro"
+    ]
   },
   {
     "name": "electricity-wires",
@@ -295,8 +384,9 @@
     "path": "assets/imported/kenney/city-kit-roads/electricity-wires.glb",
     "archive_sha256": "374a4552115cbd11b4ec5c930ee31a533562dc78a09af249a655d03f7ea3b959",
     "download": "verified",
-    "import": "pending",
-    "integration": "pending"
+    "import": "candidate inspected",
+    "integration": "rejected; original retained outside project",
+    "purpose": "Candidate rejected: style/fit; see report"
   },
   {
     "name": "CommonTree_3",
@@ -309,10 +399,15 @@
     "path": "assets/imported/quaternius/stylized-nature/CommonTree_3.gltf",
     "archive_sha256": "298f6732b872e4cf7b30e6e7abf9641c7f6dc6b326df37ac089533ed7e3d58c9",
     "download": "verified",
-    "import": "pending",
-    "integration": "pending",
+    "import": "verified in Godot 4.7.2",
+    "integration": "visible in game",
     "purpose": "vegeta\u00e7\u00e3o org\u00e2nica / rochas",
-    "modifications": "texturas limitadas a 1024px; originais no ZIP"
+    "modifications": "texturas limitadas a 1024px; originais no ZIP",
+    "phases": [
+      "centro",
+      "ubatiba",
+      "ponta_negra"
+    ]
   },
   {
     "name": "CommonTree_5",
@@ -325,10 +420,16 @@
     "path": "assets/imported/quaternius/stylized-nature/CommonTree_5.gltf",
     "archive_sha256": "298f6732b872e4cf7b30e6e7abf9641c7f6dc6b326df37ac089533ed7e3d58c9",
     "download": "verified",
-    "import": "pending",
-    "integration": "pending",
+    "import": "verified in Godot 4.7.2",
+    "integration": "visible in game",
     "purpose": "vegeta\u00e7\u00e3o org\u00e2nica / rochas",
-    "modifications": "texturas limitadas a 1024px; originais no ZIP"
+    "modifications": "texturas limitadas a 1024px; originais no ZIP",
+    "phases": [
+      "centro",
+      "ubatiba",
+      "ponta_negra",
+      "aracatiba"
+    ]
   },
   {
     "name": "Bush_Common_Flowers",
@@ -341,10 +442,17 @@
     "path": "assets/imported/quaternius/stylized-nature/Bush_Common_Flowers.gltf",
     "archive_sha256": "298f6732b872e4cf7b30e6e7abf9641c7f6dc6b326df37ac089533ed7e3d58c9",
     "download": "verified",
-    "import": "pending",
-    "integration": "pending",
+    "import": "verified in Godot 4.7.2",
+    "integration": "visible in game",
     "purpose": "vegeta\u00e7\u00e3o org\u00e2nica / rochas",
-    "modifications": "texturas limitadas a 1024px; originais no ZIP"
+    "modifications": "texturas limitadas a 1024px; originais no ZIP",
+    "phases": [
+      "centro",
+      "ubatiba",
+      "ponta_negra",
+      "aracatiba",
+      "itaipuacu"
+    ]
   },
   {
     "name": "Fern_1",
@@ -357,10 +465,17 @@
     "path": "assets/imported/quaternius/stylized-nature/Fern_1.gltf",
     "archive_sha256": "298f6732b872e4cf7b30e6e7abf9641c7f6dc6b326df37ac089533ed7e3d58c9",
     "download": "verified",
-    "import": "pending",
-    "integration": "pending",
+    "import": "verified in Godot 4.7.2",
+    "integration": "visible in game",
     "purpose": "vegeta\u00e7\u00e3o org\u00e2nica / rochas",
-    "modifications": "texturas limitadas a 1024px; originais no ZIP"
+    "modifications": "texturas limitadas a 1024px; originais no ZIP",
+    "phases": [
+      "centro",
+      "ubatiba",
+      "ponta_negra",
+      "aracatiba",
+      "itaipuacu"
+    ]
   },
   {
     "name": "Flower_3_Group",
@@ -373,10 +488,17 @@
     "path": "assets/imported/quaternius/stylized-nature/Flower_3_Group.gltf",
     "archive_sha256": "298f6732b872e4cf7b30e6e7abf9641c7f6dc6b326df37ac089533ed7e3d58c9",
     "download": "verified",
-    "import": "pending",
-    "integration": "pending",
+    "import": "verified in Godot 4.7.2",
+    "integration": "visible in game",
     "purpose": "vegeta\u00e7\u00e3o org\u00e2nica / rochas",
-    "modifications": "texturas limitadas a 1024px; originais no ZIP"
+    "modifications": "texturas limitadas a 1024px; originais no ZIP",
+    "phases": [
+      "centro",
+      "ubatiba",
+      "ponta_negra",
+      "aracatiba",
+      "itaipuacu"
+    ]
   },
   {
     "name": "Grass_Common_Short",
@@ -389,10 +511,17 @@
     "path": "assets/imported/quaternius/stylized-nature/Grass_Common_Short.gltf",
     "archive_sha256": "298f6732b872e4cf7b30e6e7abf9641c7f6dc6b326df37ac089533ed7e3d58c9",
     "download": "verified",
-    "import": "pending",
-    "integration": "pending",
+    "import": "verified in Godot 4.7.2",
+    "integration": "visible in game",
     "purpose": "vegeta\u00e7\u00e3o org\u00e2nica / rochas",
-    "modifications": "texturas limitadas a 1024px; originais no ZIP"
+    "modifications": "texturas limitadas a 1024px; originais no ZIP",
+    "phases": [
+      "centro",
+      "ubatiba",
+      "ponta_negra",
+      "aracatiba",
+      "itaipuacu"
+    ]
   },
   {
     "name": "Rock_Medium_1",
@@ -405,10 +534,16 @@
     "path": "assets/imported/quaternius/stylized-nature/Rock_Medium_1.gltf",
     "archive_sha256": "298f6732b872e4cf7b30e6e7abf9641c7f6dc6b326df37ac089533ed7e3d58c9",
     "download": "verified",
-    "import": "pending",
-    "integration": "pending",
+    "import": "verified in Godot 4.7.2",
+    "integration": "visible in game",
     "purpose": "vegeta\u00e7\u00e3o org\u00e2nica / rochas",
-    "modifications": "texturas limitadas a 1024px; originais no ZIP"
+    "modifications": "texturas limitadas a 1024px; originais no ZIP",
+    "phases": [
+      "ubatiba",
+      "ponta_negra",
+      "aracatiba",
+      "itaipuacu"
+    ]
   },
   {
     "name": "Rock_Medium_2",
@@ -421,10 +556,16 @@
     "path": "assets/imported/quaternius/stylized-nature/Rock_Medium_2.gltf",
     "archive_sha256": "298f6732b872e4cf7b30e6e7abf9641c7f6dc6b326df37ac089533ed7e3d58c9",
     "download": "verified",
-    "import": "pending",
-    "integration": "pending",
+    "import": "verified in Godot 4.7.2",
+    "integration": "visible in game",
     "purpose": "vegeta\u00e7\u00e3o org\u00e2nica / rochas",
-    "modifications": "texturas limitadas a 1024px; originais no ZIP"
+    "modifications": "texturas limitadas a 1024px; originais no ZIP",
+    "phases": [
+      "ubatiba",
+      "ponta_negra",
+      "aracatiba",
+      "itaipuacu"
+    ]
   },
   {
     "name": "Asphalt001 1K JPG",
@@ -436,10 +577,14 @@
     "path": "assets/imported/ambientcg/Asphalt001",
     "archive_sha256": "52c4f470e381c3ffee442880ad21f3b1dd5d70886c5bf566fa83f91746ae0f51",
     "download": "verified",
-    "import": "pending",
-    "integration": "pending",
+    "import": "verified in Godot 4.7.2",
+    "integration": "shader maps active",
     "purpose": "asfalto do Centro",
-    "modifications": "mistura crom\u00e1tica estilizada no shader"
+    "modifications": "mistura crom\u00e1tica estilizada no shader",
+    "phases": [
+      "aracatiba",
+      "centro"
+    ]
   },
   {
     "name": "Ground037 1K JPG",
@@ -451,9 +596,12 @@
     "path": "assets/imported/ambientcg/Ground037",
     "archive_sha256": "4e69db2b7251b1736fa70fe6fe4ab80d64bd220117dd5dd4c7caaead51c2574e",
     "download": "verified",
-    "import": "pending",
-    "integration": "pending",
-    "purpose": "solo rural"
+    "import": "verified in Godot 4.7.2",
+    "integration": "shader maps active",
+    "purpose": "solo rural",
+    "phases": [
+      "ubatiba"
+    ]
   },
   {
     "name": "Ground055S 1K JPG",
@@ -465,9 +613,12 @@
     "path": "assets/imported/ambientcg/Ground055S",
     "archive_sha256": "fd6e6e18af63b517533122c933c4b47de8d0a1b27199287e40f0219610664fe7",
     "download": "verified",
-    "import": "pending",
-    "integration": "pending",
-    "purpose": "areia"
+    "import": "verified in Godot 4.7.2",
+    "integration": "shader maps active",
+    "purpose": "areia",
+    "phases": [
+      "itaipuacu"
+    ]
   },
   {
     "name": "Wood001 1K JPG",
@@ -479,9 +630,13 @@
     "path": "assets/imported/ambientcg/Wood001",
     "archive_sha256": "3b8687ccd50252ff7ce5e2be5ecd0b684010708fda1a8941fd1473d8043159b4",
     "download": "verified",
-    "import": "pending",
-    "integration": "pending",
-    "purpose": "madeira"
+    "import": "verified in Godot 4.7.2",
+    "integration": "shader maps active",
+    "purpose": "madeira",
+    "phases": [
+      "aracatiba",
+      "ponta_negra"
+    ]
   },
   {
     "name": "character-male-a",
@@ -493,9 +648,9 @@
     "path": "assets/imported/kenney/mini-characters/character-male-a.glb",
     "archive_sha256": "add348e98ab9e23d9973c4740ef2c5cceb229c742106aca2d56b30a8f1241bb7",
     "download": "verified",
-    "import": "pending",
-    "integration": "candidate",
-    "purpose": "piloto de visual humano animado; validar identidade"
+    "import": "candidate inspected",
+    "integration": "rejected; original retained outside project",
+    "purpose": "Candidate rejected: style/fit; see report"
   },
   {
     "name": "character-female-a",
@@ -507,9 +662,9 @@
     "path": "assets/imported/kenney/mini-characters/character-female-a.glb",
     "archive_sha256": "add348e98ab9e23d9973c4740ef2c5cceb229c742106aca2d56b30a8f1241bb7",
     "download": "verified",
-    "import": "pending",
-    "integration": "candidate",
-    "purpose": "piloto de visual humano animado; validar identidade"
+    "import": "candidate inspected",
+    "integration": "rejected; original retained outside project",
+    "purpose": "Candidate rejected: style/fit; see report"
   },
   {
     "name": "character-male-c",
@@ -521,9 +676,9 @@
     "path": "assets/imported/kenney/mini-characters/character-male-c.glb",
     "archive_sha256": "add348e98ab9e23d9973c4740ef2c5cceb229c742106aca2d56b30a8f1241bb7",
     "download": "verified",
-    "import": "pending",
-    "integration": "candidate",
-    "purpose": "piloto de visual humano animado; validar identidade"
+    "import": "candidate inspected",
+    "integration": "rejected; original retained outside project",
+    "purpose": "Candidate rejected: style/fit; see report"
   },
   {
     "name": "character-female-d",
@@ -535,9 +690,9 @@
     "path": "assets/imported/kenney/mini-characters/character-female-d.glb",
     "archive_sha256": "add348e98ab9e23d9973c4740ef2c5cceb229c742106aca2d56b30a8f1241bb7",
     "download": "verified",
-    "import": "pending",
-    "integration": "candidate",
-    "purpose": "piloto de visual humano animado; validar identidade"
+    "import": "candidate inspected",
+    "integration": "rejected; original retained outside project",
+    "purpose": "Candidate rejected: style/fit; see report"
   },
   {
     "name": "Kloppenheim 05 Pure Sky 1K",
@@ -549,8 +704,107 @@
     "path": "assets/imported/polyhaven/kloppenheim_05_puresky_1k.hdr",
     "md5": "fe0d85219b08932d0467c3752012b749",
     "download": "verified",
-    "import": "pending",
-    "integration": "pending",
-    "purpose": "c\u00e9us diurnos de baixo custo; Centro mant\u00e9m tempestade din\u00e2mica"
+    "import": "verified in Godot 4.7.2",
+    "integration": "visible in game",
+    "purpose": "c\u00e9us diurnos de baixo custo; Centro mant\u00e9m tempestade din\u00e2mica",
+    "phases": [
+      "ubatiba",
+      "ponta_negra",
+      "aracatiba",
+      "itaipuacu"
+    ]
+  },
+  {
+    "name": "man",
+    "author": "Quaternius",
+    "site": "https://poly.pizza/m/HMnuH5geEG",
+    "license": "CC0-1.0",
+    "format": "GLB rigged animated",
+    "bytes": 493196,
+    "path": "assets/imported/quaternius/characters/man.glb",
+    "sha256": "dad8fa3ca2bc7760892f9ff47f544941179e50acb2aa772cf9f035154a37fc58",
+    "download": "verified via browser public download",
+    "import": "verified in Godot 4.7.2",
+    "integration": "visible in game",
+    "purpose": "visual de protagonista, controlador preservado",
+    "phases": [
+      "centro",
+      "ubatiba",
+      "ponta_negra",
+      "aracatiba",
+      "itaipuacu"
+    ]
+  },
+  {
+    "name": "woman_casual",
+    "author": "Quaternius",
+    "site": "https://poly.pizza/m/jpKRgGDxhk",
+    "license": "CC0-1.0",
+    "format": "GLB rigged animated",
+    "bytes": 586108,
+    "path": "assets/imported/quaternius/characters/woman_casual.glb",
+    "sha256": "99c4df0aaabd19022809facc68f5fb5f564d35df3a9893c273a31fdaacf68e96",
+    "download": "verified via browser public download",
+    "import": "verified in Godot 4.7.2",
+    "integration": "visible in game",
+    "purpose": "visual de protagonista, controlador preservado",
+    "phases": [
+      "aracatiba"
+    ]
+  },
+  {
+    "name": "worker",
+    "author": "Quaternius",
+    "site": "https://poly.pizza/m/Yg2bQZO6Hj",
+    "license": "CC0-1.0",
+    "format": "GLB rigged animated",
+    "bytes": 1344928,
+    "path": "assets/imported/quaternius/characters/worker.glb",
+    "sha256": "9c28614f465b7dc105f908c20c22fc045f4b07caf8c5ef0e9f8049eceb6dd38d",
+    "download": "verified via browser public download",
+    "import": "verified in Godot 4.7.2",
+    "integration": "visible in game",
+    "purpose": "visual de protagonista, controlador preservado",
+    "phases": [
+      "aracatiba"
+    ]
+  },
+  {
+    "name": "woman",
+    "author": "Quaternius",
+    "site": "https://poly.pizza/bundle/Animated-Women-Pack-HHSKxnk1mY",
+    "license": "CC0-1.0",
+    "format": "GLB rigged animated",
+    "bytes": 510392,
+    "path": "assets/imported/quaternius/characters/woman.glb",
+    "sha256": "bae371b11e0dcd5dbd26442025567ca9f7041781f3410259d6ec379bffcbac27",
+    "download": "verified via browser public download",
+    "import": "verified in Godot 4.7.2",
+    "integration": "visible in game",
+    "purpose": "segunda identidade feminina",
+    "phases": [
+      "aracatiba"
+    ]
+  },
+  {
+    "name": "Bird",
+    "author": "AssetQuest",
+    "site": "https://poly.pizza/m/ZQmkPfCsNQ",
+    "license": "CC0-1.0",
+    "format": "GLB static; 194 triangles",
+    "bytes": 15496,
+    "path": "assets/imported/assetquest/bird.glb",
+    "sha256": "e8006d28c71a91a0dc355037719fa4277e53bf41eb5e53c195d07f50fde771ed",
+    "download": "verified via browser public download",
+    "import": "verified in Godot 4.7.2",
+    "integration": "visible in game",
+    "purpose": "aves ambientais com anima\u00e7\u00e3o leve",
+    "phases": [
+      "centro",
+      "ubatiba",
+      "ponta_negra",
+      "aracatiba",
+      "itaipuacu"
+    ]
   }
 ]
