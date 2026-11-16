@@ -8,7 +8,7 @@ Branch: `upgrade-visual-4`. Base aprovada: `3fc476c` (tag `fase-1-final`, public
 | 02 Medição e renderizador | validada | `tests/profile_upgrade.gd`, três renderizadores, cinco fases, FPS/p95/carga/RSS/VRAM/inventário |
 | 03 HUD e problemas visuais | validada | 720p/1080p, espaço para novas informações, menus e modais |
 | 04 Piloto Centro | validada | Materiais, arquitetura, vegetação, tempestade |
-| 05 Ubatiba | pendente | Ambiente rural e recuperação simbólica |
+| 05 Ubatiba | validada | Ambiente rural e recuperação simbólica |
 | 06 Ponta Negra | pendente | Água, barco e margens |
 | 07 Araçatiba/Itaipuaçu | pendente | Coerência entre as cinco fases |
 | 08 Personagens/animações | pendente | Um modelo primeiro; articulação visual e estados existentes |
@@ -33,3 +33,7 @@ Painéis de menu/resultados agora possuem limite de altura e rolagem que acompan
 ### TASK 04 — validada
 
 Centro piloto: vitrines, esquadrias, bancos, vasos, materiais e 64 respingos limitados por qualidade. Arquivos: upgrade_visuals.gd, world_polish.gd, environment_surface.gdshader, stylized_glass.gdshader, rain_splash.gdshader. Testes: Centro 34 e acesso 14 sem falhas; captura Vulkan de céu claro/tempestade/café sem erros de shader.
+
+### TASK 05 — validada
+
+Ubatiba: cobertura vegetal agrupada aparece progressivamente após plantio, e proteção ganha material de cobertura orgânica. Mantidas avaliações 12/plantios 8/proteções 3. Arquivos: planting_plot.gd e environment_surface.gdshader. Teste Ubatiba: 18 verificações sem falhas. Crescimento é feedback simbólico; arte de terreno e vegetação existente foi preservada.

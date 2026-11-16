@@ -1,6 +1,6 @@
 shader_type spatial;
 uniform vec4 base_color : source_color = vec4(0.42, 0.56, 0.30, 1.0);
-// 0 vegetation ground, 1 soil, 2 sand, 3 paving, 4 asphalt, 5 plaster, 6 timber, 7 roof.
+// 0 vegetation ground, 1 soil, 2 sand, 3 paving, 4 asphalt, 5 plaster, 6 timber, 7 roof, 8 mulch.
 uniform int surface_type = 0;
 uniform float wetness : hint_range(0.0, 1.0) = 0.0;
 varying vec3 world;
@@ -56,6 +56,9 @@ void fragment() {
         color *= 0.92 + sin(tile.x * 3.14159) * 0.10;
         color *= mix(0.76, 1.0, smoothstep(0.0, 0.055, tile.y));
         rough = 0.82;
+    } else if (surface_type == 8) {
+        color *= 0.74+hash(floor(uv*vec2(19.0,31.0)))*0.34;
+        rough = 0.96;
     }
     ALBEDO = color; ROUGHNESS = clamp(rough+(small-0.5)*0.06,0.2,1.0); SPECULAR = 0.22;
 }
