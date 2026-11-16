@@ -66,6 +66,7 @@ func run() -> void:
 			check(item.position == stopped,"Coletado deixa de sofrer vento")
 		if id == "centro":
 			var ranked: Array = service.priorities()
+			check(ranked[0].exposure >= ranked[-1].exposure and ranked[0].exposure > 0,"Prioridade usa proximidade real, não apenas contagem empatada")
 			level.session.clean_drain(ranked[0].node.drain_id)
 			check(service.priority_hits == 1 and service.completed.has(id),"Atendimento real da prioridade conclui opcional")
 		if id == "ubatiba": check(level.session.assessed == 0 and service.completed.has(id),"Leitura não substitui avaliações de terreno")

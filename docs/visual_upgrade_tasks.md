@@ -17,7 +17,7 @@ Branch: `upgrade-visual-4`. Base aprovada: `3fc476c` (tag `fase-1-final`, public
 | 11 Estrelas/opcionais | validada | Critérios numéricos, sem bloquear progressão |
 | 12 Estatísticas/resultados | validada | Tentativas e melhores avaliações, migração compatível |
 | 13 Perfis/otimização | validada | Baixo/Médio/Alto; cargas e memória |
-| 14 Regressão completa | pendente | Cinco fases, saves próprios; revisão gráfica e limites |
+| 14 Regressão completa | validada | Cinco fases, saves próprios; revisão gráfica e limites |
 | 15 GDD/rastreabilidade/créditos | pendente | Documentar somente o implementado e validado |
 
 ## Rollback
@@ -69,3 +69,7 @@ Resultados mostram nota por estrelas, precisão de reciclagem (quando há descar
 ### TASK 13 — validada
 
 Fontes decorativas estáticas liberadas depois do agrupamento; nós físicos/animados mantidos. Baixo usa 3D a 80%, menos chuva/respingos/partículas/vegetação e preserva HUD/objetivos; Médio/Alto nativos. Três perfis medidos nas cinco fases por profile_upgrade.gd. Alto: 61,43–80,73 FPS médios nas vistas. Quatro ciclos gráficos das cinco fases: 18 nós após descarregar e zero órfãos em todos; RSS 889–900 MiB sem crescimento contínuo. Fechamento suave sem avisos no ensaio; testes com quit imediato podem manter avisos AudioStreamWAV, sem declarar prova universal de ausência de vazamentos. Bueiros receberam números legíveis e estado de prioridade. Testes focados: evolução 57, Centro 34, ambiente 22 sem falhas.
+
+### TASK 14 — validada
+
+Executor completo: 968 verificações, 22 suítes, zero falhas/ERROR/SCRIPT ERROR nos logs finais. Inclui campanha clássica completa sem exigir opcionais, migração/rollback, 720p/1080p, física, coleção/plantio/barco e estados. capture_upgrade.gd produziu 36 capturas em duas resoluções, com vitórias reais da simulação, 15 estrelas e 5 opcionais; dados de teste, não estatísticas do jogador. Revisão adicional de 12 poses/corrida/barco dos quatro personagens. Índice dos bueiros refinado para ponderar distâncias e evitar empate artificial só por contagem. Capturas antigas sobrescritas pelos utilitários foram restauradas; evidências novas usam prefixo upgrade. Testes humanos obrigatórios descritos no relatório.

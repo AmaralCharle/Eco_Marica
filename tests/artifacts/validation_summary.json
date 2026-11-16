@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-11-16T12:38:51.6353176-03:00",
-  "checks": 727,
+  "generated_at": "2026-11-16T14:59:57.1208910-03:00",
+  "checks": 968,
   "failed_suites": 0,
   "suites": [
     {
@@ -17,7 +17,7 @@
       "exit_code": 0,
       "log": "C:\\Users\\CHARLE\\Documents\\Eco-Maricá\\eco-marica\\tests\\artifacts\\test_art_direction.log",
       "has_errors": false,
-      "warnings": true
+      "warnings": false
     },
     {
       "name": "test_audio.gd",
@@ -61,11 +61,11 @@
     },
     {
       "name": "test_character_visuals.gd",
-      "checks": 57,
+      "checks": 93,
       "exit_code": 0,
       "log": "C:\\Users\\CHARLE\\Documents\\Eco-Maricá\\eco-marica\\tests\\artifacts\\test_character_visuals.log",
       "has_errors": false,
-      "warnings": true
+      "warnings": false
     },
     {
       "name": "test_characters.gd",
@@ -84,12 +84,20 @@
       "warnings": true
     },
     {
+      "name": "test_evolution.gd",
+      "checks": 59,
+      "exit_code": 0,
+      "log": "C:\\Users\\CHARLE\\Documents\\Eco-Maricá\\eco-marica\\tests\\artifacts\\test_evolution.log",
+      "has_errors": false,
+      "warnings": true
+    },
+    {
       "name": "test_foundation.gd",
       "checks": 16,
       "exit_code": 0,
       "log": "C:\\Users\\CHARLE\\Documents\\Eco-Maricá\\eco-marica\\tests\\artifacts\\test_foundation.log",
       "has_errors": false,
-      "warnings": false
+      "warnings": true
     },
     {
       "name": "test_interface.gd",
@@ -129,7 +137,7 @@
       "exit_code": 0,
       "log": "C:\\Users\\CHARLE\\Documents\\Eco-Maricá\\eco-marica\\tests\\artifacts\\test_presentation.log",
       "has_errors": false,
-      "warnings": true
+      "warnings": false
     },
     {
       "name": "test_progress_extension.gd",
@@ -140,10 +148,26 @@
       "warnings": false
     },
     {
+      "name": "test_ratings.gd",
+      "checks": 36,
+      "exit_code": 0,
+      "log": "C:\\Users\\CHARLE\\Documents\\Eco-Maricá\\eco-marica\\tests\\artifacts\\test_ratings.log",
+      "has_errors": false,
+      "warnings": true
+    },
+    {
       "name": "test_recycling.gd",
       "checks": 35,
       "exit_code": 0,
       "log": "C:\\Users\\CHARLE\\Documents\\Eco-Maricá\\eco-marica\\tests\\artifacts\\test_recycling.log",
+      "has_errors": false,
+      "warnings": true
+    },
+    {
+      "name": "test_resolutions.gd",
+      "checks": 110,
+      "exit_code": 0,
+      "log": "C:\\Users\\CHARLE\\Documents\\Eco-Maricá\\eco-marica\\tests\\artifacts\\test_resolutions.log",
       "has_errors": false,
       "warnings": true
     },

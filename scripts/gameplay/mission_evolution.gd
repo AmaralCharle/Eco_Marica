@@ -56,13 +56,19 @@ func urgency(drain: Node3D) -> int:
 	for item in get_tree().get_nodes_in_group("training_waste"):
 		if mission.is_ancestor_of(item) and session.records.has(item.waste_id) and session.records[item.waste_id].state == session.WasteState.AVAILABLE and item.position.distance_to(drain.position) < 7.0: count += 1
 	return count
+func exposure(drain: Node3D) -> int:
+	var value := 0.0
+	for item in get_tree().get_nodes_in_group("training_waste"):
+		if mission.is_ancestor_of(item) and session.records.has(item.waste_id) and session.records[item.waste_id].state == session.WasteState.AVAILABLE:
+			value += maxf(0,7.0-item.position.distance_to(drain.position))*10.0
+	return roundi(value)
 func priorities(include_previous: bool = false) -> Array[Dictionary]:
 	var result: Array[Dictionary] = []
 	for drain in get_tree().get_nodes_in_group("mission_drains"):
 		if not mission.is_ancestor_of(drain): continue
 		var cleaned: bool = previous_drains.get(drain.drain_id,false) if include_previous else session.drains[drain.drain_id]
-		if not cleaned: result.append({"node":drain,"nearby":urgency(drain)})
-	result.sort_custom(func(a: Dictionary,b: Dictionary): return a.nearby > b.nearby)
+		if not cleaned: result.append({"node":drain,"nearby":urgency(drain),"exposure":exposure(drain)})
+	result.sort_custom(func(a: Dictionary,b: Dictionary): return a.exposure > b.exposure)
 	return result
 func complete_optional() -> void:
 	var id: String = mission.mission_id
@@ -77,7 +83,7 @@ func on_changed() -> void:
 			for id in session.drains:
 				if session.drains[id] and not previous_drains.get(id,false):
 					for entry in ranked:
-						if entry.node.drain_id == id and entry.nearby == ranked[0].nearby:
+						if entry.node.drain_id == id and entry.exposure == ranked[0].exposure:
 							priority_hits += 1
 							complete_optional()
 			previous_drains = session.drains.duplicate()
@@ -94,9 +100,9 @@ func refresh_hint() -> void:
 		"itaipuacu": detail = "Brisa lateral suave · Q para observar"
 		"centro":
 			var ranked := priorities()
-			if not ranked.is_empty(): detail = "Prioridade: bueiro %d · %d resíduos próximos" % [int(ranked[0].node.drain_id.get_slice("_",2))+1,ranked[0].nearby]
+			if not ranked.is_empty(): detail = "Prioridade: bueiro %d · Exposição %d" % [int(ranked[0].node.drain_id.get_slice("_",2))+1,ranked[0].exposure]
 			for entry in ranked:
-				entry.node.priority_hint = "Prioritário" if entry.nearby == ranked[0].nearby else "Obstruído"
+				entry.node.priority_hint = "Prioritário" if entry.exposure == ranked[0].exposure else "Obstruído"
 				entry.node.set_highlight(entry.node.highlighted)
 		"ponta_negra":
 			var boat = mission.get_node("Boat")
@@ -121,15 +127,15 @@ func make_question() -> Dictionary:
 			options.assign(["Priorizar o menor prazo → MAR, observando a rota","Ignorar os marcadores e esperar o vento parar","Supor que itens já coletados continuam à deriva"])
 		"centro":
 			title = "Qual bueiro atender primeiro?"
-			body = "Na simulação, a prioridade considera os resíduos ainda soltos a menos de 7 m do bueiro. Não é uma previsão de enchentes. Compare os valores; empates são equivalentes."
+			body = "O índice ilustrativo considera os resíduos soltos a menos de 7 m; os mais próximos têm maior peso. Escolha a maior exposição. Empates são equivalentes. Não é uma previsão de enchentes."
 			var ranked := priorities()
 			if ranked.is_empty():
 				options.assign(["Todos já foram atendidos; concluir os resíduos","Limpar novamente para duplicar os pontos","Ignorar o prazo da missão"])
 			else:
 				accepted.clear()
 				for entry in ranked:
-					if entry.nearby == ranked[0].nearby: accepted.append(options.size())
-					options.append("Bueiro %d · %d resíduos próximos" % [int(entry.node.drain_id.get_slice("_",2))+1,entry.nearby])
+					if entry.exposure == ranked[0].exposure: accepted.append(options.size())
+					options.append("Bueiro %d · %d resíduos próximos · Exposição %d" % [int(entry.node.drain_id.get_slice("_",2))+1,entry.nearby,entry.exposure])
 		"ubatiba":
 			title = "Ler o solo antes de agir"
 			var nearest: Node3D
