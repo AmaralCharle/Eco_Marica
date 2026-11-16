@@ -32,6 +32,10 @@ HUD e telas redesenhadas em 16/11/2026: objetivos compactos, tempo/pontos separa
 
 Polimento de 16/11/2026: quatro personagens com corpo contínuo, rostos/olhos/cabelos revistos, roupas e equipamentos próprios. Lucas foi validado antes da aplicação aos demais. Controlador, câmera, colisão e regras preservados. Estrutura opcional para GLB em `docs/MODELOS_GLB.md`; resultados e limites em `docs/PERSONAGENS_2026_11_16.md`.
 
+## Direção de arte por referências
+
+Nova passagem visual de 16/11/2026, inspirada nas seis referências já enviadas: prioridade para Centro, Ubatiba e Ponta Negra, com fachadas/vegetação mais ricas, relevo de fundo, luz/atmosfera e água revistos. Preserva as mecânicas e acessos. Adaptações, desempenho e assets futuros em `docs/DIRECAO_ARTE_REFERENCIAS_2026_11_16.md`.
+
 ## Áudio, câmera e gráficos
 
 Atualização de cenários de 16/11/2026: materiais de solo/pavimentação/madeira, vegetação, água, luz e atmosfera revistos nas cinco fases; detalhes adicionais no Centro, Ubatiba e Ponta Negra. Não muda as metas ou as posições dos objetivos. Ver `docs/CENARIOS_2026_11_16.md` para arquivos, evidências e limites.
@@ -75,7 +79,7 @@ Execute na raiz do projeto:
 .\tests\run_all.ps1 -Godot 'C:\caminho\Godot_v4.7.2-stable_win64_console.exe'
 ```
 
-Validação atual: 661 verificações em 18 suítes, sem falhas. Inclui áudio, apresentação, cenário, preservação física da camada decorativa e interface das cinco fases em 1280 × 720. Medições e limites em `docs/CENARIOS_2026_11_16.md`; resumo em `tests/artifacts/validation_summary.json`. O executor confere código de saída e mensagens do motor, salvando logs em `tests/artifacts/test_*.log`. Testes usam saves próprios e não concluem a campanha real do jogador.
+Validação atual: 727 verificações em 19 suítes, sem falhas. Inclui áudio, apresentação, cenário, preservação física da camada decorativa e interface das cinco fases em 1280 × 720. Medições e limites em `docs/CENARIOS_2026_11_16.md`; resumo em `tests/artifacts/validation_summary.json`. O executor confere código de saída e mensagens do motor, salvando logs em `tests/artifacts/test_*.log`. Testes usam saves próprios e não concluem a campanha real do jogador.
 
 Há testes de física real e de estados com reposicionamento controlado; não substituem uma partida humana completa nem avaliação da dificuldade. Capturas `capture_ubatiba.gd`, `capture_ponta_negra.gd` e demais scripts geram estados simulados para inspeção gráfica. Não são evidência de teste externo.
 

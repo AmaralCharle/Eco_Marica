@@ -12,8 +12,8 @@ func _ready() -> void:
 	for i in ring.size():
 		var a := ring[i]
 		var b := ring[(i + 1) % ring.size()]
-		var bottom_a := Vector3(a.x * 0.65, 0.03, a.z * 0.85)
-		var bottom_b := Vector3(b.x * 0.65, 0.03, b.z * 0.85)
+		var bottom_a := Vector3(a.x * 0.65, -0.07, a.z * 0.85)
+		var bottom_b := Vector3(b.x * 0.65, -0.07, b.z * 0.85)
 		for vertex: Vector3 in [a, b, bottom_a, b, bottom_b, bottom_a, a, Vector3(0, 0.4, 0), b]:
 			hull.add_vertex(vertex)
 	hull.generate_normals()

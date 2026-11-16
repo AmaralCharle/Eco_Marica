@@ -102,3 +102,7 @@ Limitações preservadas: tempo e reposicionamento controlados em parte dos test
 ## Personagens — 16/11/2026
 
 661 verificações em 18 suítes, sem falhas. A nova `test_character_visuals.gd` acrescenta 57 verificações da geometria, fronteira GLB sintética, animações mapeadas, fallback, qualidade e quatro passageiros. A suíte anterior mantém seus 49 casos de perfil e física dos quatro personagens. Revisão gráfica e limites em `PERSONAGENS_2026_11_16.md`; benchmark de vistas controladas Alto/MSAA 8×: 66,12–82,97 FPS médios em 1280 × 720. Não representa uma partida humana completa.
+
+## Direção de arte por referências — 16/11/2026
+
+727 verificações em 19 suítes, sem falhas. `test_art_direction.gd` acrescenta 66 casos de preservação de áreas de interação e identificação, vegetação, céu, riacho/canal e atualização contínua da luz na tempestade. Testes físicos e de campanha anteriores mantidos. Capturas e benchmark Alto/1280 × 720 em `art_reference_*` e `art_detail_*`; relatório e limites em `DIRECAO_ARTE_REFERENCIAS_2026_11_16.md`. Vistas controladas e poses de revisão não substituem partida humana ou teste externo.

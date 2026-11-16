@@ -4,6 +4,8 @@ Atualização de cenários em 16/11/2026: `environment_meshes.gd` gera copas, fo
 
 Revisão dos personagens em 16/11/2026: malhas contínuas e detalhes em `character_geometry.gd`/`character_appearance.gd`, sem modelos externos ou texturas baixadas. Código e geometria originais com assistência Codex. `character_model_adapter.gd` prepara montagem opcional de GLBs; não inclui rig ou animações externos. Contrato e limitações em `MODELOS_GLB.md` e `PERSONAGENS_2026_11_16.md`.
 
+Direção de arte por referências em 16/11/2026: `reference_art_pass.gd` e `art_direction_meshes.gd` acrescentam decoração e relevo originais com assistência Codex; `water.gdshader` e composição da luz/vegetação foram revistos. As seis imagens do autor foram inspiração e não foram copiadas ou distribuídas. Não houve download de novos assets. Detalhes em `DIRECAO_ARTE_REFERENCIAS_2026_11_16.md`.
+
 Recursos implementados neste projeto com auxílio de OpenAI Codex. Não foram baixados modelos, texturas, músicas ou efeitos de terceiros nesta etapa. O autor do projeto deve revisar a atribuição de autoria e a declaração de uso de IA conforme as regras da disciplina. Não se afirma exclusividade ou licença de terceiros para material produzido por IA.
 
 | Recurso | Autor/origem | Fonte reproduzível | Licença/condições | Uso |

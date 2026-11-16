@@ -73,6 +73,8 @@ As malhas e posições efetivas estão nos scripts de cenário e nos testes/capt
 
 ## 11. Arte interface e áudio
 
+Direção de arte por referências atualizada em 16/11/2026: copas, vegetação, fachadas, relevo de fundo, atmosfera e água, com prioridade Centro/Ubatiba/Ponta Negra e coerência nas cinco fases. Recursos procedurais originais; as imagens fornecidas não foram incorporadas aos assets. Colisões e objetivos preservados. Detalhes e limitações em `DIRECAO_ARTE_REFERENCIAS_2026_11_16.md`.
+
 Personagens revistos em 16/11/2026: corpo contínuo, rosto e olhos com piscar, cabelo, roupas e equipamentos próprios para as quatro identidades. Validação inicial com Lucas; aplicação posterior aos demais. Controlador/cápsula/câmera preservados. Modelos procedurais, com montagem opcional de GLB e mapa de animações em estrutura separada. Qualidade Alta ampliada para MSAA 8×/sombras 4096. Ver `PERSONAGENS_2026_11_16.md` e `MODELOS_GLB.md` para evidências e limites.
 
 Interface revisada em 16/11/2026: HUD modular nas bordas, cartões das cinco localidades, prévias de personagens maiores e telas de pausa/resultados/conclusão com hierarquia comum. Preserva regras e todos os indicadores. Detalhes em `INTERFACE_2026_11_16.md`; teste de interface e capturas a 1280 × 720.

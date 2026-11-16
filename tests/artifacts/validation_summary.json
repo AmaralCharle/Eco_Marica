@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-11-16T11:02:46.0879489-03:00",
-  "checks": 661,
+  "generated_at": "2026-11-16T12:38:51.6353176-03:00",
+  "checks": 727,
   "failed_suites": 0,
   "suites": [
     {
@@ -8,6 +8,14 @@
       "checks": 32,
       "exit_code": 0,
       "log": "C:\\Users\\CHARLE\\Documents\\Eco-Maricá\\eco-marica\\tests\\artifacts\\test_aracatiba.log",
+      "has_errors": false,
+      "warnings": true
+    },
+    {
+      "name": "test_art_direction.gd",
+      "checks": 66,
+      "exit_code": 0,
+      "log": "C:\\Users\\CHARLE\\Documents\\Eco-Maricá\\eco-marica\\tests\\artifacts\\test_art_direction.log",
       "has_errors": false,
       "warnings": true
     },
@@ -81,7 +89,7 @@
       "exit_code": 0,
       "log": "C:\\Users\\CHARLE\\Documents\\Eco-Maricá\\eco-marica\\tests\\artifacts\\test_foundation.log",
       "has_errors": false,
-      "warnings": true
+      "warnings": false
     },
     {
       "name": "test_interface.gd",

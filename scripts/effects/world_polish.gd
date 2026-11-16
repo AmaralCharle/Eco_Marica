@@ -10,6 +10,9 @@ const WATER = preload("res://assets/materials/water.gdshader")
 const LEAVES = preload("res://assets/materials/foliage.gdshader")
 const SURFACE = preload("res://assets/materials/environment_surface.gdshader")
 const Meshes = preload("res://scripts/effects/environment_meshes.gd")
+const ArtMeshes = preload("res://scripts/effects/art_direction_meshes.gd")
+var grass_capacity: int = 780
+var sky_material: ProceduralSkyMaterial
 var foliage_materials: Array[ShaderMaterial] = []
 var wet_materials: Array[ShaderMaterial] = []
 var storm_last: float = -1.0
@@ -25,6 +28,7 @@ func _ready() -> void:
 	upgrade_existing()
 	landscape()
 	configure_light()
+	preload("res://scripts/effects/reference_art_pass.gd").new().apply(self)
 	batch_decoration(self)
 	batch_decoration(extra)
 	batch_world()
@@ -38,6 +42,14 @@ func surface(color: Color) -> StandardMaterial3D:
 		var mat := StandardMaterial3D.new()
 		mat.albedo_color = color
 		mat.roughness = 0.85
+		materials[key] = mat
+	return materials[key]
+
+func terrain(color: Color) -> StandardMaterial3D:
+	var key := "terrain_"+color.to_html()
+	if not materials.has(key):
+		var mat: StandardMaterial3D = surface(color).duplicate()
+		mat.vertex_color_use_as_albedo = true
 		materials[key] = mat
 	return materials[key]
 
@@ -127,22 +139,32 @@ func upgrade_existing() -> void:
 			instance.scale = size
 			instance.material_override = foliage(Color("56865a")) if kind == "Restinga" else original_material
 			if kind == "SoftHill":
-				instance.mesh = Meshes.landform()
+				instance.mesh = ArtMeshes.ridge(int(absf(node.position.z)))
+				instance.position.y = -1.5
+				instance.material_override = terrain(Color("5c884e"))
 				instance.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
 			if kind == "Cloud":
 				instance.mesh = cloud_mesh()
 				instance.scale = Vector3(size.x, size.y * 3.4, size.z * 0.75)
 				instance.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
 		elif kind in ["Lagoon", "Sea", "Stream", "Channel"]:
+			var sheet := PlaneMesh.new()
+			sheet.size = Vector2(size.x,size.z)
+			sheet.subdivide_width = 24
+			sheet.subdivide_depth = 48
+			instance.mesh = sheet
+			instance.position.y = -0.035-node.position.y if kind in ["Stream","Channel"] else size.y*0.5
+			instance.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
 			var local_water: ShaderMaterial = water.duplicate()
 			local_water.set_shader_parameter("half_width", size.x * 0.5)
 			local_water.set_shader_parameter("center_x", node.position.x)
 			local_water.set_shader_parameter("flow_speed", 0.55 if kind in ["Sea", "Stream"] else 0.30)
-			local_water.set_shader_parameter("deep_color", Color("24566a") if kind == "Sea" else Color("276d68"))
-			local_water.set_shader_parameter("shallow_color", Color("64aa9a") if kind != "Sea" else Color("4b9eab"))
+			local_water.set_shader_parameter("deep_color", Color("1c627b") if kind == "Sea" else Color("216f71"))
+			local_water.set_shader_parameter("shallow_color", Color("69b8a4") if kind != "Sea" else Color("63b7c1"))
 			instance.material_override = local_water
 		elif kind in ["Grass", "Ground", "Land", "WestBank", "FarBank"]:
-			instance.material_override = textured(0, Color("829d65") if mission.mission_id != "centro" else Color("7d8f68"))
+			if mission.mission_id == "ubatiba" and kind == "Ground": instance.mesh = ArtMeshes.rural_ground()
+			instance.material_override = textured(0, Color("6b934c") if mission.mission_id != "centro" else Color("729051"))
 		elif kind in ["Walkway", "Sidewalk", "AccessRamp"]:
 			instance.material_override = textured(3, Color("c6bda2") if kind == "Walkway" else Color("bcb9aa"))
 		elif kind in ["Sand", "WetSand", "Trail", "Street", "CycleLane", "Building"]:
@@ -164,41 +186,46 @@ func upgrade_existing() -> void:
 		elif kind.begins_with("Boundary") or kind in ["NavigationLimit", "ShoreLimit", "DuneLimit"]:
 			# Mantém a barreira física, apresenta borda natural no lugar da parede lisa.
 			instance.hide()
-	if mission.mission_id != "centro":
-		var environment: Environment = mission.get_node("WorldEnvironment").environment
-		var sky := Sky.new()
-		var sky_mat := ProceduralSkyMaterial.new()
-		sky_mat.sky_top_color = Color("318dd0")
-		sky_mat.sky_horizon_color = Color("b8dfe1")
-		sky_mat.ground_horizon_color = Color("b8dfe1")
-		sky_mat.ground_bottom_color = Color("739979")
-		sky.sky_material = sky_mat
-		environment.sky = sky
-		environment.background_mode = Environment.BG_SKY
-		environment.ambient_light_source = Environment.AMBIENT_SOURCE_COLOR
-		environment.ambient_light_color = Color("c7dfe8")
-		environment.ambient_light_energy = 0.48
-	else:
-		var environment: Environment = mission.get_node("WorldEnvironment").environment
-		environment.ambient_light_source = Environment.AMBIENT_SOURCE_COLOR
-		environment.ambient_light_color = Color("c3d5df")
+	configure_sky()
+
+func configure_sky() -> void:
+	var environment: Environment = mission.get_node("WorldEnvironment").environment
+	var sky := Sky.new()
+	sky_material = ProceduralSkyMaterial.new()
+	sky_material.sky_top_color = Color("2e86c4")
+	sky_material.sky_horizon_color = Color("b1dcd9")
+	sky_material.ground_horizon_color = Color("b1dcd9")
+	sky_material.ground_bottom_color = Color("739979")
+	sky.sky_material = sky_material
+	environment.sky = sky
+	environment.background_mode = Environment.BG_SKY
+	environment.ambient_light_source = Environment.AMBIENT_SOURCE_COLOR
+	environment.ambient_light_color = Color("c7dfe8")
 
 func palm_fronds() -> ArrayMesh:
 	return Meshes.palm_fronds()
 
 func tree(pos: Vector3, seed_index: int = 0) -> void:
-	var height: float = 2.6 + (seed_index % 4) * 0.25
+	var height: float = 3.45 + (seed_index % 4) * 0.27
 	var trunk := cylinder(self, pos + Vector3(0, height * 0.5, 0), height, 0.15, Color("85603f"))
 	trunk.material_override = textured(6, Color("92734f"))
-	var colors: Array[Color] = [Color("498252"), Color("659653"), Color("3e7964"), Color("6f914c")]
-	for i in 3:
+	var colors: Array[Color] = [Color("397b40"), Color("5a973d"), Color("377e51"), Color("6b9c43")]
+	var distant := absf(pos.x) > 15 or pos.z < -15
+	trunk.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF if distant else GeometryInstance3D.SHADOW_CASTING_SETTING_ON
+	for i in 5:
 		var angle: float = i * 2.4 + seed_index
-		var branch := cylinder(self, pos + Vector3(cos(angle) * 0.24, height * 0.75, sin(angle) * 0.24), 0.9, 0.065, Color("85603f"))
-		branch.rotation = Vector3(cos(angle) * 0.7, 0, sin(angle) * 0.7)
-		var crown := mesh_at(self, Meshes.canopy(seed_index + i), pos + Vector3(cos(angle) * 0.52, height + 0.15 + (i % 2) * 0.4, sin(angle) * 0.52), Color.WHITE)
-		crown.scale = Vector3(2.2 + (seed_index % 2) * 0.35, 1.7, 2.05)
+		var start := pos+Vector3.UP*height*0.62
+		var tip := pos+Vector3(cos(angle)*0.78,height*0.98,sin(angle)*0.78)
+		var branch := cylinder(self,(start+tip)*0.5,start.distance_to(tip),0.075,Color("85603f"))
+		branch.basis = Basis(Quaternion(Vector3.UP,(tip-start).normalized()))
+		var crown := mesh_at(self, Meshes.canopy(seed_index + i), pos + Vector3(cos(angle) * 0.70, height + 0.10 + (i % 3) * 0.38, sin(angle) * 0.70), Color.WHITE)
+		crown.scale = Vector3(2.5 + (seed_index % 2) * 0.35, 2.15, 2.5)
+		if distant: crown.scale *= 1.15
 		crown.rotation.y = angle
 		crown.material_override = foliage(colors[(i + seed_index) % 4])
+		if distant or i >= 3:
+			crown.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
+			branch.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
 
 func garden(pos: Vector3, index: int) -> void:
 	var shrub := mesh_at(self, Meshes.canopy(index), pos + Vector3.UP * 0.28, Color.WHITE)
@@ -306,11 +333,11 @@ func pavement() -> void:
 
 func pier_details() -> void:
 	# Continuação somente visual do canal; os limites físicos e a zona de perdas ficam intactos.
-	var continuation := box(self, Vector3(0, -0.18, -34), Vector3(16, 0.02, 28), Color.WHITE)
+	var continuation := box(self, Vector3(0, -0.035, -45), Vector3(16, 0.004, 50), Color.WHITE)
 	var water := ShaderMaterial.new()
 	water.shader = WATER
-	water.set_shader_parameter("deep_color", Color("276d68"))
-	water.set_shader_parameter("shallow_color", Color("64aa9a"))
+	water.set_shader_parameter("deep_color", Color("216f71"))
+	water.set_shader_parameter("shallow_color", Color("69b8a4"))
 	water.set_shader_parameter("flow_speed", 0.30)
 	continuation.material_override = water
 	continuation.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
@@ -342,13 +369,15 @@ func build_grass() -> void:
 	var multi := MultiMesh.new()
 	multi.transform_format = MultiMesh.TRANSFORM_3D
 	multi.mesh = Meshes.tuft()
-	multi.instance_count = 780
+	grass_capacity = {"ubatiba":2100,"ponta_negra":1700,"centro":360}.get(mission.mission_id,1400)
+	multi.use_colors = true
+	multi.instance_count = grass_capacity
 	var rng := RandomNumberGenerator.new()
 	rng.seed = 12973
 	var plot_positions: Array[Vector3] = []
 	for point in get_tree().get_nodes_in_group("planting_plots"):
 		if mission.is_ancestor_of(point): plot_positions.append(point.position)
-	for i in 780:
+	for i in grass_capacity:
 		var side: float = -1 if i % 2 == 0 else 1
 		var x: float = side * rng.randf_range(8.7, 13.5)
 		if mission.mission_id == "itaipuacu":
@@ -365,10 +394,11 @@ func build_grass() -> void:
 				x = side * 10.7
 		var basis := Basis(Vector3.UP, rng.randf() * TAU).scaled(Vector3.ONE * rng.randf_range(0.65, 1.35))
 		multi.set_instance_transform(i, Transform3D(basis, Vector3(x, 0.03, z)))
+		multi.set_instance_color(i,Color.WHITE.darkened(rng.randf_range(0,0.18)))
 	grass.multimesh = multi
 	var mat := ShaderMaterial.new()
 	mat.shader = LEAVES
-	mat.set_shader_parameter("leaf_color", Color("659a50"))
+	mat.set_shader_parameter("leaf_color", Color("51823c"))
 	grass.material_override = mat
 	grass.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
 	add_child(grass)
@@ -380,7 +410,7 @@ func apply_quality() -> void:
 	sun.directional_shadow_max_distance = 45.0 if quality == 1 else 65.0
 	sun.directional_shadow_mode = DirectionalLight3D.SHADOW_PARALLEL_4_SPLITS if quality == 2 else DirectionalLight3D.SHADOW_PARALLEL_2_SPLITS
 	extra.visible = quality == 2
-	grass.multimesh.visible_instance_count = [220, 500, 780][quality]
+	grass.multimesh.visible_instance_count = int(grass_capacity*[0.22,0.55,1.0][quality])
 	get_viewport().msaa_3d = [Viewport.MSAA_DISABLED, Viewport.MSAA_2X, Viewport.MSAA_8X][quality]
 
 func cloud_mesh() -> ArrayMesh:
@@ -409,16 +439,17 @@ func configure_light() -> void:
 	sun.shadow_normal_bias = 0.8
 	var env: Environment = mission.get_node("WorldEnvironment").environment
 	env.ambient_light_color = Color("bbd2db")
-	env.ambient_light_energy = 0.43 if id != "centro" else 0.6
+	env.ambient_light_energy = 0.34 if id != "centro" else 0.42
 	env.fog_enabled = true
 	env.fog_density = 0.0028 if id != "centro" else 0.0038
 	env.fog_light_color = Color("9dbab5") if id != "centro" else Color("a8b5bc")
 	env.fog_sky_affect = 0.28
 
 func hill(pos: Vector3, size: Vector3, color: Color, index: int) -> void:
-	var item := mesh_at(self, Meshes.landform(), pos + Vector3.UP * size.y * 0.28, color)
+	var item := mesh_at(self, ArtMeshes.ridge(index), pos, color)
 	item.scale = size
-	item.rotation.y = index * 0.7
+	item.rotation.y = sin(index*1.7)*0.2
+	item.material_override = terrain(color)
 	item.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
 
 func rock(pos: Vector3, size: Vector3, index: int) -> void:
@@ -551,10 +582,18 @@ func update_recovery() -> void:
 func _process(_delta: float) -> void:
 	if mission.mission_id != "centro": return
 	var intensity: float = world.storm_intensity
+	var env: Environment = mission.get_node("WorldEnvironment").environment
+	# O mundo também escreve a luz a cada tick; a apresentação mantém o acabamento contínuo.
+	env.ambient_light_energy = lerpf(0.34,0.42,intensity)
+	var sun: DirectionalLight3D = mission.get_node("Sun")
+	sun.light_energy = lerpf(1.30,0.88,intensity)
+	sun.light_color = Color("fff0d9").lerp(Color("cfdae2"),intensity)
 	if absf(intensity - storm_last) < 0.01: return
 	storm_last = intensity
-	var env: Environment = mission.get_node("WorldEnvironment").environment
 	env.fog_density = lerpf(0.0038, 0.0075, intensity)
 	env.fog_light_color = Color("afc2c7").lerp(Color("8c9da8"), intensity)
+	sky_material.sky_top_color = Color("3b93ce").lerp(Color("4d627b"),intensity)
+	sky_material.sky_horizon_color = Color("c6ded6").lerp(Color("9cabb4"),intensity)
+	sky_material.ground_horizon_color = sky_material.sky_horizon_color
 	for mat in wet_materials:
 		mat.set_shader_parameter("wetness", intensity)
