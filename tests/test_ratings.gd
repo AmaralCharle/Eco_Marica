@@ -49,5 +49,24 @@ func run() -> void:
 	write(path,{"version":2,"unlocked_level":1,"best_stars":{"aracatiba":99},"attempts":{"aracatiba":-2},"optional_completed":{"aracatiba":1},"history":{"aracatiba":{"wins":-1}}})
 	loaded = Progress.new(path)
 	check(loaded.best_stars.get("aracatiba",0) == 0 and loaded.attempts.get("aracatiba",0) == 0 and not loaded.optional_completed.has("aracatiba"),"Extensões inválidas são rejeitadas")
+	write(path,{"version":2,"unlocked_level":1})
+	var level = load("res://scenes/levels/aracatiba.tscn").instantiate()
+	level.progress_path = path
+	level.profile_path = "res://tests/artifacts/ratings_profile.json"
+	root.add_child(level)
+	current_scene = level
+	level.set_physics_process(false)
+	level.show_instructions()
+	level.start_mission()
+	check(level.progress.attempts.aracatiba == 1,"Início registra uma tentativa")
+	for i in 4:
+		level.set_state(level.State.PAUSADO)
+		level.set_state(level.State.JOGANDO)
+	check(level.progress.attempts.aracatiba == 1,"Pausa e retomada não duplicam tentativas")
+	level.finish(false,"Fim de teste")
+	level.finish(false,"Repetição inválida")
+	check(level.progress.history.aracatiba.defeats == 1 and level.progress.unlocked_level == 1,"Resultado idempotente não libera fase na derrota")
+	level.queue_free()
+	await process_frame
 	print("RESULT: %d verificações, %d falhas" % [checks,failures])
 	quit(0 if failures == 0 else 1)

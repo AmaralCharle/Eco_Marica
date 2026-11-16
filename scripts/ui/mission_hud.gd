@@ -143,7 +143,8 @@ func update_screen() -> void:
 			else:
 				label(content, "Explore uma orla fictícia inspirada em Maricá. Recolha e classifique os materiais para cuidar desse espaço.")
 				label(content, "• Recolha e destine os 15 resíduos em até 300 segundos.\n• Acerte pelo menos 12 destinos; o quarto erro encerra a missão.\n• Leve um item por vez até uma lixeira e use E.\n• Na missão, o descarte errado consome o item e conta como erro.\n• Papel: coletor azul. Plástico: coletor vermelho. Leia os nomes.")
-			label(content, "WASD mover • Mouse câmera • Shift correr • Espaço pular\nE coletar/destinar • Esc pausar. O tempo começa ao clicar abaixo.", 17)
+			label(content, "WASD mover • Mouse câmera • Shift correr • Espaço pular\nE coletar/destinar • Esc pausar • Q decisões opcionais. O tempo começa ao clicar abaixo.", 17)
+			muted(content,rating_rules(),13)
 			button("Começar missão", mission.start_mission,false,null,true)
 			button("Voltar ao menu", mission.go_menu)
 		Mission.State.FINALIZADO:
@@ -197,6 +198,10 @@ func muted(parent: Node, value: String, size: int = 14) -> Label:
 	result.add_theme_color_override("font_color",Design.MUTED)
 	return result
 
+func rating_rules() -> String:
+	var limit: int = preload("res://scripts/core/performance_rating.gd").TWO_STAR_ERRORS[mission.mission_id]
+	return "Estrelas: 1 ao concluir · 2 com até %d erros%s · 3 sem erros%s. Sem nota extra por velocidade." % [limit," e 2 perdas" if mission.mission_id in ["itaipuacu","ponta_negra"] else ""," ou perdas" if mission.mission_id in ["itaipuacu","ponta_negra"] else ""]
+
 func build_menu() -> void:
 	var brand := HBoxContainer.new()
 	brand.add_theme_constant_override("separation",16)
@@ -242,7 +247,7 @@ func build_menu() -> void:
 	journey.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	journey.add_theme_constant_override("separation",8)
 	body.add_child(journey)
-	muted(journey,"SUA JORNADA  ·  %d/5 MISSÕES CONCLUÍDAS" % mission.progress.completed_levels.size(),12)
+	muted(journey,"SUA JORNADA  ·  %d/5 MISSÕES  ·  %d/15 ESTRELAS" % [mission.progress.completed_levels.size(),mission.progress.stars_total()],12)
 	for id: String in mission.Definitions.IDS:
 		var card := preload("res://scripts/ui/phase_card.gd").new()
 		card.spec = mission.Definitions.get_mission(id)
@@ -311,6 +316,12 @@ func build_results() -> void:
 		label(content,"Coletados %d · Destinos corretos %d · Erros %d" % [session.collected,session.correct,session.errors],17)
 		if mission.mission_id in ["itaipuacu","ponta_negra"]: label(content,"Perdas %d/5 · Meta: 20 destinos corretos" % session.lost_count,16)
 		if mission.mission_id == "centro": label(content,"Bueiros limpos %d/3 · Meta: 15 destinos corretos" % session.drains_cleaned,16)
+	var optional: bool = mission.evolution.completed.has(mission.mission_id)
+	var attempt: int = mission.progress.attempts.get(mission.mission_id,0)
+	var count: int = session.correct+session.errors
+	var accuracy: String = "%d%%" % roundi(session.correct*100.0/count) if count > 0 else "—"
+	var statistics: String = "Leituras opcionais %d · Revisões %d" % [mission.evolution.decisions,mission.evolution.decision_errors] if mission.mission_id == "ubatiba" else "Precisão %s · Melhor sequência %d" % [accuracy,session.best_streak]
+	muted(content,statistics+" · Tentativa %d\nOpcional desta tentativa: %s" % [attempt,"concluído" if optional else "não concluído"],13)
 	if won:
 		muted(content,"Bônus de missão +100 · "+("Campanha concluída" if mission.mission_id == "ponta_negra" else "Próxima área: "+mission.definition().next_name),15)
 		muted(content,"Recuperação visual simbólica. Os índices registram ações no jogo, não impacto ambiental real.",13)
@@ -337,7 +348,7 @@ func build_finale() -> void:
 	content.add_child(map)
 	var totals: Dictionary = mission.progress.totals()
 	metric_grid([["MELHORES MISSÕES",mission.progress.total_score()],["DESTINOS CORRETOS",totals.correct],["MUDAS PLANTADAS",totals.planted]])
-	label(content,"Proteções de solo %d · Bueiros limpos %d\nGuardião: %s" % [totals.protected,totals.drains,Catalog.get_character(mission.profile.selected_id).name],16)
+	label(content,"Proteções de solo %d · Bueiros limpos %d\nGuardião: %s · Estrelas %d/15 · Opcionais %d/5 · Tentativas %d" % [totals.protected,totals.drains,Catalog.get_character(mission.profile.selected_id).name,mission.progress.stars_total(),mission.progress.optional_completed.size(),mission.progress.attempts_total()],15)
 	muted(content,"Obrigado por cuidar da cidade. Coleta local, restauração orientada e prevenção exigem ações contínuas. O jogo não comprova aprendizagem nem elimina riscos reais.",15)
 	muted(content,"Mapa esquemático. Estatísticas são ações simuladas."+(" Fases antigas não possuem estatísticas detalhadas." if mission.progress.legacy_stats_missing else ""),13)
 	if not mission.save_ok: label(content,"Não foi possível gravar a conclusão; ela vale nesta sessão.",15)

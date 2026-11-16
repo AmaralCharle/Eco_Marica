@@ -15,7 +15,7 @@ Branch: `upgrade-visual-4`. Base aprovada: `3fc476c` (tag `fase-1-final`, public
 | 09 Áudio/efeitos | validada | Complementos originais, volume e sobreposição |
 | 10 Decisões ambientais | validada | Composição, vento, prioridade de bueiros, solo e rota |
 | 11 Estrelas/opcionais | validada | Critérios numéricos, sem bloquear progressão |
-| 12 Estatísticas/resultados | pendente | Tentativas e melhores avaliações, migração compatível |
+| 12 Estatísticas/resultados | validada | Tentativas e melhores avaliações, migração compatível |
 | 13 Perfis/otimização | pendente | Baixo/Médio/Alto; cargas e memória |
 | 14 Regressão completa | pendente | Cinco fases, saves próprios; revisão gráfica e limites |
 | 15 GDD/rastreabilidade/créditos | pendente | Documentar somente o implementado e validado |
@@ -61,3 +61,7 @@ Decisões por Q com tempo pausado e erros separados da missão principal. Araça
 ### TASK 11 — validada
 
 Estrelas: vitória garante 1; 2 com até 2 erros e até 2 perdas (Ubatiba até 1 erro); 3 sem erros/perdas. Tempo adicional e decisões opcionais não reduzem nota; estrelas não bloqueiam fases. Melhor nota independente do score; objetivos opcionais persistidos. Schema permanece versão 2 com campos aditivos. Arquivos: performance_rating.gd, mission_progress.gd, aracatiba.gd, recycling_session.gd, phase_card.gd, mission_hud.gd. Testes: ratings 33, migração 8, campanha 18; fixture com leitor antigo comprova leitura do save no rollback.
+
+### TASK 12 — validada
+
+Resultados mostram nota por estrelas, precisão de reciclagem (quando há descartes), melhor sequência, tentativas e opcional da rodada; Ubatiba distingue leituras/revisões opcionais. Campanha mostra estrelas de 15, opcionais de 5 e tentativas acumuladas. Instruções explicitam limites numéricos e ausência de nota por velocidade. Tentativas contam no início, pausas não duplicam e resultados são idempotentes. Testes ratings 36, interface 226, resoluções 110, campanha 18 sem falhas. Arquivos: mission_hud.gd, expansion_hud.gd e test_ratings.gd; dados já adicionados na TASK 11.

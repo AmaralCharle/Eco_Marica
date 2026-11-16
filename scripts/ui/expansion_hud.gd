@@ -25,6 +25,7 @@ func update_screen() -> void:
 		label(content, "Caminhe até o píer, use E no barco e navegue para coletar.", 20)
 		label(content, "• Destine corretamente 20 resíduos em 360s.\n• No barco: W/S aceleram e freiam; A/D viram gradualmente.\n• E coleta na água; capacidade máxima de cinco itens.\n• Retorne devagar ao píer e use E para desembarcar.\n• Em terra, E classifica um item de cada vez; o próximo vem da carga.\n• Quinta saída de resíduo ou tempo zero encerra a missão.", 18)
 		label(content, "Erros de classificação permitem corrigir. Até a quarta perda há reposição controlada. Navegação e água são simplificadas; não são instruções de operação de embarcação real.", 17)
+	muted(content,"Q abre decisões opcionais com tempo pausado. "+rating_rules(),13)
 	button("Começar missão", mission.start_mission,false,null,true)
 	button("Voltar ao menu", mission.go_menu)
 	animate_screen()
