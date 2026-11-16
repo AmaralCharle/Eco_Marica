@@ -87,6 +87,12 @@ func run() -> void:
 		check(visual.eyes[0].scale.y < 0.2,"Piscar só afeta olhos: "+id)
 		visual.set_face_animation(false)
 		check(visual.eyes[0].scale.y == 1.0,"Prévia estática mantém olhos abertos: "+id)
+		check(visual.forearms.size() == 2,"Dois cotovelos visuais: "+id)
+		visual.set_face_animation(true)
+		for state: String in ["idle","walk","run","collect","plant","interact","embark","disembark"]:
+			visual.set_animation(state)
+			visual._process(0.1)
+			check(visual.forearms[0].rotation.is_finite() and visual.forearms[0].rotation.x >= 0.0 and visual.forearms[0].rotation.x < 1.0,"Articulação estável "+id+" / "+state)
 	# A montagem importada altera somente o visual, mantendo pivôs para o controlador.
 	visual.external_animations = {"idle":"Wait","walk":"Stride","collect":"Harvest"}
 	var adjustment := Transform3D(Basis(Vector3.UP,PI).scaled(Vector3.ONE*0.8),Vector3(0,0.1,0))

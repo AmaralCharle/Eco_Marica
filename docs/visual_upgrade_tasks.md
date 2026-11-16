@@ -11,7 +11,7 @@ Branch: `upgrade-visual-4`. Base aprovada: `3fc476c` (tag `fase-1-final`, public
 | 05 Ubatiba | validada | Ambiente rural e recuperação simbólica |
 | 06 Ponta Negra | validada | Água, barco e margens |
 | 07 Araçatiba/Itaipuaçu | validada | Coerência entre as cinco fases |
-| 08 Personagens/animações | pendente | Um modelo primeiro; articulação visual e estados existentes |
+| 08 Personagens/animações | validada | Um modelo primeiro; articulação visual e estados existentes |
 | 09 Áudio/efeitos | pendente | Complementos originais, volume e sobreposição |
 | 10 Decisões ambientais | pendente | Composição, vento, prioridade de bueiros, solo e rota |
 | 11 Estrelas/opcionais | pendente | Critérios numéricos, sem bloquear progressão |
@@ -45,3 +45,7 @@ Ponta Negra: assento, encosto, boias e cintas no barco, espuma junto à água e 
 ### TASK 07 — validada
 
 Araçatiba e Itaipuaçu compartilham os materiais do piloto e novas folhas de palmeira com folíolos curvos, também usadas em samambaias. A malha tem cor/vento graduais e mantém troncos/colisões. Arquivo: environment_meshes.gd. Testes: Araçatiba 32 e Itaipuaçu 47, sem falhas.
+
+### TASK 08 — validada
+
+Lucas recebeu cotovelos primeiro, com 57 verificações e captura de ação/corrida/barco. Depois Marina, Rafael e Bia receberam o mesmo padrão, mantendo pivôs externos e controlador. Estados idle/walk/run/collect/plant/interact/embark/disembark exercitados; suporte GLB preservado. Arquivos: character_appearance.gd e test_character_visuals.gd. Validação final da tarefa: 93 verificações de visual e 49 de personagens sem erros de script.

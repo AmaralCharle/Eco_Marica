@@ -24,6 +24,7 @@ var materials: Dictionary = {}
 var eyes: Array[Node3D] = []
 var blink_clock: float = 0.0
 var rebuilding: bool = false
+var forearms: Array[Node3D] = []
 
 func _ready() -> void:
 	for title: String in ["Torso","Head","Backpack","Details","LeftLeg","RightLeg","LeftArm","RightArm"]:
@@ -43,6 +44,7 @@ func apply_character(id: String) -> void:
 	if parts.is_empty(): return
 	rebuilding = true
 	eyes.clear()
+	forearms.clear()
 	for pivot: Node3D in parts.values():
 		for node in pivot.get_children():
 			pivot.remove_child(node)
@@ -60,6 +62,7 @@ func apply_character(id: String) -> void:
 		"marina": build_marina()
 		"rafael": build_rafael()
 		"bia": build_bia()
+	build_elbows()
 	for pivot: Node3D in parts.values(): Geo.batch(pivot)
 	blink_clock = Catalog.IDS.find(character_id)*0.74
 	rebuilding = false
@@ -110,6 +113,19 @@ func build_body() -> void:
 	box(body,"Zip",Vector3(0,1.1,-0.205),Vector3(0.018,0.41,0.015),cream)
 	box(body,"ZipPull",Vector3(0.007,1.18,-0.22),Vector3(0.027,0.045,0.012),metal)
 	badge(body,Vector3(-0.17,1.245,-0.183),0.55)
+
+func build_elbows() -> void:
+	for title: String in ["LeftArm","RightArm"]:
+		var arm: Node3D = parts[title]
+		var elbow := Node3D.new()
+		elbow.name = "Elbow"
+		elbow.position.y = -0.23
+		elbow.set_meta("dynamic_visual",true)
+		arm.add_child(elbow)
+		for child in arm.get_children():
+			if child is MeshInstance3D and String(child.name) in ["Arm","Hand","Thumb","WatchBand","WatchFace"]: child.reparent(elbow)
+		Geo.batch(elbow)
+		forearms.append(elbow)
 
 func build_face() -> void:
 	var head: Node3D = parts.Head
@@ -287,6 +303,11 @@ func rounded(parent: Node, title: String, pos: Vector3, size: Vector3, surface: 
 
 func _process(delta: float) -> void:
 	if rebuilding or not animate_face or not is_visible_in_tree(): return
+	var bend: float = {"idle":0.08,"walk":0.18,"run":0.48,"jump":0.25,"collect":0.50,"plant":0.64,"interact":0.55,"embark":0.38,"disembark":0.30}.get(animation_state,0.08)
+	for elbow in forearms: elbow.rotation.x = lerpf(elbow.rotation.x,bend,1.0-exp(-12.0*delta))
+	if animation_state in ["collect","plant","interact"]:
+		parts.LeftArm.rotation.x = absf(parts.LeftArm.rotation.x)
+		parts.RightArm.rotation.x = absf(parts.RightArm.rotation.x)
 	blink_clock = fposmod(blink_clock+delta,4.8)
 	var close := sin(clampf((blink_clock-4.58)/0.18,0.0,1.0)*PI) if blink_clock > 4.58 else 0.0
 	for eye in eyes: eye.scale.y = 1.0-close*0.94
