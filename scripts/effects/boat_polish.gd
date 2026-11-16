@@ -2,6 +2,7 @@ extends Node3D
 var boat: CharacterBody3D
 var clock: float = 0.0
 var wake: Array[MeshInstance3D] = []
+var paddles: Node3D
 func _ready() -> void:
 	boat = get_parent()
 	var art = preload("res://scripts/effects/world_polish.gd").new()
@@ -53,6 +54,15 @@ func _ready() -> void:
 	for i in 5:
 		var ripple := art.ellipsoid(self, Vector3(0, -0.075, 1.5 + i * 0.28), Vector3(0.32, 0.025, 0.13), Color("b4e0d3"))
 		wake.append(ripple)
+	var library = preload("res://scripts/effects/asset_library.gd")
+	if library.enabled("ponta_negra"):
+		for mesh: MeshInstance3D in find_children("*","MeshInstance3D",true,false):
+			if not mesh in wake: mesh.hide()
+		for node in boat.get_children():
+			if node is MeshInstance3D: node.hide()
+		var imported: Node3D = library.place(self,"watercraft-kit","boat-row-small",Vector3(0,-0.08,0),Vector3(2.8,0.9,2.6),PI)
+		var found := imported.find_children("*paddles*","Node3D",true,false)
+		if not found.is_empty(): paddles = found[0]
 	art.free()
 
 func _process(delta: float) -> void:
@@ -61,6 +71,7 @@ func _process(delta: float) -> void:
 	clock += delta
 	rotation.z = sin(clock * 1.6) * 0.018
 	position.y = sin(clock * 2) * 0.018
+	if paddles: paddles.rotation.x = sin(clock*3.5)*0.10 if boat.active and absf(boat.speed)>0.6 else 0.0
 	for i in wake.size():
 		wake[i].visible = boat.active and absf(boat.speed) > 0.6
 		wake[i].position.x = sin(clock * 5 + i * 2) * 0.35

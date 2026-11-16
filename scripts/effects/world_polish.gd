@@ -70,11 +70,13 @@ func textured(kind: int, color: Color) -> ShaderMaterial:
 		mat.shader = SURFACE
 		mat.set_shader_parameter("base_color", color)
 		mat.set_shader_parameter("surface_type", kind)
-		if kind == 4 and mission != null and mission.mission_id == "centro" and AssetLibrary.enabled(mission.mission_id):
+		var pbr_name: String = {1:"Ground037",2:"Ground055S",4:"Asphalt001",6:"Wood001"}.get(kind,"")
+		if not pbr_name.is_empty() and mission != null and AssetLibrary.enabled(mission.mission_id):
 			mat.set_shader_parameter("use_pbr",true)
-			mat.set_shader_parameter("pbr_color",load("res://assets/imported/ambientcg/Asphalt001/Asphalt001_1K-JPG_Color.jpg"))
-			mat.set_shader_parameter("pbr_roughness",load("res://assets/imported/ambientcg/Asphalt001/Asphalt001_1K-JPG_Roughness.jpg"))
-			mat.set_shader_parameter("pbr_normal",load("res://assets/imported/ambientcg/Asphalt001/Asphalt001_1K-JPG_NormalGL.jpg"))
+			var pbr_dir := "res://assets/imported/ambientcg/"+pbr_name+"/"+pbr_name+"_1K-JPG_"
+			mat.set_shader_parameter("pbr_color",load(pbr_dir+"Color.jpg"))
+			mat.set_shader_parameter("pbr_roughness",load(pbr_dir+"Roughness.jpg"))
+			mat.set_shader_parameter("pbr_normal",load(pbr_dir+"NormalGL.jpg"))
 		materials[key] = mat
 		if kind == 4:
 			wet_materials.append(mat)
@@ -137,6 +139,11 @@ func upgrade_existing() -> void:
 			continue
 		var size: Vector3 = instance.mesh.size
 		if kind == "Trunk":
+			if AssetLibrary.enabled(mission.mission_id):
+				instance.hide()
+				var variant := "tree_palmDetailedTall" if int(absf(node.position.z))%2 else "tree_palmDetailedShort"
+				AssetLibrary.place(imported,"nature-kit",variant,node.position-Vector3.UP*size.y*0.5,Vector3(3.7,4.8,3.7),node.position.z*0.17)
+				continue
 			var trunk := CylinderMesh.new()
 			trunk.height = size.y
 			trunk.top_radius = size.x * 0.38
@@ -146,6 +153,9 @@ func upgrade_existing() -> void:
 			instance.mesh = trunk
 			instance.material_override = textured(6, Color("94754f"))
 		elif kind == "PalmLeaf":
+			if AssetLibrary.enabled(mission.mission_id):
+				instance.hide()
+				continue
 			instance.mesh = palm_fronds()
 			instance.material_override = foliage(Color("3e7950"))
 		elif kind in ["SoftHill", "Restinga", "Cloud"]:
@@ -162,6 +172,7 @@ func upgrade_existing() -> void:
 				instance.mesh = cloud_mesh()
 				instance.scale = Vector3(size.x, size.y * 3.4, size.z * 0.75)
 				instance.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
+				if AssetLibrary.enabled(mission.mission_id): instance.hide()
 		elif kind in ["Lagoon", "Sea", "Stream", "Channel"]:
 			var sheet := PlaneMesh.new()
 			sheet.size = Vector2(size.x,size.z)
@@ -216,16 +227,20 @@ func configure_sky() -> void:
 	environment.background_mode = Environment.BG_SKY
 	environment.ambient_light_source = Environment.AMBIENT_SOURCE_COLOR
 	environment.ambient_light_color = Color("c7dfe8")
+	if AssetLibrary.enabled(mission.mission_id) and mission.mission_id != "centro":
+		var panorama := PanoramaSkyMaterial.new()
+		panorama.panorama = load("res://assets/imported/polyhaven/kloppenheim_05_puresky_1k.hdr")
+		panorama.energy_multiplier = 0.65
+		sky.sky_material = panorama
+		sky.radiance_size = Sky.RADIANCE_SIZE_128
+		environment.sky_rotation.y = 0.45 if mission.mission_id == "ubatiba" else -0.35
 
 func palm_fronds() -> ArrayMesh:
 	return Meshes.palm_fronds()
 
 func tree(pos: Vector3, seed_index: int = 0) -> void:
 	if AssetLibrary.enabled(mission.mission_id):
-		if absf(pos.x) < 16:
-			AssetLibrary.place(imported,"stylized-nature","CommonTree_3" if seed_index%2 else "CommonTree_5",pos,Vector3(4.0,4.9+(seed_index%4)*0.3,4.0),seed_index*1.37)
-		else:
-			AssetLibrary.place(imported,"nature-kit","tree_detailed" if seed_index%2 else "tree_oak",pos,Vector3(4.0,4.7+(seed_index%4)*0.3,4.0),seed_index*1.37)
+		AssetLibrary.place(imported,"stylized-nature","CommonTree_3" if seed_index%2 else "CommonTree_5",pos,Vector3(4.6,5.2+(seed_index%4)*0.3,4.6),seed_index*1.37)
 		return
 	var height: float = 3.45 + (seed_index % 4) * 0.27
 	var trunk := cylinder(self, pos + Vector3(0, height * 0.5, 0), height, 0.15, Color("85603f"))
@@ -249,6 +264,14 @@ func tree(pos: Vector3, seed_index: int = 0) -> void:
 			branch.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
 
 func garden(pos: Vector3, index: int) -> void:
+	if AssetLibrary.enabled(mission.mission_id):
+		if index%4 == 0:
+			AssetLibrary.place(imported,"stylized-nature","Bush_Common_Flowers",pos,Vector3(1.3,0.8,1.15),index*1.3)
+		else:
+			AssetLibrary.place(imported,"nature-kit","plant_bushDetailed" if index%2 else "plant_bushSmall",pos,Vector3(1.25,0.8,1.15),index*1.3)
+		for i in 3:
+			AssetLibrary.place(imported,"nature-kit","flower_yellowC" if index%2 else "flower_purpleC",pos+Vector3(sin(i*2.4)*0.5,0,cos(i*2.4)*0.4),Vector3.ONE*0.38,index+i)
+		return
 	var shrub := mesh_at(self, Meshes.canopy(index), pos + Vector3.UP * 0.28, Color.WHITE)
 	shrub.scale = Vector3(1.25, 0.70 + (index % 3) * 0.13, 0.95)
 	shrub.rotation.y = index * 1.3
@@ -278,7 +301,7 @@ func landscape() -> void:
 		elif id == "itaipuacu":
 			garden(Vector3(11, 0, z), i)
 			hill(Vector3(17, -0.65, z), Vector3(10, 4, 10), Color("c7b68a"), i)
-			ellipsoid(self, Vector3(-13, -0.02, z), Vector3(1.3, 0.6, 0.9), Color("8d9c92"))
+			rock(Vector3(-13, -0.02, z),Vector3(1.3,0.6,0.9),i)
 		elif id == "centro":
 			var side: float = -1 if i % 2 == 0 else 1
 			var at := Vector3(side * 7.1, 0.12, z)
@@ -289,7 +312,7 @@ func landscape() -> void:
 			for side: float in [-1, 1]:
 				tree(Vector3(side * (13.8 + sin(i * 1.8) * 0.7), 0, z), i)
 				garden(Vector3(side * (10.3 + sin(i * 2.8)), 0, z + 1), i)
-				ellipsoid(self, Vector3(-12, 0.18, z), Vector3(0.9, 0.6, 0.7), Color("9ba79b"))
+				rock(Vector3(-12,0.05,z),Vector3(0.9,0.6,0.7),i)
 		elif id == "ponta_negra":
 			for side: float in [-1, 1]:
 				garden(Vector3(-9 if side < 0 else 16.5, 0, z), i)
@@ -479,6 +502,12 @@ func hill(pos: Vector3, size: Vector3, color: Color, index: int) -> void:
 	item.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
 
 func rock(pos: Vector3, size: Vector3, index: int) -> void:
+	if AssetLibrary.enabled(mission.mission_id):
+		if index%3 == 0:
+			AssetLibrary.place(imported,"stylized-nature","Rock_Medium_1" if index%2 else "Rock_Medium_2",pos,size,index*1.7,true)
+		else:
+			AssetLibrary.place(imported,"nature-kit","rock_largeA" if index%2 else "rock_largeC",pos,size,index*1.7,true)
+		return
 	var item := mesh_at(self, Meshes.canopy(index + 42), pos, Color("929e8c") if index % 2 else Color("7e8e85"))
 	item.scale = size
 	item.rotation = Vector3(index * 0.25, index * 1.7, 0.12)

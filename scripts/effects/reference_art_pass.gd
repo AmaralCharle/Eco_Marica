@@ -41,6 +41,11 @@ func safe(pos: Vector3) -> bool:
 func cluster(pos: Vector3, index: int) -> void:
 	if not safe(pos): return
 	placements.append(pos)
+	if art.AssetLibrary.enabled(art.mission.mission_id):
+		art.garden(pos,index)
+		if index%3 == 0:
+			art.AssetLibrary.place(art.imported,"stylized-nature","Fern_1",pos+Vector3(0.45,0,0.4),Vector3(0.8,0.65,0.8),index)
+		return
 	for i in 3:
 		var shrub: MeshInstance3D = art.mesh_at(art,art.Meshes.canopy(index+i),pos+Vector3(sin(i*2.4)*0.36,0.25+i*0.07,cos(i*2.4)*0.30),Color.WHITE)
 		shrub.scale = Vector3(1.1,0.60+(index%3)*0.12,0.95)

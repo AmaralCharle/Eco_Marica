@@ -38,6 +38,10 @@ func _ready() -> void:
 		leaf.position = Vector3(cos(i * 2.4) * 0.16, 0.55 + i * 0.1, sin(i * 2.4) * 0.16)
 		leaf.rotation = Vector3(0.2, -i * 2.4, 0.25)
 		sapling.add_child(leaf)
+	var library = preload("res://scripts/effects/asset_library.gd")
+	if library.enabled("ubatiba"):
+		for mesh: MeshInstance3D in sapling.find_children("*","MeshInstance3D",true,false): mesh.hide()
+		library.place(sapling,"stylized-nature","CommonTree_5",Vector3.ZERO,Vector3(0.70,1.1,0.70),position.x*0.7)
 	sapling.visible = not apt
 	recovery_detail = MultiMeshInstance3D.new()
 	recovery_detail.name = "RecoveryGroundcover"

@@ -48,3 +48,21 @@ O fluxo público gratuito de itch.io disponibilizou o **Stylized Nature MegaKit 
 - **Rock_Medium_1** — Quaternius, [página oficial](https://quaternius.com/packs/stylizednaturemegakit.html), CC0; glTF, 14.8 KiB sem dependências compartilhadas; destino `assets/imported/quaternius/stylized-nature/Rock_Medium_1.gltf`; baixado, importação e integração pendentes; uso: vegetação orgânica / rochas.
 - **Rock_Medium_2** — Quaternius, [página oficial](https://quaternius.com/packs/stylizednaturemegakit.html), CC0; glTF, 11.0 KiB sem dependências compartilhadas; destino `assets/imported/quaternius/stylized-nature/Rock_Medium_2.gltf`; baixado, importação e integração pendentes; uso: vegetação orgânica / rochas.
 - **Asphalt001 1K JPG** — Lennart Demes / ambientCG, [página oficial](https://ambientcg.com/view?id=Asphalt001), CC0; JPG color/roughness/normal GL, 2126.7 KiB sem dependências compartilhadas; destino `assets/imported/ambientcg/Asphalt001`; baixado, importação e integração pendentes; uso: asfalto do Centro.
+
+- **Ground037 1K JPG** — Lennart Demes/ambientCG; https://ambientcg.com/view?id=Ground037; CC0 confirmada na página; destino `assets/imported/ambientcg/Ground037`; 5231.4 KiB de mapas selecionados; download verificado, importação/integração pendentes; finalidade: solo rural.
+
+- **Ground055S 1K JPG** — Lennart Demes/ambientCG; https://ambientcg.com/view?id=Ground055S; CC0 confirmada na página; destino `assets/imported/ambientcg/Ground055S`; 2890.9 KiB de mapas selecionados; download verificado, importação/integração pendentes; finalidade: areia.
+
+- **Wood001 1K JPG** — Lennart Demes/ambientCG; https://ambientcg.com/view?id=Wood001; CC0 confirmada na página; destino `assets/imported/ambientcg/Wood001`; 3461.0 KiB de mapas selecionados; download verificado, importação/integração pendentes; finalidade: madeira.
+
+## Candidatos a personagens — antes de integrar
+
+Quaternius Ultimate Animated Character CC0: download oficial Google Drive também retornou HTML de quota excedida (Casual_Male e License). Alternativa gratuita: [Kenney Mini Characters](https://kenney.nl/assets/mini-characters), CC0 verificada na página e License.txt; GLBs com rig e 32 clipes. Os quatro candidatos ainda não substituem personagens.
+- character-male-a: 239.5 KiB; `assets/imported/kenney/mini-characters/character-male-a.glb`; importação e avaliação pendentes; autor Kenney; CC0.
+- character-female-a: 262.9 KiB; `assets/imported/kenney/mini-characters/character-female-a.glb`; importação e avaliação pendentes; autor Kenney; CC0.
+- character-male-c: 253.8 KiB; `assets/imported/kenney/mini-characters/character-male-c.glb`; importação e avaliação pendentes; autor Kenney; CC0.
+- character-female-d: 250.0 KiB; `assets/imported/kenney/mini-characters/character-female-d.glb`; importação e avaliação pendentes; autor Kenney; CC0.
+
+## Céu selecionado antes de integrar
+
+Kloppenheim 05 Pure Sky 1K — Greg Zaal (original), Jarod Guest (sky edits), Poly Haven; https://polyhaven.com/a/kloppenheim_05_puresky; CC0; HDR 1024×512, 1.04 MiB; `assets/imported/polyhaven/kloppenheim_05_puresky_1k.hdr`; MD5 conferido com API oficial, importação/integração pendentes. Uso da API identificado pelo User-Agent EcoMaricaAcademicAssetPipeline/6.0. Créditos Poly Haven incluídos no projeto.

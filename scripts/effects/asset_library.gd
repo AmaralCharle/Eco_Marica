@@ -3,7 +3,8 @@ extends RefCounted
 const BASE := "res://assets/imported/kenney/"
 static var scenes: Dictionary = {}
 static var bounds_cache: Dictionary = {}
-static var enabled_phases: Array[String] = ["centro"]
+static var crown_proxy: SphereMesh
+static var enabled_phases: Array[String] = ["centro", "ubatiba", "ponta_negra"]
 
 static func enabled(id: String) -> bool:
 	return id in enabled_phases and not OS.get_cmdline_user_args().has("--legacy-art")
@@ -45,16 +46,17 @@ static func place(parent: Node3D, pack: String, model_name: String, at: Vector3,
 	for mesh: MeshInstance3D in model.find_children("*", "MeshInstance3D", true, false):
 		mesh.visibility_range_end = 100.0
 		# Copas recortadas têm alto custo nas quatro cascatas; sombras usam proxy opaco.
-		if quaternius and model_name.begins_with("CommonTree"):
+		if quaternius and not model_name.begins_with("Rock"):
 			mesh.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
 	if quaternius and model_name.begins_with("CommonTree"):
 		var proxy := MeshInstance3D.new()
-		var crown := SphereMesh.new()
-		crown.radius = 0.8
-		crown.height = 1.6
-		crown.radial_segments = 8
-		crown.rings = 3
-		proxy.mesh = crown
+		if crown_proxy == null:
+			crown_proxy = SphereMesh.new()
+			crown_proxy.radius = 0.8
+			crown_proxy.height = 1.6
+			crown_proxy.radial_segments = 8
+			crown_proxy.rings = 3
+		proxy.mesh = crown_proxy
 		proxy.position.y = box.size.y * factor * 0.70
 		proxy.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_SHADOWS_ONLY
 		pivot.add_child(proxy)
