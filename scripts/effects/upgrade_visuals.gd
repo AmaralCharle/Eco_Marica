@@ -8,6 +8,10 @@ func _ready() -> void:
 	art = get_parent()
 	if art.mission.mission_id == "centro": urban()
 func urban() -> void:
+	if not art.AssetLibrary.enabled(art.mission.mission_id): legacy_facades()
+	build_splashes()
+
+func legacy_facades() -> void:
 	var glass := ShaderMaterial.new()
 	glass.shader = preload("res://assets/materials/stylized_glass.gdshader")
 	for side: float in [-1,1]:
@@ -27,6 +31,7 @@ func urban() -> void:
 			art.box(art,Vector3(side*7.50,0.48,z),Vector3(0.55,0.10,1.5),Color("ae875b"))
 			art.box(art,Vector3(side*7.78,0.77,z),Vector3(0.08,0.55,1.5),Color("ae875b"))
 			for off: float in [-0.55,0.55]: art.cylinder(art,Vector3(side*7.5,0.25,z+off),0.5,0.04,Color("455d56"))
+func build_splashes() -> void:
 	splashes = MultiMeshInstance3D.new()
 	splashes.name = "RainSplashes"
 	var ring := TorusMesh.new()

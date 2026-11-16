@@ -12,6 +12,8 @@ const SURFACE = preload("res://assets/materials/environment_surface.gdshader")
 const Meshes = preload("res://scripts/effects/environment_meshes.gd")
 const Config = preload("res://scripts/core/game_config.gd")
 const ArtMeshes = preload("res://scripts/effects/art_direction_meshes.gd")
+const AssetLibrary = preload("res://scripts/effects/asset_library.gd")
+var imported: Node3D
 var grass_capacity: int = 780
 var sky_material: ProceduralSkyMaterial
 var foliage_materials: Array[ShaderMaterial] = []
@@ -26,11 +28,17 @@ func _ready() -> void:
 	extra = Node3D.new()
 	extra.name = "HighDetail"
 	add_child(extra)
+	imported = Node3D.new()
+	imported.name = "ImportedArt"
+	add_child(imported)
 	upgrade_existing()
 	landscape()
 	configure_light()
 	preload("res://scripts/effects/reference_art_pass.gd").new().apply(self)
 	add_child(preload("res://scripts/effects/upgrade_visuals.gd").new())
+	if AssetLibrary.enabled(mission.mission_id):
+		if mission.mission_id == "centro": preload("res://scripts/effects/asset_revolution.gd").urban(self)
+		AssetLibrary.batch(imported)
 	batch_decoration(self)
 	batch_decoration(extra)
 	batch_world()
@@ -62,6 +70,11 @@ func textured(kind: int, color: Color) -> ShaderMaterial:
 		mat.shader = SURFACE
 		mat.set_shader_parameter("base_color", color)
 		mat.set_shader_parameter("surface_type", kind)
+		if kind == 4 and mission != null and mission.mission_id == "centro" and AssetLibrary.enabled(mission.mission_id):
+			mat.set_shader_parameter("use_pbr",true)
+			mat.set_shader_parameter("pbr_color",load("res://assets/imported/ambientcg/Asphalt001/Asphalt001_1K-JPG_Color.jpg"))
+			mat.set_shader_parameter("pbr_roughness",load("res://assets/imported/ambientcg/Asphalt001/Asphalt001_1K-JPG_Roughness.jpg"))
+			mat.set_shader_parameter("pbr_normal",load("res://assets/imported/ambientcg/Asphalt001/Asphalt001_1K-JPG_NormalGL.jpg"))
 		materials[key] = mat
 		if kind == 4:
 			wet_materials.append(mat)
@@ -208,6 +221,12 @@ func palm_fronds() -> ArrayMesh:
 	return Meshes.palm_fronds()
 
 func tree(pos: Vector3, seed_index: int = 0) -> void:
+	if AssetLibrary.enabled(mission.mission_id):
+		if absf(pos.x) < 16:
+			AssetLibrary.place(imported,"stylized-nature","CommonTree_3" if seed_index%2 else "CommonTree_5",pos,Vector3(4.0,4.9+(seed_index%4)*0.3,4.0),seed_index*1.37)
+		else:
+			AssetLibrary.place(imported,"nature-kit","tree_detailed" if seed_index%2 else "tree_oak",pos,Vector3(4.0,4.7+(seed_index%4)*0.3,4.0),seed_index*1.37)
+		return
 	var height: float = 3.45 + (seed_index % 4) * 0.27
 	var trunk := cylinder(self, pos + Vector3(0, height * 0.5, 0), height, 0.15, Color("85603f"))
 	trunk.material_override = textured(6, Color("92734f"))
@@ -240,6 +259,9 @@ func garden(pos: Vector3, index: int) -> void:
 		ellipsoid(extra, at, Vector3(0.19, 0.13, 0.19), Color("f1c85d") if (i + index) % 2 == 0 else Color("d598bf"))
 
 func lamp(pos: Vector3) -> void:
+	if AssetLibrary.enabled(mission.mission_id):
+		AssetLibrary.place(imported,"city-kit-roads","light-curved",pos,Vector3(1.2,3.6,0.6),PI if pos.x>0 else 0.0)
+		return
 	cylinder(self, pos + Vector3.UP * 1.8, 3.6, 0.07, Color("34535b"))
 	box(self, pos + Vector3(0.3, 3.6, 0), Vector3(0.7, 0.07, 0.1), Color("34535b"))
 	ellipsoid(self, pos + Vector3(0.6, 3.53, 0), Vector3(0.45, 0.12, 0.3), Color("ffdd91"))
@@ -289,6 +311,7 @@ func landscape() -> void:
 	build_grass()
 
 func facades() -> void:
+	if AssetLibrary.enabled(mission.mission_id): return
 	for side: float in [-1, 1]:
 		for i in 4:
 			var z: float = -13 + i * 8
@@ -413,7 +436,7 @@ func apply_quality() -> void:
 	sun.directional_shadow_mode = DirectionalLight3D.SHADOW_PARALLEL_4_SPLITS if quality == 2 else DirectionalLight3D.SHADOW_PARALLEL_2_SPLITS
 	extra.visible = quality == 2
 	grass.multimesh.visible_instance_count = int(grass_capacity*[0.22,0.55,1.0][quality])
-	get_viewport().msaa_3d = [Viewport.MSAA_DISABLED, Viewport.MSAA_2X, Viewport.MSAA_8X][quality]
+	get_viewport().msaa_3d = [Viewport.MSAA_DISABLED, Viewport.MSAA_2X, Viewport.MSAA_4X if AssetLibrary.enabled(mission.mission_id) else Viewport.MSAA_8X][quality]
 	get_viewport().scaling_3d_scale = 0.8 if quality == 0 else 1.0
 
 func cloud_mesh() -> ArrayMesh:

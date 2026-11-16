@@ -62,6 +62,7 @@ func urban() -> void:
 			for off: float in [-0.66,0.66]: art.box(art,pos+Vector3(0,0.31,off),Vector3(0.76,0.06,0.08),Color("d8c5a1"))
 		for i in 4:
 			var z := -13+i*8.0
+			if art.AssetLibrary.enabled(art.mission.mission_id): continue
 			# Requadros, bandeiras e painéis comerciais no recuo das fachadas.
 			for dz: float in [-2.45,2.45]:
 				art.box(art,Vector3(side*8.40,1.95,z+dz),Vector3(0.12,3.65,0.15),Color("e7d8ba"))

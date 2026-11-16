@@ -3,6 +3,10 @@ uniform vec4 base_color : source_color = vec4(0.42, 0.56, 0.30, 1.0);
 // 0 vegetation ground, 1 soil, 2 sand, 3 paving, 4 asphalt, 5 plaster, 6 timber, 7 roof, 8 mulch.
 uniform int surface_type = 0;
 uniform float wetness : hint_range(0.0, 1.0) = 0.0;
+uniform bool use_pbr = false;
+uniform sampler2D pbr_color : source_color, filter_linear_mipmap, repeat_enable;
+uniform sampler2D pbr_roughness : filter_linear_mipmap, repeat_enable;
+uniform sampler2D pbr_normal : hint_normal, filter_linear_mipmap, repeat_enable;
 varying vec3 world;
 varying vec3 world_normal;
 float hash(vec2 p) { return fract(sin(dot(p, vec2(127.1, 311.7))) * 43758.5453); }
@@ -59,6 +63,14 @@ void fragment() {
     } else if (surface_type == 8) {
         color *= 0.74+hash(floor(uv*vec2(19.0,31.0)))*0.34;
         rough = 0.96;
+    }
+    if (use_pbr) {
+        vec3 sample_color = texture(pbr_color,uv*0.5).rgb;
+        float luma = dot(sample_color,vec3(0.299,0.587,0.114));
+        color *= mix(0.85,1.15,luma);
+        rough *= mix(0.88,1.0,texture(pbr_roughness,uv*0.5).r);
+        NORMAL_MAP = texture(pbr_normal,uv*0.5).rgb;
+        NORMAL_MAP_DEPTH = 0.22;
     }
     ALBEDO = color; ROUGHNESS = clamp(rough+(small-0.5)*0.06,0.2,1.0); SPECULAR = 0.22;
 }
