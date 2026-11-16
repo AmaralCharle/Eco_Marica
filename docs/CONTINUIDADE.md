@@ -1,6 +1,6 @@
 # Estado para retomada
 
-Atualizado em 14/11/2026, após teste e aprovação do autor.
+Atualizado em 16/11/2026. O autor retomou o desenvolvimento e solicitou polimento dos cenários. A aprovação registrada em 14/11 refere-se à versão anterior; a etapa atual ainda aguarda sua avaliação.
 
 O desenvolvimento continua aberto. O autor vai trazer novas ideias após uma pausa. A preparação da entrega acadêmica e da exportação foi interrompida a seu pedido; só deve ser retomada quando ele avisar. Não interpretar a aprovação do polimento como encerramento do projeto.
 
@@ -21,4 +21,4 @@ O GDD de trabalho permanece em `docs/GDD_5_FASES.md`. Identificação da equipe,
 
 ## Próxima ação
 
-Aguardar as novas ideias do autor e aplicá-las sobre esta versão aprovada, preservando as cinco fases, os saves e os testes. Não iniciar novas funcionalidades ou finalizar/publicar uma entrega acadêmica durante a pausa.
+Polimento de cenários implementado nas cinco fases, com prioridade para Centro, Ubatiba e Ponta Negra. Alterações, evidências, desempenho e limites em `CENARIOS_2026_11_16.md`. Próxima ação: avaliação do autor e novas ideias. Preservar as cinco fases, os saves e os testes; não retomar a finalização acadêmica/exportação sem solicitação do autor.

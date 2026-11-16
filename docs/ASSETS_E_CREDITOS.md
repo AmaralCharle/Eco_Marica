@@ -1,5 +1,7 @@
 # Assets, fontes e uso de IA — polimento 3.0
 
+Atualização de cenários em 16/11/2026: `environment_meshes.gd` gera copas, folhas, tufos, peças chanfradas, trilha e manchas de solo; `environment_surface.gdshader` produz oito famílias de acabamento; água/folhagem e ambientação foram revistas. Código e malhas originais gerados com assistência Codex, sem fontes externas, imagens geradas ou downloads de assets. Uso: cinco fases, barco, lixeiras, bueiros e mudas. Detalhes e limitações em `CENARIOS_2026_11_16.md`.
+
 Recursos implementados neste projeto com auxílio de OpenAI Codex. Não foram baixados modelos, texturas, músicas ou efeitos de terceiros nesta etapa. O autor do projeto deve revisar a atribuição de autoria e a declaração de uso de IA conforme as regras da disciplina. Não se afirma exclusividade ou licença de terceiros para material produzido por IA.
 
 | Recurso | Autor/origem | Fonte reproduzível | Licença/condições | Uso |

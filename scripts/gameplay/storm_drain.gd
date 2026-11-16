@@ -8,6 +8,24 @@ func _ready() -> void:
 	add_to_group("mission_drains")
 	debris = Node3D.new()
 	add_child(debris)
+	var frame := MeshInstance3D.new()
+	frame.mesh = preload("res://scripts/effects/environment_meshes.gd").beveled_box(Vector3(1.0, 0.045, 1.0), 0.065)
+	var metal := StandardMaterial3D.new()
+	metal.albedo_color = Color("687975")
+	metal.metallic = 0.45
+	metal.roughness = 0.66
+	frame.material_override = metal
+	frame.position.y = 0.055
+	add_child(frame)
+	var recess := MeshInstance3D.new()
+	var recess_mesh := BoxMesh.new()
+	recess_mesh.size = Vector3(0.87, 0.008, 0.87)
+	var dark := StandardMaterial3D.new()
+	dark.albedo_color = Color("233d40")
+	recess_mesh.material = dark
+	recess.mesh = recess_mesh
+	recess.position.y = 0.081
+	add_child(recess)
 	for i in 7:
 		var grid := MeshInstance3D.new()
 		var bar := BoxMesh.new()
@@ -16,7 +34,7 @@ func _ready() -> void:
 		mat.albedo_color = Color("31464b")
 		bar.material = mat
 		grid.mesh = bar
-		grid.position = Vector3(-0.36 + i * 0.12, 0.04, 0)
+		grid.position = Vector3(-0.36 + i * 0.12, 0.095, 0)
 		add_child(grid)
 	for i in 4:
 		var item := MeshInstance3D.new()

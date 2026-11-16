@@ -19,7 +19,13 @@ func _ready() -> void:
 	hull.generate_normals()
 	var skin := art.mesh_at(self, hull.commit(), Vector3.ZERO, Color("2c8276"))
 	skin.material_override.cull_mode = BaseMaterial3D.CULL_DISABLED
-	art.box(self, Vector3(0, 0.42, 0), Vector3(1.12, 0.035, 1.9), Color("ded2a5"))
+	skin.material_override.roughness = 0.43
+	var deck := art.box(self, Vector3(0, 0.42, 0), Vector3(1.12, 0.035, 1.9), Color("ded2a5"))
+	deck.material_override = art.textured(6, Color("c8b78c"))
+	for side: float in [-1, 1]:
+		art.box(self, Vector3(side * 0.66, 0.37, 0), Vector3(0.025, 0.055, 2.05), Color("e5dcb3"))
+		var rope := art.cylinder(self, Vector3(side * 0.38, 0.48, -0.75), 0.055, 0.085, Color("baab7e"))
+		rope.rotation.x = PI * 0.5
 	art.box(self, Vector3(0, 0.67, 1.1), Vector3(0.42, 0.52, 0.34), Color("3b5359"))
 	art.cylinder(self, Vector3(0, 0.27, 1.17), 0.5, 0.06, Color("54727a"))
 	var text := Label3D.new()

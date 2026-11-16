@@ -8,6 +8,11 @@ var grass: MultiMeshInstance3D
 var settings: Node
 const WATER = preload("res://assets/materials/water.gdshader")
 const LEAVES = preload("res://assets/materials/foliage.gdshader")
+const SURFACE = preload("res://assets/materials/environment_surface.gdshader")
+const Meshes = preload("res://scripts/effects/environment_meshes.gd")
+var foliage_materials: Array[ShaderMaterial] = []
+var wet_materials: Array[ShaderMaterial] = []
+var storm_last: float = -1.0
 
 func _ready() -> void:
 	mission = get_parent().get_parent()
@@ -19,6 +24,11 @@ func _ready() -> void:
 	add_child(extra)
 	upgrade_existing()
 	landscape()
+	configure_light()
+	batch_decoration(self)
+	batch_decoration(extra)
+	batch_world()
+	mission.state_changed.connect(update_recovery)
 	settings.preferences_changed.connect(apply_quality)
 	apply_quality()
 
@@ -29,6 +39,28 @@ func surface(color: Color) -> StandardMaterial3D:
 		mat.albedo_color = color
 		mat.roughness = 0.85
 		materials[key] = mat
+	return materials[key]
+
+func textured(kind: int, color: Color) -> ShaderMaterial:
+	var key := "surface_%d_%s" % [kind, color.to_html()]
+	if not materials.has(key):
+		var mat := ShaderMaterial.new()
+		mat.shader = SURFACE
+		mat.set_shader_parameter("base_color", color)
+		mat.set_shader_parameter("surface_type", kind)
+		materials[key] = mat
+		if kind == 4:
+			wet_materials.append(mat)
+	return materials[key]
+
+func foliage(color: Color) -> ShaderMaterial:
+	var key := "leaf_" + color.to_html()
+	if not materials.has(key):
+		var mat := ShaderMaterial.new()
+		mat.shader = LEAVES
+		mat.set_shader_parameter("leaf_color", color)
+		materials[key] = mat
+		foliage_materials.append(mat)
 	return materials[key]
 
 func mesh_at(parent: Node, mesh: Mesh, pos: Vector3, color: Color) -> MeshInstance3D:
@@ -85,26 +117,51 @@ func upgrade_existing() -> void:
 			trunk.radial_segments = 8
 			trunk.material = instance.mesh.material
 			instance.mesh = trunk
+			instance.material_override = textured(6, Color("94754f"))
 		elif kind == "PalmLeaf":
 			instance.mesh = palm_fronds()
-			var mat := ShaderMaterial.new()
-			mat.shader = LEAVES
-			mat.set_shader_parameter("leaf_color", Color("438455"))
-			instance.material_override = mat
+			instance.material_override = foliage(Color("3e7950"))
 		elif kind in ["SoftHill", "Restinga", "Cloud"]:
-			var rounded := SphereMesh.new()
-			rounded.radius = 0.5
-			rounded.height = 1.0
-			rounded.radial_segments = 12
-			rounded.rings = 6
-			rounded.material = instance.mesh.material
-			instance.mesh = rounded
+			var original_material: Material = instance.mesh.material
+			instance.mesh = Meshes.canopy(3)
 			instance.scale = size
+			instance.material_override = foliage(Color("56865a")) if kind == "Restinga" else original_material
+			if kind == "SoftHill":
+				instance.mesh = Meshes.landform()
+				instance.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
 			if kind == "Cloud":
+				instance.mesh = cloud_mesh()
+				instance.scale = Vector3(size.x, size.y * 3.4, size.z * 0.75)
 				instance.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
 		elif kind in ["Lagoon", "Sea", "Stream", "Channel"]:
-			instance.material_override = water
-		elif kind.begins_with("Boundary"):
+			var local_water: ShaderMaterial = water.duplicate()
+			local_water.set_shader_parameter("half_width", size.x * 0.5)
+			local_water.set_shader_parameter("center_x", node.position.x)
+			local_water.set_shader_parameter("flow_speed", 0.55 if kind in ["Sea", "Stream"] else 0.30)
+			local_water.set_shader_parameter("deep_color", Color("24566a") if kind == "Sea" else Color("276d68"))
+			local_water.set_shader_parameter("shallow_color", Color("64aa9a") if kind != "Sea" else Color("4b9eab"))
+			instance.material_override = local_water
+		elif kind in ["Grass", "Ground", "Land", "WestBank", "FarBank"]:
+			instance.material_override = textured(0, Color("829d65") if mission.mission_id != "centro" else Color("7d8f68"))
+		elif kind in ["Walkway", "Sidewalk", "AccessRamp"]:
+			instance.material_override = textured(3, Color("c6bda2") if kind == "Walkway" else Color("bcb9aa"))
+		elif kind in ["Sand", "WetSand", "Trail", "Street", "CycleLane", "Building"]:
+			var color: Color = instance.mesh.material.albedo_color
+			var type: int = {"Sand": 2, "WetSand": 2, "Trail": 1, "Street": 4, "CycleLane": 4, "Building": 5}[kind]
+			if kind == "Street": color = Color("526267")
+			if kind == "Trail": color = Color("bfa276")
+			if kind == "Trail": instance.mesh = Meshes.trail(size.x, size.z)
+			instance.material_override = textured(type, color)
+		elif kind == "Roof":
+			var roof := PrismMesh.new()
+			roof.size = Vector3(size.x, 0.9, size.z)
+			instance.mesh = roof
+			instance.material_override = textured(7, Color("b57756"))
+		elif kind in ["BenchSeat", "BenchBack", "BenchLeg", "RailPost", "LakeRail", "Pier", "Bridge", "BridgePost", "Trunk"]:
+			instance.material_override = textured(6, Color("9e7952"))
+		elif kind in ["Wave", "Ripple"]:
+			instance.hide()
+		elif kind.begins_with("Boundary") or kind in ["NavigationLimit", "ShoreLimit", "DuneLimit"]:
 			# Mantém a barreira física, apresenta borda natural no lugar da parede lisa.
 			instance.hide()
 	if mission.mission_id != "centro":
@@ -127,24 +184,27 @@ func upgrade_existing() -> void:
 		environment.ambient_light_color = Color("c3d5df")
 
 func palm_fronds() -> ArrayMesh:
-	var st := SurfaceTool.new()
-	st.begin(Mesh.PRIMITIVE_TRIANGLES)
-	for side: float in [-1, 1]:
-		var points: Array[Vector3] = [Vector3(0, 0, 0), Vector3(side * 1.2, 0.28, 0.32), Vector3(side * 2.1, -0.28, 0), Vector3(side * 1.2, 0.28, -0.32)]
-		for index in [0, 1, 2, 0, 2, 3]:
-			st.add_vertex(points[index])
-	st.generate_normals()
-	return st.commit()
+	return Meshes.palm_fronds()
 
 func tree(pos: Vector3, seed_index: int = 0) -> void:
-	cylinder(self, pos + Vector3(0, 1.25, 0), 2.5, 0.18, Color("85603f"))
-	var colors: Array[Color] = [Color("3e9059"), Color("5caa61"), Color("39896a")]
-	for i in 4:
-		var angle := TAU * i / 4.0 + seed_index
-		ellipsoid(self, pos + Vector3(cos(angle) * 0.65, 2.7 + (i % 2) * 0.4, sin(angle) * 0.65), Vector3(1.9, 1.7, 1.9), colors[(i + seed_index) % 3])
+	var height: float = 2.6 + (seed_index % 4) * 0.25
+	var trunk := cylinder(self, pos + Vector3(0, height * 0.5, 0), height, 0.15, Color("85603f"))
+	trunk.material_override = textured(6, Color("92734f"))
+	var colors: Array[Color] = [Color("498252"), Color("659653"), Color("3e7964"), Color("6f914c")]
+	for i in 3:
+		var angle: float = i * 2.4 + seed_index
+		var branch := cylinder(self, pos + Vector3(cos(angle) * 0.24, height * 0.75, sin(angle) * 0.24), 0.9, 0.065, Color("85603f"))
+		branch.rotation = Vector3(cos(angle) * 0.7, 0, sin(angle) * 0.7)
+		var crown := mesh_at(self, Meshes.canopy(seed_index + i), pos + Vector3(cos(angle) * 0.52, height + 0.15 + (i % 2) * 0.4, sin(angle) * 0.52), Color.WHITE)
+		crown.scale = Vector3(2.2 + (seed_index % 2) * 0.35, 1.7, 2.05)
+		crown.rotation.y = angle
+		crown.material_override = foliage(colors[(i + seed_index) % 4])
 
 func garden(pos: Vector3, index: int) -> void:
-	ellipsoid(self, pos + Vector3.UP * 0.22, Vector3(1.5, 0.5, 1.1), Color("4d9657"))
+	var shrub := mesh_at(self, Meshes.canopy(index), pos + Vector3.UP * 0.28, Color.WHITE)
+	shrub.scale = Vector3(1.25, 0.70 + (index % 3) * 0.13, 0.95)
+	shrub.rotation.y = index * 1.3
+	shrub.material_override = foliage(Color("60854c") if index % 2 else Color("4a8058"))
 	for i in 5:
 		var at := pos + Vector3(cos(i * 2.4) * 0.46, 0.46, sin(i * 2.4) * 0.36)
 		cylinder(extra, at - Vector3.UP * 0.12, 0.24, 0.015, Color("427840"))
@@ -158,15 +218,15 @@ func lamp(pos: Vector3) -> void:
 func landscape() -> void:
 	var id: String = mission.mission_id
 	for i in 8:
-		var z: float = -16 + i * 4.5
+		var z: float = -16 + i * 4.5 + sin(i * 1.7) * 0.65
 		if id == "aracatiba":
-			garden(Vector3(11.7, 0.05, z), i)
+			garden(Vector3(10.8 + sin(i * 2.0) * 1.3, 0.05, z), i)
 			if i % 2 == 0:
 				tree(Vector3(12.5, 0, z), i)
 				lamp(Vector3(4.2, 0, z))
 		elif id == "itaipuacu":
 			garden(Vector3(11, 0, z), i)
-			ellipsoid(self, Vector3(16, 0, z), Vector3(8, 3, 8), Color("c9bc91"))
+			hill(Vector3(17, -0.65, z), Vector3(10, 4, 10), Color("c7b68a"), i)
 			ellipsoid(self, Vector3(-13, -0.02, z), Vector3(1.3, 0.6, 0.9), Color("8d9c92"))
 		elif id == "centro":
 			var side: float = -1 if i % 2 == 0 else 1
@@ -176,22 +236,27 @@ func landscape() -> void:
 				lamp(Vector3(side * 6.9, 0.12, z + 2.8))
 		elif id == "ubatiba":
 			for side: float in [-1, 1]:
-				tree(Vector3(side * 14, 0, z), i)
-				garden(Vector3(side * 11.7, 0, z + 1), i)
+				tree(Vector3(side * (13.8 + sin(i * 1.8) * 0.7), 0, z), i)
+				garden(Vector3(side * (10.3 + sin(i * 2.8)), 0, z + 1), i)
 				ellipsoid(self, Vector3(-12, 0.18, z), Vector3(0.9, 0.6, 0.7), Color("9ba79b"))
 		elif id == "ponta_negra":
 			for side: float in [-1, 1]:
 				garden(Vector3(-9 if side < 0 else 16.5, 0, z), i)
-				ellipsoid(self, Vector3(side * 8.5, -0.08, z), Vector3(1, 0.6, 1.3), Color("819c92"))
+				if side < 0 or absf(z - 12.0) > 3.0:
+					rock(Vector3(side * 8.5, -0.08, z), Vector3(1, 0.6, 1.3), i)
 	# Morros no horizonte, inteiramente fora da área jogável.
 	for i in 7:
-		ellipsoid(self, Vector3(-38 + i * 13, 0, -34 - (i % 2) * 6), Vector3(22, 8 + i % 3 * 3, 17), Color("6d967d").lerp(Color("91b4a1"), i * 0.07))
+		hill(Vector3(-42 + i * 14, -1.0, -48 - (i % 2) * 7), Vector3(28, 8 + i % 3 * 2.5, 22), Color("678775").lerp(Color("8eaaa0"), (i % 3) * 0.18), i)
 	if id == "centro":
 		facades()
 	if id == "aracatiba":
 		pavement()
 	if id == "ponta_negra":
 		pier_details()
+	if id == "ubatiba":
+		rural_details()
+	if id in ["aracatiba", "itaipuacu", "ponta_negra"]:
+		shore_details()
 	build_grass()
 
 func facades() -> void:
@@ -199,6 +264,23 @@ func facades() -> void:
 		for i in 4:
 			var z: float = -13 + i * 8
 			var x: float = side * 8.42
+			var rise: float = [0.0, 1.25, 0.45, 1.75][i]
+			var wall_colors: Array[Color] = [Color("d5bd9d"), Color("91b1ab"), Color("c3aeac"), Color("d1c49d")]
+			if rise > 0:
+				var floor_part := box(self, Vector3(side * 11.5, 4.2 + rise * 0.5, z), Vector3(6, rise, 5.5), Color.WHITE)
+				floor_part.material_override = textured(5, wall_colors[i])
+				for offset: float in [-1.5, 1.5]:
+					box(self, Vector3(x, 4.2 + rise * 0.5, z + offset), Vector3(0.07, rise * 0.6, 0.85), Color("47656c"))
+			for node in world.get_children():
+				if node.get_meta("kind", "") == "Roof" and absf(node.position.x - side * 11.5) < 0.1 and absf(node.position.z - z) < 0.1:
+					node.position.y += rise
+			var sign := box(self, Vector3(x - side * 0.07, 3.79, z), Vector3(0.10, 0.51, 3.2), Color("3b5b59"))
+			sign.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
+			for offset: float in [-1.5, 1.5]:
+				var shutter := box(self, Vector3(x, 2.7, z + offset + 0.67), Vector3(0.08, 1.1, 0.22), Color("9b7956"))
+				shutter.material_override = textured(6, Color("9b7956"))
+				box(extra, Vector3(x, 2.08, z + offset), Vector3(0.36, 0.11, 1.3), Color("d1c3a7"))
+			box(self, Vector3(x, 0.15, z), Vector3(0.08, 0.25, 5.45), Color("a8a393"))
 			var awning := box(self, Vector3(x - side * 0.32, 2.3, z), Vector3(0.9, 0.15, 3.7), Color("ba6754") if i % 2 == 0 else Color("437c80"))
 			awning.rotation.z = side * 0.12
 			for j in 7:
@@ -208,50 +290,87 @@ func facades() -> void:
 				box(self, Vector3(x, 2.7, z + offset), Vector3(0.07, 0.05, 1.15), Color("edddbf"))
 			box(self, Vector3(x, 0.2, z + 1.5), Vector3(0.4, 0.3, 1.4), Color("bd895c"))
 			garden(Vector3(x - side * 0.1, 0.3, z + 1.5), i)
+		# Cabos finos e postes sem novas luzes dinâmicas.
+		for z: float in [-17, -1, 15]:
+			cylinder(self, Vector3(side * 7.65, 2.9, z), 5.8, 0.08, Color("67716b"))
+		for i in 24:
+			var z: float = -17 + i * 1.4
+			var wire := box(extra, Vector3(side * 7.65, 5.55 - sin(fposmod(z + 17, 16) / 16 * PI) * 0.25, z), Vector3(0.022, 0.022, 1.43), Color("465957"))
+			wire.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
 
 func pavement() -> void:
-	for i in 36:
-		box(extra, Vector3(0, 0.052, -17.5 + i), Vector3(6.9, 0.005, 0.018), Color("cdbd9b"))
-	for x: float in [-2.3, 0, 2.3]:
-		box(extra, Vector3(x, 0.052, 0), Vector3(0.018, 0.005, 35), Color("cdbd9b"))
+	# Juntas agora pertencem ao material compartilhado; sem dezenas de faixas independentes.
+	for x: float in [-3.55, 3.55]:
+		var curb := box(self, Vector3(x, 0.027, 0), Vector3(0.16, 0.045, 35), Color("a7a78c"))
+		curb.material_override = textured(3, Color("b0ad94"))
 
 func pier_details() -> void:
+	# Continuação somente visual do canal; os limites físicos e a zona de perdas ficam intactos.
+	var continuation := box(self, Vector3(0, -0.18, -34), Vector3(16, 0.02, 28), Color.WHITE)
+	var water := ShaderMaterial.new()
+	water.shader = WATER
+	water.set_shader_parameter("deep_color", Color("276d68"))
+	water.set_shader_parameter("shallow_color", Color("64aa9a"))
+	water.set_shader_parameter("flow_speed", 0.30)
+	continuation.material_override = water
+	continuation.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
+	for side: float in [-1, 1]:
+		var bank := box(self, Vector3(13 if side > 0 else -11, -0.03, -34), Vector3(10 if side > 0 else 6, 0.06, 28), Color.WHITE)
+		bank.material_override = textured(0, Color("829d65"))
+		bank.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
+	for i in 7:
+		cylinder(self, Vector3(-6.6 + i * 2.2, -0.04, -18.4), 0.22, 0.13, Color("d4ae69"))
+		cylinder(self, Vector3(-6.6 + i * 2.2, 0.11, -18.4), 0.12, 0.10, Color("eee0b6"))
 	for i in 12:
 		box(self, Vector3(8, 0.004, 10.15 + i * 0.33), Vector3(3.95, 0.008, 0.026), Color("8f7959"))
 	# Cantos distantes do ponto de desembarque; sem colisões novas.
 	for z: float in [10.1, 13.9]:
 		cylinder(self, Vector3(9.7, 0.3, z), 0.6, 0.11, Color("917454"))
+		# Colunas sob o tablado, deixando livre a passagem terra/barco.
+		cylinder(self, Vector3(6.15, -0.35, z), 0.7, 0.10, Color("80684d"))
+	for x: float in [-6.5, 6.5]:
+		box(self, Vector3(x, 2.95, -1), Vector3(0.65, 0.65, 2.1), Color("9e9e87"))
 	for i in 11:
 		box(self, Vector3(-7.5 + i * 1.5, 4, -2.14), Vector3(0.08, 0.8, 0.08), Color("eee0b6"))
+		box(self, Vector3(-7.5 + i * 1.5, 4, 0.14), Vector3(0.08, 0.8, 0.08), Color("eee0b6"))
 	box(self, Vector3(0, 4.4, -2.14), Vector3(17, 0.08, 0.1), Color("eee0b6"))
+	box(self, Vector3(0, 4.4, 0.14), Vector3(17, 0.08, 0.1), Color("eee0b6"))
 
 func build_grass() -> void:
 	grass = MultiMeshInstance3D.new()
 	grass.name = "BatchedGrass"
 	var multi := MultiMesh.new()
 	multi.transform_format = MultiMesh.TRANSFORM_3D
-	var blade := PrismMesh.new()
-	blade.size = Vector3(0.15, 0.35, 0.06)
-	multi.mesh = blade
-	multi.instance_count = 360
+	multi.mesh = Meshes.tuft()
+	multi.instance_count = 780
 	var rng := RandomNumberGenerator.new()
 	rng.seed = 12973
-	for i in 360:
+	var plot_positions: Array[Vector3] = []
+	for point in get_tree().get_nodes_in_group("planting_plots"):
+		if mission.is_ancestor_of(point): plot_positions.append(point.position)
+	for i in 780:
 		var side: float = -1 if i % 2 == 0 else 1
-		var x: float = side * rng.randf_range(10.8, 13.5)
+		var x: float = side * rng.randf_range(8.7, 13.5)
 		if mission.mission_id == "itaipuacu":
 			x = rng.randf_range(9, 11.5)
 		elif mission.mission_id == "ponta_negra":
 			x = rng.randf_range(16, 17.5) if side > 0 else rng.randf_range(-12, -9)
 		elif mission.mission_id == "centro":
 			x = side * rng.randf_range(15, 16)
+		elif mission.mission_id == "ubatiba" and i % 3 == 0:
+			x = side * rng.randf_range(2.9, 8.8)
+		var z: float = rng.randf_range(-18, 18)
+		for point in plot_positions:
+			if Vector2(x - point.x, z - point.z).length() < 1.6:
+				x = side * 10.7
 		var basis := Basis(Vector3.UP, rng.randf() * TAU).scaled(Vector3.ONE * rng.randf_range(0.65, 1.35))
-		multi.set_instance_transform(i, Transform3D(basis, Vector3(x, 0.17, rng.randf_range(-18, 18))))
+		multi.set_instance_transform(i, Transform3D(basis, Vector3(x, 0.03, z)))
 	grass.multimesh = multi
 	var mat := ShaderMaterial.new()
 	mat.shader = LEAVES
 	mat.set_shader_parameter("leaf_color", Color("659a50"))
 	grass.material_override = mat
+	grass.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
 	add_child(grass)
 
 func apply_quality() -> void:
@@ -261,5 +380,181 @@ func apply_quality() -> void:
 	sun.directional_shadow_max_distance = 45.0 if quality == 1 else 65.0
 	sun.directional_shadow_mode = DirectionalLight3D.SHADOW_PARALLEL_2_SPLITS
 	extra.visible = quality == 2
-	grass.multimesh.visible_instance_count = [100, 240, 360][quality]
+	grass.multimesh.visible_instance_count = [220, 500, 780][quality]
 	get_viewport().msaa_3d = [Viewport.MSAA_DISABLED, Viewport.MSAA_2X, Viewport.MSAA_4X][quality]
+
+func cloud_mesh() -> ArrayMesh:
+	var st := SurfaceTool.new()
+	st.begin(Mesh.PRIMITIVE_TRIANGLES)
+	for i in 4:
+		var sphere := SphereMesh.new()
+		sphere.radius = 0.30
+		sphere.height = 0.60
+		sphere.radial_segments = 10
+		sphere.rings = 5
+		var basis := Basis.IDENTITY.scaled(Vector3(1.1, 0.8 + (i % 2) * 0.4, 0.9))
+		st.append_from(sphere, 0, Transform3D(basis, Vector3(-0.3 + i * 0.19, (i % 2) * 0.1, sin(i * 1.7) * 0.12)))
+	return st.commit()
+
+func configure_light() -> void:
+	var id: String = mission.mission_id
+	var sun: DirectionalLight3D = mission.get_node("Sun")
+	sun.rotation_degrees = Vector3(-43, -32, 0)
+	if id == "ubatiba": sun.rotation_degrees = Vector3(-38, 32, 0)
+	if id == "centro": sun.rotation_degrees = Vector3(-48, -52, 0)
+	if id == "itaipuacu": sun.rotation_degrees = Vector3(-54, -36, 0)
+	sun.light_color = Color("fff0d6") if id != "centro" else Color("e4e9e9")
+	sun.light_energy = 1.10
+	sun.shadow_bias = 0.04
+	sun.shadow_normal_bias = 0.8
+	var env: Environment = mission.get_node("WorldEnvironment").environment
+	env.ambient_light_color = Color("bbd2db")
+	env.ambient_light_energy = 0.43 if id != "centro" else 0.6
+	env.fog_enabled = true
+	env.fog_density = 0.0028 if id != "centro" else 0.0038
+	env.fog_light_color = Color("9dbab5") if id != "centro" else Color("a8b5bc")
+	env.fog_sky_affect = 0.28
+
+func hill(pos: Vector3, size: Vector3, color: Color, index: int) -> void:
+	var item := mesh_at(self, Meshes.landform(), pos + Vector3.UP * size.y * 0.28, color)
+	item.scale = size
+	item.rotation.y = index * 0.7
+	item.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
+
+func rock(pos: Vector3, size: Vector3, index: int) -> void:
+	var item := mesh_at(self, Meshes.canopy(index + 42), pos, Color("929e8c") if index % 2 else Color("7e8e85"))
+	item.scale = size
+	item.rotation = Vector3(index * 0.25, index * 1.7, 0.12)
+
+func reed(pos: Vector3, index: int) -> void:
+	for j in 4:
+		var stem := cylinder(self, pos + Vector3(sin(j * 2.4) * 0.12, 0.35, cos(j * 2.4) * 0.12), 0.7 + (j % 2) * 0.15, 0.014, Color("819750"))
+		stem.rotation.z = sin(index + j) * 0.13
+		var leaf := mesh_at(self, Meshes.tuft(), pos, Color.WHITE)
+		leaf.scale = Vector3(1.4, 1.7, 1.4)
+		leaf.material_override = foliage(Color("6d8b46"))
+
+func fern(pos: Vector3, index: int) -> void:
+	for i in 3:
+		var leaf := mesh_at(self, Meshes.palm_fronds(), pos + Vector3.UP * 0.36, Color.WHITE)
+		leaf.scale = Vector3(0.33, 0.46, 0.56)
+		leaf.rotation.y = i * PI / 3.0 + index
+		leaf.material_override = foliage(Color("4b8456"))
+
+func rural_details() -> void:
+	for i in 24:
+		var x: float = (-1.0 if i % 2 == 0 else 1.0) * (3.0 + (i % 3) * 2.5)
+		var z: float = -16 + (i / 6) * 7 + sin(i * 1.8) * 0.7
+		var patch := mesh_at(self, Meshes.ground_patch(i), Vector3(x, 0.007, z), Color.WHITE)
+		patch.scale = Vector3(1.4, 1, 0.9)
+		patch.material_override = textured(0, Color("78905b") if i % 2 else Color("8c9f69"))
+		patch.cast_shadow = GeometryInstance3D.SHADOW_CASTING_SETTING_OFF
+		if i % 3 == 0:
+			for j in 3:
+				var at := Vector3(x + sin(j * 2.4) * 0.22, 0.24, z + cos(j * 2.4) * 0.2)
+				cylinder(extra, at - Vector3.UP * 0.1, 0.2, 0.012, Color("548453"))
+				ellipsoid(extra, at, Vector3(0.13, 0.07, 0.13), Color("ebcf85") if i % 2 else Color("c7aad1"))
+	for side: float in [-1, 1]:
+		for i in 9:
+			var z: float = -17 + i * 4.3
+			var x: float = side * (9.4 + sin(i * 2.2) * 0.4)
+			fern(Vector3(x, 0.03, z + 1), i)
+			if i % 2 == 0:
+				rock(Vector3(side * 11.8, 0.22, z), Vector3(1.3, 0.8, 1.2), i)
+			# Cerca acompanha a borda da área, sem atravessar pontos de plantio.
+			cylinder(self, Vector3(side * 14.8, 0.5, z), 1.0, 0.065, Color("a38a5b"))
+			if i < 8:
+				box(self, Vector3(side * 14.8, 0.54, z + 2.15), Vector3(0.06, 0.08, 4.3), Color("a38a5b"))
+	for i in 13:
+		var z: float = -17 + i * 2.75
+		rock(Vector3(-12.0 - (i % 2) * 0.2, 0.13, z), Vector3(0.8, 0.5, 0.7), i)
+		if i % 2 == 0:
+			reed(Vector3(-13.7, 0.02, z), i)
+	# Abrigo rural inteiramente fora da área jogável.
+	box(self, Vector3(22, 1.6, -10), Vector3(5.5, 3.2, 5), Color("d7cba7"))
+	var roof := PrismMesh.new()
+	roof.size = Vector3(6.2, 1.5, 5.6)
+	var roof_node := mesh_at(self, roof, Vector3(22, 3.5, -10), Color.WHITE)
+	roof_node.material_override = textured(7, Color("a96946"))
+	box(self, Vector3(19.23, 1.2, -10), Vector3(0.03, 2.3, 0.9), Color("78694e"))
+	for node in world.get_children():
+		if node is Label3D and node.text.begins_with("Exposto / protegido"):
+			node.text = "SOLO E COBERTURA\nDemonstração simplificada"
+			node.position = Vector3(-5.4, 1.5, 14.2)
+			node.font_size = 26
+			node.pixel_size = 0.004
+			box(self, node.position + Vector3(0, 0, -0.025), Vector3(2.5, 0.65, 0.07), Color("765c3d"))
+			cylinder(self, node.position + Vector3(0, -0.8, -0.03), 1.3, 0.055, Color("947449"))
+
+func shore_details() -> void:
+	var id: String = mission.mission_id
+	for i in 14:
+		var z: float = -17 + i * 2.6
+		if id == "aracatiba":
+			rock(Vector3(-13.9, -0.12, z), Vector3(1.3, 0.8, 1.5), i)
+			if i % 3 == 0: reed(Vector3(-14.2, -0.05, z), i)
+		elif id == "itaipuacu":
+			if i % 2 == 0: fern(Vector3(9.7 + sin(i) * 0.45, 0, z), i)
+			rock(Vector3(12.3, 0.1, z), Vector3(1.3, 0.75, 1.4), i)
+		else:
+			for side: float in [-1, 1]:
+				if side > 0 and z > 9 and z < 15: continue
+				rock(Vector3(side * 8.25, -0.12, z), Vector3(1.1, 0.9, 1.9), i)
+				if i % 3 == 0 and not (z > 9 and z < 15):
+					reed(Vector3(side * 8.6, 0.0, z), i)
+
+func batch_decoration(parent: Node) -> void:
+	var instances: Array[MeshInstance3D] = []
+	for node in parent.get_children():
+		if node is MeshInstance3D and node.visible:
+			instances.append(node)
+	merge_instances(parent, instances)
+
+func batch_world() -> void:
+	var instances: Array[MeshInstance3D] = []
+	for node in world.get_children():
+		if not node.has_meta("kind") or node.get_meta("kind") in ["Cloud", "Ripple", "DemoRain"]:
+			continue
+		for child in node.get_children():
+			if child is MeshInstance3D and child.visible:
+				instances.append(child)
+	merge_instances(self, instances)
+
+func merge_instances(parent: Node, instances: Array[MeshInstance3D]) -> void:
+	var groups: Dictionary = {}
+	for instance in instances:
+		if instance.mesh == null or instance.mesh.get_surface_count() != 1: continue
+		var mat: Material = instance.material_override if instance.material_override else instance.mesh.surface_get_material(0)
+		if mat == null: continue
+		var key := str(mat.get_instance_id()) + "_" + str(instance.cast_shadow)
+		if not groups.has(key):
+			var builder := SurfaceTool.new()
+			builder.begin(Mesh.PRIMITIVE_TRIANGLES)
+			groups[key] = {"builder": builder, "material": mat, "shadow": instance.cast_shadow}
+		var transform: Transform3D = (parent as Node3D).global_transform.affine_inverse() * instance.global_transform
+		groups[key].builder.append_from(instance.mesh, 0, transform)
+		instance.hide()
+	for group: Dictionary in groups.values():
+		var combined := MeshInstance3D.new()
+		combined.name = "StaticBatch"
+		combined.mesh = group.builder.commit()
+		combined.material_override = group.material
+		combined.cast_shadow = group.shadow
+		parent.add_child(combined)
+
+func update_recovery() -> void:
+	if mission.state != mission.State.VITORIA: return
+	for mat in foliage_materials:
+		var color: Color = mat.get_shader_parameter("leaf_color")
+		create_tween().tween_method(func(value: Color): mat.set_shader_parameter("leaf_color", value), color, color.lerp(Color("4d995c"), 0.3), 1.2)
+
+func _process(_delta: float) -> void:
+	if mission.mission_id != "centro": return
+	var intensity: float = world.storm_intensity
+	if absf(intensity - storm_last) < 0.01: return
+	storm_last = intensity
+	var env: Environment = mission.get_node("WorldEnvironment").environment
+	env.fog_density = lerpf(0.0038, 0.0075, intensity)
+	env.fog_light_color = Color("afc2c7").lerp(Color("8c9da8"), intensity)
+	for mat in wet_materials:
+		mat.set_shader_parameter("wetness", intensity)

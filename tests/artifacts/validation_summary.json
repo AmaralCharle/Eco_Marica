@@ -1,128 +1,135 @@
 {
-  "generated_at": "2026-11-14T13:23:46.0041006-03:00",
-  "source": "logs da execução final de run_all.ps1",
-  "checks": 356.0,
+  "generated_at": "2026-11-16T09:57:08.1652838-03:00",
+  "checks": 378,
   "failed_suites": 0,
   "suites": [
     {
       "name": "test_aracatiba.gd",
       "checks": 32,
-      "failures": 0,
+      "exit_code": 0,
+      "log": "C:\\Users\\CHARLE\\Documents\\Eco-Maricá\\eco-marica\\tests\\artifacts\\test_aracatiba.log",
       "has_errors": false,
-      "warnings": true,
-      "log": "test_aracatiba.log"
+      "warnings": false
     },
     {
       "name": "test_audio.gd",
       "checks": 17,
-      "failures": 0,
+      "exit_code": 0,
+      "log": "C:\\Users\\CHARLE\\Documents\\Eco-Maricá\\eco-marica\\tests\\artifacts\\test_audio.log",
       "has_errors": false,
-      "warnings": true,
-      "log": "test_audio.log"
+      "warnings": true
     },
     {
       "name": "test_boat.gd",
       "checks": 9,
-      "failures": 0,
+      "exit_code": 0,
+      "log": "C:\\Users\\CHARLE\\Documents\\Eco-Maricá\\eco-marica\\tests\\artifacts\\test_boat.log",
       "has_errors": false,
-      "warnings": false,
-      "log": "test_boat.log"
+      "warnings": true
     },
     {
       "name": "test_campaign.gd",
       "checks": 18,
-      "failures": 0,
+      "exit_code": 0,
+      "log": "C:\\Users\\CHARLE\\Documents\\Eco-Maricá\\eco-marica\\tests\\artifacts\\test_campaign.log",
       "has_errors": false,
-      "warnings": true,
-      "log": "test_campaign.log"
+      "warnings": true
     },
     {
       "name": "test_centro_access.gd",
       "checks": 14,
-      "failures": 0,
+      "exit_code": 0,
+      "log": "C:\\Users\\CHARLE\\Documents\\Eco-Maricá\\eco-marica\\tests\\artifacts\\test_centro_access.log",
       "has_errors": false,
-      "warnings": true,
-      "log": "test_centro_access.log"
+      "warnings": true
     },
     {
       "name": "test_centro.gd",
       "checks": 34,
-      "failures": 0,
+      "exit_code": 0,
+      "log": "C:\\Users\\CHARLE\\Documents\\Eco-Maricá\\eco-marica\\tests\\artifacts\\test_centro.log",
       "has_errors": false,
-      "warnings": true,
-      "log": "test_centro.log"
+      "warnings": true
     },
     {
       "name": "test_characters.gd",
       "checks": 49,
-      "failures": 0,
+      "exit_code": 0,
+      "log": "C:\\Users\\CHARLE\\Documents\\Eco-Maricá\\eco-marica\\tests\\artifacts\\test_characters.log",
       "has_errors": false,
-      "warnings": true,
-      "log": "test_characters.log"
+      "warnings": true
+    },
+    {
+      "name": "test_environment.gd",
+      "checks": 22,
+      "exit_code": 0,
+      "log": "C:\\Users\\CHARLE\\Documents\\Eco-Maricá\\eco-marica\\tests\\artifacts\\test_environment.log",
+      "has_errors": false,
+      "warnings": true
     },
     {
       "name": "test_foundation.gd",
       "checks": 16,
-      "failures": 0,
+      "exit_code": 0,
+      "log": "C:\\Users\\CHARLE\\Documents\\Eco-Maricá\\eco-marica\\tests\\artifacts\\test_foundation.log",
       "has_errors": false,
-      "warnings": true,
-      "log": "test_foundation.log"
+      "warnings": true
     },
     {
       "name": "test_itaipuacu.gd",
       "checks": 47,
-      "failures": 0,
+      "exit_code": 0,
+      "log": "C:\\Users\\CHARLE\\Documents\\Eco-Maricá\\eco-marica\\tests\\artifacts\\test_itaipuacu.log",
       "has_errors": false,
-      "warnings": true,
-      "log": "test_itaipuacu.log"
+      "warnings": true
     },
     {
       "name": "test_ponta_access.gd",
       "checks": 6,
-      "failures": 0,
+      "exit_code": 0,
+      "log": "C:\\Users\\CHARLE\\Documents\\Eco-Maricá\\eco-marica\\tests\\artifacts\\test_ponta_access.log",
       "has_errors": false,
-      "warnings": true,
-      "log": "test_ponta_access.log"
+      "warnings": true
     },
     {
       "name": "test_ponta_negra.gd",
       "checks": 20,
-      "failures": 0,
+      "exit_code": 0,
+      "log": "C:\\Users\\CHARLE\\Documents\\Eco-Maricá\\eco-marica\\tests\\artifacts\\test_ponta_negra.log",
       "has_errors": false,
-      "warnings": true,
-      "log": "test_ponta_negra.log"
+      "warnings": true
     },
     {
       "name": "test_presentation.gd",
       "checks": 33,
-      "failures": 0,
+      "exit_code": 0,
+      "log": "C:\\Users\\CHARLE\\Documents\\Eco-Maricá\\eco-marica\\tests\\artifacts\\test_presentation.log",
       "has_errors": false,
-      "warnings": true,
-      "log": "test_presentation.log"
+      "warnings": true
     },
     {
       "name": "test_progress_extension.gd",
       "checks": 8,
-      "failures": 0,
+      "exit_code": 0,
+      "log": "C:\\Users\\CHARLE\\Documents\\Eco-Maricá\\eco-marica\\tests\\artifacts\\test_progress_extension.log",
       "has_errors": false,
-      "warnings": false,
-      "log": "test_progress_extension.log"
+      "warnings": false
     },
     {
       "name": "test_recycling.gd",
       "checks": 35,
-      "failures": 0,
+      "exit_code": 0,
+      "log": "C:\\Users\\CHARLE\\Documents\\Eco-Maricá\\eco-marica\\tests\\artifacts\\test_recycling.log",
       "has_errors": false,
-      "warnings": true,
-      "log": "test_recycling.log"
+      "warnings": true
     },
     {
       "name": "test_ubatiba.gd",
       "checks": 18,
-      "failures": 0,
+      "exit_code": 0,
+      "log": "C:\\Users\\CHARLE\\Documents\\Eco-Maricá\\eco-marica\\tests\\artifacts\\test_ubatiba.log",
       "has_errors": false,
-      "warnings": true,
-      "log": "test_ubatiba.log"
+      "warnings": true
     }
   ]
 }

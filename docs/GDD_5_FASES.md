@@ -72,6 +72,8 @@ Araçatiba: percurso de orla com estações próximas, ciclovia e vegetação. I
 As malhas e posições efetivas estão nos scripts de cenário e nos testes/capturas. O mapa final é esquemático, sem compromisso cartográfico. Ainda faltam diagramas/mapas de entrega final e avaliação de ritmo por pessoa.
 
 ## 11. Arte interface e áudio
+
+Polimento dos cenários atualizado em 16/11/2026: superfícies, vegetação, água, iluminação, atmosfera e detalhes ambientais das cinco fases, com destaque para Centro/Ubatiba/Ponta Negra. Preserva objetivos e colisões. Implementação, verificação e limitações registradas em `CENARIOS_2026_11_16.md`; origem dos recursos em `ASSETS_E_CREDITOS.md`.
 Primitivas low-poly, vegetação e água estilizadas, materiais leves e sem texturas baixadas. Personagens, plantio, chuva e água usam efeitos procedurais simples. Menu com cinco fases, seleção de quatro personagens, instruções, HUD, pausa, vitória/derrota, inspeção de terreno e encerramento com mapa/estatísticas.
 
 As estatísticas finais são dos melhores resultados registrados por missão; repetir uma pontuação menor não aumenta nem reduz o acumulado. Saves antigos não recebem estatísticas fabricadas. O mixer `GameAudio` separa Master/Music/Ambience/SFX; volumes, câmera e qualidade possuem preferências locais. Sons e músicas originais sintetizados por código são provisórios, com origem registrada em `ASSETS_E_CREDITOS.md`. Fonte de interface: padrão nativo do Godot; ícone original preservado e marca vetorial de folha nos menus.

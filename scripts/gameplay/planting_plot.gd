@@ -6,24 +6,34 @@ extends Node3D
 var sapling: Node3D
 var cover: MeshInstance3D
 var label: Label3D
+var ground_material: ShaderMaterial
 func _ready() -> void:
 	add_to_group("planting_plots")
-	cover = block(self, Vector3.ZERO, Vector3(1.5, 0.06, 1.5), Color("b28b59") if exposed else Color("799a62"))
+	cover = MeshInstance3D.new()
+	var patch := CylinderMesh.new()
+	patch.top_radius = 0.77
+	patch.bottom_radius = 0.79
+	patch.height = 0.045
+	patch.radial_segments = 15
+	cover.mesh = patch
+	ground_material = ShaderMaterial.new()
+	ground_material.shader = preload("res://assets/materials/environment_surface.gdshader")
+	ground_material.set_shader_parameter("base_color", Color("b3966c") if exposed else Color("73915a"))
+	ground_material.set_shader_parameter("surface_type", 1 if exposed else 0)
+	cover.material_override = ground_material
+	add_child(cover)
 	sapling = Node3D.new()
 	add_child(sapling)
 	block(sapling, Vector3(0, 0.35, 0), Vector3(0.08, 0.7, 0.08), Color("8a6647"))
 	for i in 5:
 		var leaf := MeshInstance3D.new()
-		var mesh := SphereMesh.new()
-		mesh.radius = 0.5
-		mesh.height = 1.0
-		mesh.radial_segments = 8
-		mesh.rings = 4
+		var mesh := preload("res://scripts/effects/environment_meshes.gd").leaf()
 		var mat := StandardMaterial3D.new()
 		mat.albedo_color = Color("58a768") if i % 2 == 0 else Color("35875a")
-		mesh.material = mat
+		mat.cull_mode = BaseMaterial3D.CULL_DISABLED
+		leaf.material_override = mat
 		leaf.mesh = mesh
-		leaf.scale = Vector3(0.36, 0.12, 0.22)
+		leaf.scale = Vector3.ONE * 0.9
 		leaf.position = Vector3(cos(i * 2.4) * 0.16, 0.55 + i * 0.1, sin(i * 2.4) * 0.16)
 		leaf.rotation = Vector3(0.2, -i * 2.4, 0.25)
 		sapling.add_child(leaf)
@@ -32,7 +42,8 @@ func _ready() -> void:
 	label.text = "PONTO " + plot_id.trim_prefix("ubatiba_") + (" • Solo exposto" if exposed else " • Inspecione")
 	label.position.y = 1.45
 	label.font_size = 30
-	label.pixel_size = 0.006
+	label.pixel_size = 0.0045
+	label.visibility_range_end = 16.0
 	label.billboard = BaseMaterial3D.BILLBOARD_ENABLED
 	add_child(label)
 func block(parent: Node, pos: Vector3, size: Vector3, color: Color) -> MeshInstance3D:
@@ -54,5 +65,5 @@ func update_plot(data: Dictionary) -> void:
 		create_tween().tween_property(sapling, "scale", Vector3.ONE, 0.35)
 	sapling.visible = data["planted"] or not apt
 	if data["protected"]:
-		cover.mesh.material.albedo_color = Color("749b59")
+		ground_material.set_shader_parameter("base_color", Color("7c9560"))
 	label.text = "PONTO " + plot_id.trim_prefix("ubatiba_") + (" • Avaliado" if (data["preserved"] or (data["planted"] and (not exposed or data["protected"]))) else " • Em recuperação")

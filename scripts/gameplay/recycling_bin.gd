@@ -14,11 +14,11 @@ func _ready() -> void:
 	collision.position.y = 0.575
 	body.add_child(collision)
 	add_child(body)
-	var mesh := BoxMesh.new()
-	mesh.size = shape.size
+	var mesh := preload("res://scripts/effects/environment_meshes.gd").beveled_box(shape.size, 0.075)
 	var appearance := StandardMaterial3D.new()
 	appearance.albedo_color = Config.MATERIAL_COLORS[material]
-	mesh.material = appearance
+	appearance.roughness = 0.57
+	mesh.surface_set_material(0, appearance)
 	var model := MeshInstance3D.new()
 	model.mesh = mesh
 	model.position.y = 0.575
@@ -48,7 +48,7 @@ func _ready() -> void:
 	label.text = Config.MATERIAL_NAMES[material]
 	label.position.y = 1.6
 	label.font_size = 48
-	label.pixel_size = 0.006
+	label.pixel_size = 0.0048
 	label.billboard = BaseMaterial3D.BILLBOARD_ENABLED
 	add_child(label)
 

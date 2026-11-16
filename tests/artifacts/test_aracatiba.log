@@ -33,5 +33,3 @@ PASS: Progresso inválido usa padrão seguro: {"version":1,"unlocked_level":999}
 PASS: Progresso inválido usa padrão seguro: {"version":1,"unlocked_level":"2"}
 PASS: Progresso inválido usa padrão seguro: {"version":1,"unlocked_level":1.5}
 RESULT: 32 verificações, 0 falhas
-WARNING: 20 ObjectDB instances were leaked at exit (run with `--verbose` for details).
-   at: cleanup (core/object/object.cpp:2536)
