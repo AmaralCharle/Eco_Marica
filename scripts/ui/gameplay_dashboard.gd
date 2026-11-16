@@ -24,6 +24,7 @@ var material_counts: Dictionary = {}
 var cargo_slots: Array[PanelContainer] = []
 var inventory_icon: Control
 var controls: Label
+var evolution_info: Label
 
 func _ready() -> void:
 	name = "GameplayDashboard"
@@ -48,6 +49,7 @@ func _ready() -> void:
 			material_counts[kind] = count
 		caption(goals,"Itens disponíveis na área",11)
 	controls = caption(goals,"",12)
+	evolution_info = caption(goals,"",12)
 	var time_rows := rows(panel(Control.PRESET_TOP_RIGHT,Vector4(-292,24,-162,114),12))
 	var timer_heading := HBoxContainer.new()
 	timer_heading.mouse_filter = Control.MOUSE_FILTER_IGNORE
@@ -198,6 +200,8 @@ func refresh_inventory() -> void:
 
 func update_clock() -> void:
 	var seconds: int = ceili(mission.remaining)
+	var evolution := mission.get_node_or_null("Evolution")
+	if evolution: evolution_info.text = evolution.hud_text+"\nQ  Abrir caderno de decisões"
 	controls.text = "W/S acelerar · A/D virar\nE interagir · Esc pausar" if mission.mission_id == "ponta_negra" and mission.on_boat else "WASD mover · Shift correr · Espaço pular\nE interagir · Esc pausar"
 	time_value.text = "%02d:%02d" % [seconds/60,seconds%60]
 	time_value.add_theme_color_override("font_color",Color("f3aa99") if seconds <= 30 else Design.AMBER if seconds <= 60 else Design.TEXT)

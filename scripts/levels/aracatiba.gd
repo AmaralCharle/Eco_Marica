@@ -14,6 +14,7 @@ var result_reason: String = ""
 var profile: PlayerProfile
 var progress: MissionProgress
 var save_ok: bool = true
+var evolution: Node
 @onready var session: RecyclingSession = $Session
 @onready var player: CharacterBody3D = $Player
 
@@ -31,6 +32,9 @@ func _ready() -> void:
 	progress = Progress.new(progress_path)
 	session.active = false
 	spawn_objects()
+	evolution = preload("res://scripts/gameplay/mission_evolution.gd").new()
+	evolution.name = "Evolution"
+	add_child(evolution)
 	session.changed.connect(evaluate_objectives)
 	var presentation := preload("res://scripts/effects/mission_presentation.gd").new()
 	presentation.name = "Presentation"

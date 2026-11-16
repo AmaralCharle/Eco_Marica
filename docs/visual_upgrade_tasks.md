@@ -13,7 +13,7 @@ Branch: `upgrade-visual-4`. Base aprovada: `3fc476c` (tag `fase-1-final`, public
 | 07 Araçatiba/Itaipuaçu | validada | Coerência entre as cinco fases |
 | 08 Personagens/animações | validada | Um modelo primeiro; articulação visual e estados existentes |
 | 09 Áudio/efeitos | validada | Complementos originais, volume e sobreposição |
-| 10 Decisões ambientais | pendente | Composição, vento, prioridade de bueiros, solo e rota |
+| 10 Decisões ambientais | validada | Composição, vento, prioridade de bueiros, solo e rota |
 | 11 Estrelas/opcionais | pendente | Critérios numéricos, sem bloquear progressão |
 | 12 Estatísticas/resultados | pendente | Tentativas e melhores avaliações, migração compatível |
 | 13 Perfis/otimização | pendente | Baixo/Médio/Alto; cargas e memória |
@@ -53,3 +53,7 @@ Lucas recebeu cotovelos primeiro, com 57 verificações e captura de ação/corr
 ### TASK 09 — validada
 
 Áudio existente inspecionado: mixer por buses, pool de 12 vozes e volume preservados. Três feedbacks originais curtos (decision/optional/stars) gerados por generate_upgrade_audio.py, prontos para integrar nas tarefas seguintes. Streams de efeitos terminados são liberados; fechamento pelo menu/janela aguarda o mixer. Teste áudio 17 verificações sem falhas. Avisos de encerramento imediato dos testes ainda serão auditados em memória na TASK 13; não se declara ausência irrestrita de vazamentos.
+
+### TASK 10 — validada
+
+Decisões por Q com tempo pausado e erros separados da missão principal. Araçatiba: partes removíveis de duas embalagens, sem alterar a meta de quinze. Itaipuaçu: vento lateral determinístico até 0,45 m, sem acelerar ida ao mar. Centro: prioridade por resíduos disponíveis num raio de 7 m, empates aceitos. Ubatiba: leitura do laudo do ponto mais próximo. Ponta: distância ao píer e vagas para planejar lotes. Arquivos: mission_evolution.gd, aracatiba.gd, game_config.gd, gameplay_dashboard.gd, drifting_waste.gd. Testes: evolução 47, campanha 18, resoluções 110 sem falhas; placares originais da campanha preservados.

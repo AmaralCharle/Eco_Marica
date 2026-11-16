@@ -55,7 +55,7 @@ static func ensure_input_actions() -> void:
 	var bindings: Dictionary = {
 		"move_forward": KEY_W, "move_back": KEY_S,
 		"move_left": KEY_A, "move_right": KEY_D,
-		"return_menu": KEY_M, "interact": KEY_E, "restart_training": KEY_R, "sprint": KEY_SHIFT, "jump": KEY_SPACE, "release_mouse": KEY_ESCAPE
+		"return_menu": KEY_M, "interact": KEY_E, "restart_training": KEY_R, "sprint": KEY_SHIFT, "jump": KEY_SPACE, "release_mouse": KEY_ESCAPE,"field_notes":KEY_Q
 	}
 	for action: String in bindings:
 		if not InputMap.has_action(action):
