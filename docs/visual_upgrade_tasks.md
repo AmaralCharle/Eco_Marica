@@ -14,7 +14,7 @@ Branch: `upgrade-visual-4`. Base aprovada: `3fc476c` (tag `fase-1-final`, public
 | 08 Personagens/animações | validada | Um modelo primeiro; articulação visual e estados existentes |
 | 09 Áudio/efeitos | validada | Complementos originais, volume e sobreposição |
 | 10 Decisões ambientais | validada | Composição, vento, prioridade de bueiros, solo e rota |
-| 11 Estrelas/opcionais | pendente | Critérios numéricos, sem bloquear progressão |
+| 11 Estrelas/opcionais | validada | Critérios numéricos, sem bloquear progressão |
 | 12 Estatísticas/resultados | pendente | Tentativas e melhores avaliações, migração compatível |
 | 13 Perfis/otimização | pendente | Baixo/Médio/Alto; cargas e memória |
 | 14 Regressão completa | pendente | Cinco fases, saves próprios; revisão gráfica e limites |
@@ -57,3 +57,7 @@ Lucas recebeu cotovelos primeiro, com 57 verificações e captura de ação/corr
 ### TASK 10 — validada
 
 Decisões por Q com tempo pausado e erros separados da missão principal. Araçatiba: partes removíveis de duas embalagens, sem alterar a meta de quinze. Itaipuaçu: vento lateral determinístico até 0,45 m, sem acelerar ida ao mar. Centro: prioridade por resíduos disponíveis num raio de 7 m, empates aceitos. Ubatiba: leitura do laudo do ponto mais próximo. Ponta: distância ao píer e vagas para planejar lotes. Arquivos: mission_evolution.gd, aracatiba.gd, game_config.gd, gameplay_dashboard.gd, drifting_waste.gd. Testes: evolução 47, campanha 18, resoluções 110 sem falhas; placares originais da campanha preservados.
+
+### TASK 11 — validada
+
+Estrelas: vitória garante 1; 2 com até 2 erros e até 2 perdas (Ubatiba até 1 erro); 3 sem erros/perdas. Tempo adicional e decisões opcionais não reduzem nota; estrelas não bloqueiam fases. Melhor nota independente do score; objetivos opcionais persistidos. Schema permanece versão 2 com campos aditivos. Arquivos: performance_rating.gd, mission_progress.gd, aracatiba.gd, recycling_session.gd, phase_card.gd, mission_hud.gd. Testes: ratings 33, migração 8, campanha 18; fixture com leitor antigo comprova leitura do save no rollback.

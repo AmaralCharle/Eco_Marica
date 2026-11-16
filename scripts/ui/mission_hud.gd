@@ -249,6 +249,7 @@ func build_menu() -> void:
 		card.accessible = mission.progress.unlocked_level >= card.spec.number
 		card.completed = mission.progress.completed_levels.has(id)
 		card.current = id == next_id
+		card.rating = mission.progress.best_stars.get(id,0)
 		card.pressed.connect(func(): mission.open_level(id))
 		journey.add_child(card)
 	muted(content,"Um jogador · Offline · Progresso salvo neste computador · Cenários fictícios inspirados em Maricá",12)
@@ -298,7 +299,9 @@ func build_pause() -> void:
 
 func build_results() -> void:
 	var won: bool = mission.state == Mission.State.VITORIA
-	screen_title("Missão concluída!" if won else "Vamos tentar de novo",mission.definition().short_name,"check" if won else "leaf",Design.MINT if won else Design.AMBER)
+	var subtitle: String = mission.definition().short_name
+	if won and mission.result_rating > 0: subtitle += "  ·  "+preload("res://scripts/core/performance_rating.gd").symbols(mission.result_rating)
+	screen_title("Missão concluída!" if won else "Vamos tentar de novo",subtitle,"check" if won else "leaf",Design.MINT if won else Design.AMBER)
 	label(content,mission.result_reason,17)
 	metric_grid([["PONTUAÇÃO",session.score],["TEMPO UTILIZADO",str(ceili(mission.definition().duration-mission.remaining))+" s"],["ÍNDICE",str(session.cleaning_index())+"%"]])
 	if mission.mission_id == "ubatiba":

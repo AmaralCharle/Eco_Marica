@@ -5,6 +5,7 @@ var spec: Dictionary
 var accessible: bool = false
 var completed: bool = false
 var current: bool = false
+var rating: int = 0
 func _ready() -> void:
 	name = "Phase_"+spec.id
 	theme_type_variation = "CardButton"
@@ -45,6 +46,7 @@ func _ready() -> void:
 	words.add_child(description)
 	var state := Label.new()
 	state.text = "CONCLUÍDA" if completed else "BLOQUEADA" if not accessible else "ATUAL" if current else "JOGAR  ›"
+	if rating > 0: state.text = preload("res://scripts/core/performance_rating.gd").symbols(rating)
 	state.add_theme_font_size_override("font_size",11)
 	state.add_theme_color_override("font_color",Design.MINT if accessible else Color("7f9594"))
 	state.vertical_alignment = VERTICAL_ALIGNMENT_CENTER

@@ -20,6 +20,7 @@ var collected: int = 0
 var correct: int = 0
 var errors: int = 0
 var streak: int = 0
+var best_streak: int = 0
 
 func register_waste(id: String, material: String) -> bool:
 	if id.is_empty() or records.has(id) or not Config.MATERIAL_NAMES.has(material):
@@ -63,6 +64,7 @@ func sort_into(material: String) -> bool:
 	carried_id = ""
 	correct += 1
 	streak += 1
+	best_streak = maxi(best_streak,streak)
 	score += Config.POINTS_CORRECT
 	presentation_event.emit("correct")
 	var message := "Destino correto! +%d pontos" % Config.POINTS_CORRECT

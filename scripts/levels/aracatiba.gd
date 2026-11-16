@@ -15,6 +15,8 @@ var profile: PlayerProfile
 var progress: MissionProgress
 var save_ok: bool = true
 var evolution: Node
+var attempt_started: bool = false
+var result_rating: int = 0
 @onready var session: RecyclingSession = $Session
 @onready var player: CharacterBody3D = $Player
 
@@ -41,6 +43,7 @@ func _ready() -> void:
 	add_child(presentation)
 	if get_tree().get_meta("mission_restart", false):
 		get_tree().remove_meta("mission_restart")
+		begin_attempt()
 		set_state(State.JOGANDO)
 	else:
 		set_state(State.INSTRUCOES if entry == "instructions" else State.MENU)
@@ -111,7 +114,13 @@ func show_instructions() -> void:
 
 func start_mission() -> void:
 	if state == State.INSTRUCOES and progress.unlocked_level >= definition()["number"]:
+		begin_attempt()
 		set_state(State.JOGANDO)
+
+func begin_attempt() -> void:
+	if attempt_started: return
+	attempt_started = true
+	save_ok = progress.register_attempt(mission_id)
 
 func _physics_process(delta: float) -> void:
 	advance_time(delta)
@@ -137,19 +146,27 @@ func finish(won: bool, reason: String) -> void:
 	if state != State.JOGANDO:
 		return
 	result_reason = reason
+	begin_attempt()
 	# Trava o resultado antes de emitir sinais; impede bônus duplicado.
 	set_state(State.VITORIA if won else State.DERROTA)
 	if won:
 		session.score += Config.POINTS_MISSION
+	result_rating = progress.note_outcome(mission_id,result_record(),won,evolution.completed.has(mission_id),evolution.decisions,evolution.decision_errors)
+	if won:
 		save_ok = progress.record_result(mission_id, result_record())
 		if definition()["number"] < 5:
 			get_node("/root/GameAudio").play_event("unlock")
 		$World.recover_area()
+		if result_rating >= 2:
+			create_tween().tween_interval(0.35).finished.connect(func(): get_node("/root/GameAudio").play_event("stars"))
+	else:
+		save_ok = progress.save_progress()
 	session.changed.emit()
 	state_changed.emit()
 
 func result_record() -> Dictionary:
 	var record: Dictionary = {"score": session.score, "collected": session.collected, "correct": session.correct, "errors": session.errors, "lost": session.lost_count, "drains": session.drains_cleaned, "seconds": ceili(definition()["duration"] - remaining)}
+	record["best_streak"] = session.best_streak
 	if mission_id == "ubatiba":
 		record.merge({"assessed": session.assessed, "planted": session.planted, "protected": session.protected_soil})
 	return record
