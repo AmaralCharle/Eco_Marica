@@ -15,12 +15,12 @@ func _ready() -> void:
 	top.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	top.add_theme_stylebox_override("panel", panel_style())
 	add_child(top)
-	status = make_label(18)
+	status = make_label(15)
 	top.add_child(status)
 	var bottom := PanelContainer.new()
 	bottom.set_anchors_and_offsets_preset(Control.PRESET_BOTTOM_WIDE)
-	bottom.offset_left = 16
-	bottom.offset_right = -16
+	bottom.offset_left = 266
+	bottom.offset_right = -266
 	bottom.offset_top = -148
 	bottom.offset_bottom = -16
 	bottom.mouse_filter = Control.MOUSE_FILTER_IGNORE
@@ -29,11 +29,11 @@ func _ready() -> void:
 	var rows := VBoxContainer.new()
 	rows.add_theme_constant_override("separation", 8)
 	bottom.add_child(rows)
-	prompt = make_label(21)
+	prompt = make_label(17)
 	rows.add_child(prompt)
-	message = make_label(18)
+	message = make_label(14)
 	rows.add_child(message)
-	var note := make_label(14)
+	var note := make_label(12)
 	note.text = "Treino: papel limpo e garrafas plásticas • Na vida real, consulte as regras da coleta local. R: recomeçar • M: menu"
 	rows.add_child(note)
 	session.changed.connect(update_status)
@@ -49,14 +49,7 @@ func make_label(size: int) -> Label:
 	return label
 
 func panel_style() -> StyleBoxFlat:
-	var style := StyleBoxFlat.new()
-	style.bg_color = Color(0.025, 0.09, 0.12, 0.94)
-	style.content_margin_left = 16
-	style.content_margin_right = 16
-	style.content_margin_top = 12
-	style.content_margin_bottom = 12
-	style.set_corner_radius_all(12)
-	return style
+	return preload("res://scripts/ui/eco_theme.gd").frame(0.84,14)
 
 func update_status() -> void:
 	status.text = "TREINO DE CLASSIFICAÇÃO\nPontos: %d   •   Erros: %d\nColetados: %d/%d   •   Corretos: %d/%d\nLimpeza: %d%%\nEm mãos: %s" % [session.score, session.errors, session.collected, session.records.size(), session.correct, session.records.size(), session.cleaning_index(), session.carried_material_name()]

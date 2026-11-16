@@ -94,3 +94,7 @@ Campanha: cinco fases por botões de próxima fase, personagem e caminhos preser
 Verificação gráfica: quatro capturas de Ubatiba (instruções, terreno, inspeção e vitória) e sete de Ponta Negra (instruções, margem, barco, carga cheia, descarga, vitória e final). Renderizador real Compatibility/OpenGL, Intel UHD Graphics, 1280 × 720. Painéis inspecionados; modelos e efeitos são provisórios. Os estados são automatizados e não constituem uma partida manual.
 
 Limitações preservadas: tempo e reposicionamento controlados em parte dos testes; sem avaliação externa, medições de aprendizagem ou FPS sustentados. Balanceamento dos prazos e conforto da navegação ainda precisam de partida humana. Áudio/volume e polimento foram deliberadamente deixados para a próxima etapa, conforme solicitado. GDD de trabalho em Markdown atualizado; versão final DOCX/PDF, vídeo e exportação Windows ainda não preparados.
+
+## Interface — 16/11/2026
+
+604 verificações em 17 suítes, sem falhas. `test_interface.gd` acrescenta 226 verificações de dados visíveis, limites de layout, bloqueios, personagens, pausa, inspeção, carga cheia e resultados nas cinco fases. Revisão gráfica Forward Mobile/Vulkan: 260 verificações, 34 capturas 1280 × 720, sem falhas. Capturas são estados automatizados, incluindo avisos de gravação deliberados; não constituem teste externo. Detalhes e limites em `INTERFACE_2026_11_16.md`; logs e `validation_summary.json` em `tests/artifacts`.

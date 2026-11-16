@@ -13,7 +13,9 @@ Recursos implementados neste projeto com auxílio de OpenAI Codex. Não foram ba
 | Água e vento em folhas | Shaders originais em Godot Shader Language | `assets/materials/water.gdshader`, `foliage.gdshader` | Código gerado no projeto com assistência Codex; sem texturas externas | Lagoa, mar, riacho, canal e vegetação |
 | Personagens, árvores, jardins, morros, fachadas e barco | Malhas/primitivas procedurais, assistência Codex | `character_appearance.gd`, `world_polish.gd`, `boat_polish.gd` | Recursos nativos e código do projeto; não são GLB de terceiros | Jogador, prévias e cenários |
 | Folha da marca e tema | Desenho vetorial/código original, assistência Codex | `eco_mark.gd`, `eco_theme.gd` | Sem imagem externa ou fonte baixada | Menus e HUD |
-| Fonte e símbolo ♻ | Fonte de interface disponibilizada pelo motor | Recursos padrão do Godot | Permanecem sob suas licenças originais distribuídas com Godot; preservar avisos no exportador | Interface e coletores |
+| Tipografia de interface | Fontes locais do sistema (Segoe UI/Noto Sans/Arial), com fallback do Godot | `SystemFont` em `eco_theme.gd` | Fontes mantêm suas licenças originais; nenhum arquivo foi copiado ou redistribuído | Interface |
+| Ícones da HUD e localidades | Desenho vetorial original com assistência Codex | `eco_icon.gd`, `phase_card.gd`, `campaign_map.gd` | Código do projeto, sem imagens externas | HUD, menus e conclusão |
+| Símbolo ♻ dos coletores | Fonte disponibilizada pelo motor | Recursos padrão do Godot | Licenças originais distribuídas com o motor; preservar avisos do exportador | Coletores |
 
 Total de áudio: **34 arquivos** PCM WAV mono 16 bits, 22050 Hz. Reproduzir a geração com Python 3, executando `python tools/generate_audio.py`; Python não é dependência para jogar. Importação e reprodução ficam com o Godot. Os efeitos são intencionalmente simples e ainda podem ser substituídos por gravações CC0 cuidadosamente creditadas após avaliação auditiva.
 

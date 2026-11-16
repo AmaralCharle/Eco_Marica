@@ -18,8 +18,9 @@ func frames(count: int = 5) -> void:
 		await physics_frame
 		await process_frame
 func click(level: Node, prefix: String) -> bool:
-	for node in level.get_node("MissionHUD").content.get_children():
-		if node is Button and node.text.to_lower().begins_with(prefix.to_lower()) and not node.disabled:
+	for node in level.get_node("MissionHUD").content.find_children("*", "Button", true, false):
+		var action_text: String = node.get_meta("action_text",node.text)
+		if action_text.to_lower().begins_with(prefix.to_lower()) and not node.disabled:
 			node.pressed.emit()
 			return true
 	return false

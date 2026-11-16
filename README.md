@@ -24,6 +24,10 @@ Todas as fases perdem no tempo zero. O mapa final mostra cinco localidades esque
 ## Correção do Centro
 Os 12 coletores agora estão no nível da rua, em estações com acesso sem pulo. Há seis rampas para acessar as calçadas. `test_centro_access.gd` verifica os coletores e as duas rampas laterais caminhando com o controlador real.
 
+## Interface
+
+HUD e telas redesenhadas em 16/11/2026: objetivos compactos, tempo/pontos separados, inventário/carga e limpeza nas bordas, cartões de fases, seleção com prévias maiores e resultados padronizados. Preserva todos os indicadores e controles. Detalhes, arquivos e limites em `docs/INTERFACE_2026_11_16.md`.
+
 ## Áudio, câmera e gráficos
 
 Atualização de cenários de 16/11/2026: materiais de solo/pavimentação/madeira, vegetação, água, luz e atmosfera revistos nas cinco fases; detalhes adicionais no Centro, Ubatiba e Ponta Negra. Não muda as metas ou as posições dos objetivos. Ver `docs/CENARIOS_2026_11_16.md` para arquivos, evidências e limites.
@@ -67,7 +71,7 @@ Execute na raiz do projeto:
 .\tests\run_all.ps1 -Godot 'C:\caminho\Godot_v4.7.2-stable_win64_console.exe'
 ```
 
-Validação atual: 378 verificações em 16 suítes, sem falhas. Inclui áudio, apresentação, cenário e preservação física da camada decorativa. Medições e limites em `docs/CENARIOS_2026_11_16.md`; resumo em `tests/artifacts/validation_summary.json`. O executor confere código de saída e mensagens do motor, salvando logs em `tests/artifacts/test_*.log`. Testes usam saves próprios e não concluem a campanha real do jogador.
+Validação atual: 604 verificações em 17 suítes, sem falhas. Inclui áudio, apresentação, cenário, preservação física da camada decorativa e interface das cinco fases em 1280 × 720. Medições e limites em `docs/CENARIOS_2026_11_16.md`; resumo em `tests/artifacts/validation_summary.json`. O executor confere código de saída e mensagens do motor, salvando logs em `tests/artifacts/test_*.log`. Testes usam saves próprios e não concluem a campanha real do jogador.
 
 Há testes de física real e de estados com reposicionamento controlado; não substituem uma partida humana completa nem avaliação da dificuldade. Capturas `capture_ubatiba.gd`, `capture_ponta_negra.gd` e demais scripts geram estados simulados para inspeção gráfica. Não são evidência de teste externo.
 

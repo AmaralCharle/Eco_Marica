@@ -73,10 +73,12 @@ As malhas e posições efetivas estão nos scripts de cenário e nos testes/capt
 
 ## 11. Arte interface e áudio
 
+Interface revisada em 16/11/2026: HUD modular nas bordas, cartões das cinco localidades, prévias de personagens maiores e telas de pausa/resultados/conclusão com hierarquia comum. Preserva regras e todos os indicadores. Detalhes em `INTERFACE_2026_11_16.md`; teste de interface e capturas a 1280 × 720.
+
 Polimento dos cenários atualizado em 16/11/2026: superfícies, vegetação, água, iluminação, atmosfera e detalhes ambientais das cinco fases, com destaque para Centro/Ubatiba/Ponta Negra. Preserva objetivos e colisões. Implementação, verificação e limitações registradas em `CENARIOS_2026_11_16.md`; origem dos recursos em `ASSETS_E_CREDITOS.md`.
 Primitivas low-poly, vegetação e água estilizadas, materiais leves e sem texturas baixadas. Personagens, plantio, chuva e água usam efeitos procedurais simples. Menu com cinco fases, seleção de quatro personagens, instruções, HUD, pausa, vitória/derrota, inspeção de terreno e encerramento com mapa/estatísticas.
 
-As estatísticas finais são dos melhores resultados registrados por missão; repetir uma pontuação menor não aumenta nem reduz o acumulado. Saves antigos não recebem estatísticas fabricadas. O mixer `GameAudio` separa Master/Music/Ambience/SFX; volumes, câmera e qualidade possuem preferências locais. Sons e músicas originais sintetizados por código são provisórios, com origem registrada em `ASSETS_E_CREDITOS.md`. Fonte de interface: padrão nativo do Godot; ícone original preservado e marca vetorial de folha nos menus.
+As estatísticas finais são dos melhores resultados registrados por missão; repetir uma pontuação menor não aumenta nem reduz o acumulado. Saves antigos não recebem estatísticas fabricadas. O mixer `GameAudio` separa Master/Music/Ambience/SFX; volumes, câmera e qualidade possuem preferências locais. Sons e músicas originais sintetizados por código são provisórios, com origem registrada em `ASSETS_E_CREDITOS.md`. Fonte de interface: SystemFont com Segoe UI/Noto Sans/Arial e fallback nativo do Godot, sem redistribuição de fontes; ícone original preservado e marca vetorial de folha nos menus.
 
 ## 12. Arquitetura técnica
 Motor Godot 4.7.2 Standard, GDScript; recursos nativos, sem bibliotecas externas de execução. Máquina observada: Windows 11 64 bits, Intel Core i5-12450H, aproximadamente 12 GB de RAM instalada e Intel UHD Graphics. Renderização padrão Forward Mobile/Vulkan após ensaios comparativos, em 1280 × 720. Há benchmarks de vistas controladas das cinco fases, sem garantia de FPS sustentados em partida humana; resultados em `POLIMENTO.md`.

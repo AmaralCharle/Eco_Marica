@@ -3,6 +3,11 @@ const Catalog = preload("res://scripts/core/character_catalog.gd")
 const Selector = preload("res://scripts/ui/character_selection.gd")
 const Config = preload("res://scripts/core/game_config.gd")
 const Mission = preload("res://scripts/levels/aracatiba.gd")
+const Design = preload("res://scripts/ui/eco_theme.gd")
+const Icon = preload("res://scripts/ui/eco_icon.gd")
+var dashboard
+var menu_card: PanelContainer
+var screen_tween: Tween
 var mission: Node3D
 var session: RecyclingSession
 var status: Label
@@ -19,39 +24,33 @@ var cleaning_bar: ProgressBar
 func _ready() -> void:
 	mission = get_parent()
 	session = mission.get_node("Session")
-	var heading := panel(Control.PRESET_TOP_LEFT, Vector4(16, 16, 510, 118))
-	var title := label(heading, "ECO MARICÁ • " + mission.definition()["short_name"].to_upper(), 20)
-	title.add_theme_color_override("font_color", Color("a4efc5"))
-	label(heading, mission.definition()["objective"], 16)
-	label(heading, "WASD • Shift correr • Espaço pular • E agir • Esc pausa", 13)
-	var stats := panel(Control.PRESET_TOP_RIGHT, Vector4(-350, 16, -16, 168))
-	status = label(stats, "", 17)
-	cleaning_bar = ProgressBar.new()
-	cleaning_bar.custom_minimum_size.y = 6
-	cleaning_bar.show_percentage = false
-	stats.add_child(cleaning_bar)
-	session.changed.connect(func(): cleaning_bar.value = session.cleaning_index())
-	var bottom := panel(Control.PRESET_BOTTOM_WIDE, Vector4(16, -132, -16, -16))
-	prompt = label(bottom, "", 18)
-	feedback = label(bottom, "", 15)
-	label(bottom, mission.definition()["note"], 12)
+	dashboard = preload("res://scripts/ui/gameplay_dashboard.gd").new()
+	dashboard.mission = mission
+	dashboard.session = session
+	add_child(dashboard)
+	hud_widgets.append(dashboard)
+	status = dashboard.status
+	prompt = dashboard.prompt
+	feedback = dashboard.feedback
+	cleaning_bar = dashboard.cleaning_bar
 	overlay = ColorRect.new()
 	overlay.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
-	overlay.color = Color(0.015, 0.04, 0.06, 0.68)
+	overlay.color = Color(0.025, 0.07, 0.08, 0.48)
 	add_child(overlay)
 	var center := CenterContainer.new()
 	center.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	overlay.add_child(center)
-	var card := PanelContainer.new()
-	card.custom_minimum_size = Vector2(760, 0)
-	card.add_theme_stylebox_override("panel", style())
-	center.add_child(card)
+	menu_card = PanelContainer.new()
+	menu_card.custom_minimum_size = Vector2(1040, 0)
+	menu_card.add_theme_stylebox_override("panel", style())
+	center.add_child(menu_card)
 	content = VBoxContainer.new()
-	content.add_theme_constant_override("separation", 7)
-	card.add_child(content)
+	content.add_theme_constant_override("separation", 10)
+	menu_card.add_child(content)
 	results_button = Button.new()
 	results_button.text = "Mostrar resultados"
-	results_button.position = Vector2(590, 16)
+	results_button.position = Vector2(24, 24)
+	results_button.theme_type_variation = "PrimaryButton"
 	results_button.pressed.connect(func(): overlay.show(); results_button.hide())
 	results_button.hide()
 	add_child(results_button)
@@ -61,16 +60,7 @@ func _ready() -> void:
 	call_deferred("update_screen")
 
 func style() -> StyleBoxFlat:
-	var box := StyleBoxFlat.new()
-	box.bg_color = Color(0.025, 0.09, 0.12, 0.96)
-	box.content_margin_left = 22
-	box.content_margin_right = 22
-	box.content_margin_top = 18
-	box.content_margin_bottom = 18
-	box.set_corner_radius_all(14)
-	box.border_color = Color("315459")
-	box.set_border_width_all(1)
-	return box
+	return Design.frame(0.94,24)
 
 func panel(preset: int, offsets: Vector4) -> VBoxContainer:
 	var box := PanelContainer.new()
@@ -98,14 +88,16 @@ func label(parent: Node, text: String, size: int = 19) -> Label:
 	parent.add_child(node)
 	return node
 
-func button(text: String, callback: Callable, disabled: bool = false) -> Button:
+func button(text: String, callback: Callable, disabled: bool = false, parent: Node = null, primary: bool = false) -> Button:
 	var node := Button.new()
 	node.text = text
-	node.custom_minimum_size.y = 34
-	node.add_theme_font_size_override("font_size", 18)
+	node.custom_minimum_size.y = 40
+	node.add_theme_font_size_override("font_size", 16)
+	node.theme_type_variation = "PrimaryButton" if primary else "Button"
+	node.set_meta("action_text",text)
 	node.disabled = disabled
 	node.pressed.connect(callback)
-	content.add_child(node)
+	(parent if parent else content).add_child(node)
 	return node
 
 func update_screen() -> void:
@@ -116,31 +108,11 @@ func update_screen() -> void:
 		node.queue_free()
 	overlay.visible = mission.state != Mission.State.JOGANDO
 	results_button.hide()
+	menu_card.custom_minimum_size.x = 1040 if mission.state in [Mission.State.MENU,Mission.State.SELECAO_PERSONAGEM] else 900 if mission.state == Mission.State.FINALIZADO else 840
+	content.add_theme_constant_override("separation",10)
 	match mission.state:
 		Mission.State.MENU:
-			var brand := HBoxContainer.new()
-			brand.add_theme_constant_override("separation", 16)
-			content.add_child(brand)
-			brand.add_child(preload("res://scripts/ui/eco_mark.gd").new())
-			var words := VBoxContainer.new()
-			words.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-			brand.add_child(words)
-			label(words, "ECO MARICÁ", 29)
-			label(words, "GUARDIÕES DA CIDADE", 16)
-			label(content, "Uma jornada de cuidado com os espaços públicos.", 18)
-			label(content, "Guardião: %s • Um jogador • Offline" % Catalog.get_character(mission.profile.selected_id)["name"], 17)
-			button("Escolher personagem", mission.show_character_selection)
-			for id in mission.Definitions.IDS:
-				var destination: Dictionary = mission.Definitions.get_mission(id)
-				var accessible: bool = mission.progress.unlocked_level >= destination["number"]
-				var choice := button(("Jogar • " if accessible else "Bloqueada • ") + destination["title"], func(): mission.open_level(id), not accessible)
-				if id == mission.mission_id and accessible:
-					choice.modulate = Color("a9e4bc")
-			button("Treinar coleta e classificação", func(): get_tree().change_scene_to_file("res://scenes/levels/foundation.tscn"))
-			if mission.progress.campaign_completed:
-				button("Campanha concluída • Rever conclusão", mission.show_campaign_completion)
-			button("Sair", func(): get_tree().quit())
-			button("Configurações • áudio, câmera e gráficos", open_settings)
+			build_menu()
 		Mission.State.SELECAO_PERSONAGEM:
 			selector = Selector.new()
 			selector.pending_id = mission.profile.selected_id
@@ -165,71 +137,28 @@ func update_screen() -> void:
 				label(content, "Explore uma orla fictícia inspirada em Maricá. Recolha e classifique os materiais para cuidar desse espaço.")
 				label(content, "• Recolha e destine os 15 resíduos em até 300 segundos.\n• Acerte pelo menos 12 destinos; o quarto erro encerra a missão.\n• Leve um item por vez até uma lixeira e use E.\n• Na missão, o descarte errado consome o item e conta como erro.\n• Papel: coletor azul. Plástico: coletor vermelho. Leia os nomes.")
 			label(content, "WASD mover • Mouse câmera • Shift correr • Espaço pular\nE coletar/destinar • Esc pausar. O tempo começa ao clicar abaixo.", 17)
-			button("Começar missão", mission.start_mission)
+			button("Começar missão", mission.start_mission,false,null,true)
 			button("Voltar ao menu", mission.go_menu)
 		Mission.State.FINALIZADO:
-			content.add_theme_constant_override("separation", 7)
-			label(content, "ECO MARICÁ • Campanha concluída!", 27)
-			label(content, "Cinco locais • Uma jornada de cuidado", 18)
-			var map := preload("res://scripts/ui/campaign_map.gd").new()
-			map.completed = mission.progress.completed_levels
-			content.add_child(map)
-			var totals: Dictionary = mission.progress.totals()
-			label(content, "Pontuação acumulada (melhores missões): %d\nDestinos corretos: %d • Plantios: %d • Proteções: %d • Bueiros: %d" % [mission.progress.total_score(), totals["correct"], totals["planted"], totals["protected"], totals["drains"]], 19)
-			label(content, "Mapa esquemático. Estatísticas são ações no jogo, não impacto ambiental real." + (" Fases antigas não possuem estatísticas detalhadas." if mission.progress.legacy_stats_missing else ""), 16)
-			label(content, "Obrigado por cuidar da cidade. Coleta local, restauração orientada e prevenção exigem ações contínuas. O jogo não comprova aprendizagem nem elimina riscos reais.", 18)
-			label(content, "Guardião: " + Catalog.get_character(mission.profile.selected_id)["name"] + (" • Conclusão registrada localmente" if mission.save_ok else " • Conclusão nesta sessão; não foi possível gravar"), 17)
-			button("Voltar ao menu", mission.go_menu)
-			button("Rejogar Operação Araçatiba", func(): mission.open_level("aracatiba"))
+			build_finale()
 		Mission.State.PAUSADO:
-			label(content, "MISSÃO PAUSADA", 30)
-			label(content, "O cronômetro e as interações estão suspensos.")
-			button("Continuar", func(): mission.set_state(Mission.State.JOGANDO))
-			button("Configurações • áudio, câmera e gráficos", open_settings)
-			button("Reiniciar missão", mission.restart)
-			button("Voltar ao menu", mission.go_menu)
+			build_pause()
 		Mission.State.VITORIA, Mission.State.DERROTA:
-			var won: bool = mission.state == Mission.State.VITORIA
-			label(content, mission.definition()["short_name"].to_upper() + " • Missão concluída!" if won else "MISSÃO ENCERRADA • Tente novamente", 28)
-			label(content, mission.result_reason)
-			label(content, "Pontos: %d   •   Tempo utilizado: %ds\nColetados: %d   •   Acertos: %d   •   Erros: %d\nÍndice de Limpeza: %d%%" % [session.score, ceili(mission.definition()["duration"] - mission.remaining), session.collected, session.correct, session.errors, session.cleaning_index()], 21)
-			if mission.mission_id == "centro":
-				label(content, "Bueiros limpos: %d/%d • Ação de redução de risco simulada" % [session.drains_cleaned, Config.CENTRO_DRAINS], 18)
-			elif mission.mission_id == "itaipuacu":
-				label(content, "Resíduos levados ao mar: %d/5 • Meta: 20 destinos corretos" % session.lost_count, 18)
-			if won:
-				label(content, "Bônus de missão: +100 • Campanha concluída" if mission.mission_id == "ponta_negra" else "Bônus de missão: +100 • Próxima área: " + mission.definition()["next_name"], 18)
-				label(content, "Recuperação visual simbólica. O índice considera destinos corretos e bueiros limpos; não é uma medida real de segurança." if mission.mission_id == "centro" else "A área recebeu uma recuperação visual simbólica. O índice considera somente destinos corretos; a aparência não apaga erros.", 17)
-				if not mission.save_ok:
-					label(content, "Não foi possível gravar o desbloqueio em disco; ele vale nesta sessão.", 17)
-				button("Ver área recuperada", func(): overlay.hide(); results_button.show())
-				var next_index: int = mission.definition()["number"]
-				if next_index < 5:
-					var next_id: String = mission.Definitions.IDS[next_index]
-					button("Próxima fase • " + mission.Definitions.get_mission(next_id)["title"], func(): mission.open_level(next_id))
-				else:
-					button("Ver conclusão da campanha", mission.show_campaign_completion)
-			else:
-				if mission.mission_id == "centro":
-					label(content, "Dica: alterne rotas de coleta e bueiros; deixe as mãos livres antes de limpar. Conclua ambas as metas.", 18)
-				elif mission.mission_id == "itaipuacu":
-					label(content, "Dica: priorize o menor tempo → MAR e planeje o trajeto até o coletor. Leia o material antes de confirmar.", 18)
-				else:
-					label(content, "Dica: " + ("Leia o material do item e o nome do coletor antes de confirmar." if session.errors >= Config.ARACATIBA_ERROR_LIMIT else "Planeje trajetos curtos entre resíduos e os três pares de coletores."), 18)
-			button("Jogar novamente", mission.restart)
-			button("Voltar ao menu", mission.go_menu)
-	for node in content.get_children():
-		if node is Button and not node.disabled:
+			build_results()
+	for node in content.find_children("*", "Button", true, false):
+		if not node.disabled:
 			node.grab_focus()
 			break
 	animate_screen()
 
 func animate_screen() -> void:
+	if screen_tween and screen_tween.is_valid(): screen_tween.kill()
 	content.modulate.a = 0.0
-	create_tween().tween_property(content, "modulate:a", 1.0, 0.18)
+	screen_tween = create_tween()
+	screen_tween.tween_property(content, "modulate:a", 1.0, 0.18)
 
 func show_feedback(text: String, positive: bool) -> void:
-	feedback.text = ("CERTO • " if positive else "ATENÇÃO • ") + text
+	feedback.text = ("✓  " if positive else "ATENÇÃO  ·  ") + text
 	feedback.modulate = Color("a4efc5") if positive else Color("ffd29a")
 	feedback_time = 7.0
 
@@ -242,17 +171,159 @@ func open_settings() -> void:
 
 func _process(delta: float) -> void:
 	for widget in hud_widgets:
-		widget.visible = not overlay.visible
+		widget.visible = mission.state == Mission.State.JOGANDO and not overlay.visible
 	if mission.progress == null:
 		return
-	var seconds: int = ceili(mission.remaining)
-	if mission.mission_id == "centro":
-		status.text = "TEMPO %02d:%02d • Pontos %d\nDestinos corretos %d/15\nBueiros %d/3 • Erros %d\nLimpeza %d%%\nEm mãos: %s" % [seconds / 60, seconds % 60, session.score, session.correct, session.drains_cleaned, session.errors, session.cleaning_index(), session.carried_material_name()]
-	elif mission.mission_id == "itaipuacu":
-		status.text = "TEMPO %02d:%02d • Pontos %d\nDestinos corretos %d/20\nLevados ao mar %d/5 • Erros %d\nLimpeza %d%% • Coletados %d\nEm mãos: %s" % [seconds / 60, seconds % 60, session.score, session.correct, session.lost_count, session.errors, session.cleaning_index(), session.collected, session.carried_material_name()]
-	else:
-		status.text = "TEMPO %02d:%02d   •   Pontos %d\nColetados %d/15   •   Acertos %d\nErros %d/4   •   Limpeza %d%%\nEm mãos: %s" % [seconds / 60, seconds % 60, session.score, session.collected, session.correct, session.errors, session.cleaning_index(), session.carried_material_name()]
+	dashboard.update_clock()
 	if mission.state == Mission.State.JOGANDO:
 		feedback_time = maxf(0.0, feedback_time - delta)
-	if is_zero_approx(feedback_time):
-		feedback.text = (mission.get_node("World").weather_text() + " • Destine 15 itens e limpe três bueiros com as mãos livres") if mission.mission_id == "centro" else "Priorize → MAR • Coletar interrompe o deslocamento • Procure o nome do material" if mission.mission_id == "itaipuacu" else "Cada destino conta • Procure os nomes PAPEL e PLÁSTICO • Até três erros permitidos"
+	feedback.visible = feedback_time > 0.0
+
+func muted(parent: Node, value: String, size: int = 14) -> Label:
+	var result := label(parent,value,size)
+	result.add_theme_color_override("font_color",Design.MUTED)
+	return result
+
+func build_menu() -> void:
+	var brand := HBoxContainer.new()
+	brand.add_theme_constant_override("separation",16)
+	content.add_child(brand)
+	brand.add_child(preload("res://scripts/ui/eco_mark.gd").new())
+	var words := VBoxContainer.new()
+	words.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	brand.add_child(words)
+	label(words,"ECO MARICÁ",30)
+	muted(words,"GUARDIÕES DA CIDADE",13)
+	var body := HBoxContainer.new()
+	body.add_theme_constant_override("separation",28)
+	content.add_child(body)
+	var hero := VBoxContainer.new()
+	hero.custom_minimum_size.x = 300
+	hero.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	hero.add_theme_constant_override("separation",8)
+	body.add_child(hero)
+	muted(hero,"AVENTURA AMBIENTAL",12)
+	label(hero,"Uma cidade.\nCinco formas de cuidar.",29)
+	muted(hero,"Da orla ao campo, cada escolha faz parte da jornada.",16)
+	var next_id: String = mission.Definitions.IDS[clampi(mission.progress.unlocked_level-1,0,4)]
+	button("Continuar • "+mission.Definitions.get_mission(next_id).short_name,func(): mission.open_level(next_id),false,hero,true)
+	var divider := HSeparator.new()
+	hero.add_child(divider)
+	muted(hero,"SEU GUARDIÃO",11)
+	var character: Dictionary = Catalog.get_character(mission.profile.selected_id)
+	label(hero,character.name+" · "+character.role,17)
+	button("Escolher personagem",mission.show_character_selection,false,hero)
+	button("Treinar coleta e classificação",func(): get_tree().change_scene_to_file("res://scenes/levels/foundation.tscn"),false,hero)
+	var actions := HBoxContainer.new()
+	actions.add_theme_constant_override("separation",8)
+	hero.add_child(actions)
+	var options := button("Configurações",open_settings,false,actions)
+	options.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	var exit := button("Sair",func(): get_tree().quit(),false,actions)
+	exit.theme_type_variation = "QuietButton"
+	if mission.progress.campaign_completed:
+		button("Campanha concluída • Rever conclusão",mission.show_campaign_completion,false,hero)
+	var journey := VBoxContainer.new()
+	journey.name = "PhaseSelection"
+	journey.custom_minimum_size.x = 564
+	journey.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	journey.add_theme_constant_override("separation",8)
+	body.add_child(journey)
+	muted(journey,"SUA JORNADA  ·  %d/5 MISSÕES CONCLUÍDAS" % mission.progress.completed_levels.size(),12)
+	for id: String in mission.Definitions.IDS:
+		var card := preload("res://scripts/ui/phase_card.gd").new()
+		card.spec = mission.Definitions.get_mission(id)
+		card.accessible = mission.progress.unlocked_level >= card.spec.number
+		card.completed = mission.progress.completed_levels.has(id)
+		card.current = id == next_id
+		card.pressed.connect(func(): mission.open_level(id))
+		journey.add_child(card)
+	muted(content,"Um jogador · Offline · Progresso salvo neste computador · Cenários fictícios inspirados em Maricá",12)
+
+func screen_title(title: String, subtitle: String, icon_kind: String = "leaf", color: Color = Design.MINT) -> void:
+	var header := HBoxContainer.new()
+	header.add_theme_constant_override("separation",14)
+	content.add_child(header)
+	var icon := Icon.new()
+	icon.kind = icon_kind
+	icon.color = color
+	icon.custom_minimum_size = Vector2(44,44)
+	header.add_child(icon)
+	var words := VBoxContainer.new()
+	words.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	header.add_child(words)
+	label(words,title,29)
+	muted(words,subtitle,15)
+
+func metric_grid(entries: Array) -> void:
+	var grid := GridContainer.new()
+	grid.columns = 3
+	grid.add_theme_constant_override("h_separation",12)
+	content.add_child(grid)
+	for entry: Array in entries:
+		var card := PanelContainer.new()
+		card.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+		card.add_theme_stylebox_override("panel",Design.frame(0.45,14))
+		grid.add_child(card)
+		var rows := VBoxContainer.new()
+		rows.add_theme_constant_override("separation",4)
+		card.add_child(rows)
+		muted(rows,entry[0],12)
+		var value := label(rows,str(entry[1]),28)
+		value.add_theme_color_override("font_color",Design.MINT)
+
+func build_pause() -> void:
+	menu_card.custom_minimum_size.x = 620
+	screen_title("Missão pausada",mission.definition().short_name,"pause")
+	muted(content,"O cronômetro e as interações estão suspensos.",16)
+	var seconds: int = ceili(mission.remaining)
+	metric_grid([["TEMPO RESTANTE","%02d:%02d" % [seconds/60,seconds%60]],["PONTOS",session.score],["ÍNDICE",str(session.cleaning_index())+"%"]])
+	button("Continuar",func(): mission.set_state(Mission.State.JOGANDO),false,null,true)
+	button("Configurações • áudio, câmera e gráficos",open_settings)
+	button("Reiniciar missão",mission.restart)
+	button("Voltar ao menu",mission.go_menu)
+
+func build_results() -> void:
+	var won: bool = mission.state == Mission.State.VITORIA
+	screen_title("Missão concluída!" if won else "Vamos tentar de novo",mission.definition().short_name,"check" if won else "leaf",Design.MINT if won else Design.AMBER)
+	label(content,mission.result_reason,17)
+	metric_grid([["PONTUAÇÃO",session.score],["TEMPO UTILIZADO",str(ceili(mission.definition().duration-mission.remaining))+" s"],["ÍNDICE",str(session.cleaning_index())+"%"]])
+	if mission.mission_id == "ubatiba":
+		label(content,"Avaliações %d/12 · Plantios %d/8 · Proteções %d/3\nDecisões incorretas %d" % [session.assessed,session.planted,session.protected_soil,session.errors],17)
+		muted(content,"Mudas e cobertura são ações complementares. Estabilidade de encostas exige avaliação técnica; o jogo não elimina riscos reais.")
+	else:
+		label(content,"Coletados %d · Destinos corretos %d · Erros %d" % [session.collected,session.correct,session.errors],17)
+		if mission.mission_id in ["itaipuacu","ponta_negra"]: label(content,"Perdas %d/5 · Meta: 20 destinos corretos" % session.lost_count,16)
+		if mission.mission_id == "centro": label(content,"Bueiros limpos %d/3 · Meta: 15 destinos corretos" % session.drains_cleaned,16)
+	if won:
+		muted(content,"Bônus de missão +100 · "+("Campanha concluída" if mission.mission_id == "ponta_negra" else "Próxima área: "+mission.definition().next_name),15)
+		muted(content,"Recuperação visual simbólica. Os índices registram ações no jogo, não impacto ambiental real.",13)
+		if not mission.save_ok:
+			var warning := label(content,"Não foi possível gravar o resultado; ele vale nesta sessão.",15)
+			warning.add_theme_color_override("font_color",Design.AMBER)
+		var next_index: int = mission.definition().number
+		if next_index < 5:
+			var id: String = mission.Definitions.IDS[next_index]
+			button("Próxima fase • "+mission.Definitions.get_mission(id).short_name,func(): mission.open_level(id),false,null,true)
+		else:
+			button("Celebrar conclusão da campanha",mission.show_campaign_completion,false,null,true)
+		button("Ver área recuperada",func(): overlay.hide(); results_button.show())
+	else:
+		var tip: String = {"centro":"Alterne coleta e bueiros; deixe as mãos livres para limpar.","itaipuacu":"Priorize o menor tempo → MAR e planeje a rota até o coletor.","ubatiba":"Inspecione antes de agir. Prepare pontos aptos e preserve os não aptos.","ponta_negra":"Faça viagens curtas e volte ao píer com a carga cheia."}.get(mission.mission_id,"Leia o material do resíduo e o nome do coletor antes de confirmar.")
+		muted(content,"Dica · "+tip,15)
+	button("Jogar novamente",mission.restart,false,null,not won)
+	button("Voltar ao menu",mission.go_menu)
+
+func build_finale() -> void:
+	screen_title("Uma jornada de cuidado", "Campanha concluída · Cinco locais de Maricá", "check")
+	var map := preload("res://scripts/ui/campaign_map.gd").new()
+	map.completed = mission.progress.completed_levels
+	content.add_child(map)
+	var totals: Dictionary = mission.progress.totals()
+	metric_grid([["MELHORES MISSÕES",mission.progress.total_score()],["DESTINOS CORRETOS",totals.correct],["MUDAS PLANTADAS",totals.planted]])
+	label(content,"Proteções de solo %d · Bueiros limpos %d\nGuardião: %s" % [totals.protected,totals.drains,Catalog.get_character(mission.profile.selected_id).name],16)
+	muted(content,"Obrigado por cuidar da cidade. Coleta local, restauração orientada e prevenção exigem ações contínuas. O jogo não comprova aprendizagem nem elimina riscos reais.",15)
+	muted(content,"Mapa esquemático. Estatísticas são ações simuladas."+(" Fases antigas não possuem estatísticas detalhadas." if mission.progress.legacy_stats_missing else ""),13)
+	if not mission.save_ok: label(content,"Não foi possível gravar a conclusão; ela vale nesta sessão.",15)
+	button("Voltar ao menu",mission.go_menu,false,null,true)
+	button("Rejogar Operação Araçatiba",func(): mission.open_level("aracatiba"))

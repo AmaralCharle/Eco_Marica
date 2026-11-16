@@ -3,20 +3,24 @@ extends CanvasLayer
 func _ready() -> void:
 	layer = 20
 	var dim := ColorRect.new()
-	dim.color = Color(0.01, 0.035, 0.045, 0.96)
+	dim.color = Color(0.02, 0.055, 0.065, 0.8)
 	dim.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	add_child(dim)
 	var center := CenterContainer.new()
 	center.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	dim.add_child(center)
+	var card := PanelContainer.new()
+	card.add_theme_stylebox_override("panel",preload("res://scripts/ui/eco_theme.gd").frame(0.96,24))
+	center.add_child(card)
 	var rows := VBoxContainer.new()
 	rows.custom_minimum_size.x = 560
-	rows.add_theme_constant_override("separation", 14)
-	center.add_child(rows)
+	rows.add_theme_constant_override("separation", 10)
+	card.add_child(rows)
 	var audio := get_node("/root/GameAudio")
 	text(rows, "CONFIGURAÇÕES", 28)
 	for bus: String in audio.BUSES:
-		var caption := text(rows, bus + " • %d%%" % roundi(audio.volumes[bus] * 100))
+		var bus_name: String = {"Master":"Volume geral","Music":"Música","Ambience":"Ambiente","SFX":"Efeitos"}[bus]
+		var caption := text(rows, bus_name + " • %d%%" % roundi(audio.volumes[bus] * 100))
 		var slider := HSlider.new()
 		slider.min_value = 0
 		slider.max_value = 1
@@ -25,7 +29,7 @@ func _ready() -> void:
 		rows.add_child(slider)
 		slider.value_changed.connect(func(value: float):
 			audio.set_volume(bus, value)
-			caption.text = bus + " • %d%%" % roundi(value * 100)
+			caption.text = bus_name + " • %d%%" % roundi(value * 100)
 		)
 	text(rows, "Sensibilidade da câmera")
 	var mouse := HSlider.new()
@@ -50,6 +54,7 @@ func _ready() -> void:
 	audio.preferences_changed.connect(func(): message.text = "Preferências salvas" if audio.last_save_ok else "Não foi possível salvar as preferências")
 	var close := Button.new()
 	close.text = "Voltar"
+	close.theme_type_variation = "PrimaryButton"
 	close.custom_minimum_size.y = 40
 	close.pressed.connect(queue_free)
 	rows.add_child(close)
