@@ -117,3 +117,7 @@ Três renderizadores e três perfis foram medidos; Mobile foi mantido. Alto regi
 ## Asset Revolution — 16/11/2026
 
 Executor completo final: **1062 verificações em 23 suítes, zero falhas**, sem ERROR/SCRIPT ERROR nos logs finais. Inclui 94 casos novos de assets efetivamente exibidos, preservação de malhas filhas das palmeiras, PBR/sky 1K ativos, rigs/equipamentos/animações dos quatro personagens, pausa, aves e barco. Os 93 testes do fallback procedural/adaptador sintético permanecem; a expectativa de qualidade foi atualizada para MSAA 4×, justificada por benchmark de copas. Regressões anteriores de física, campanha, saves, estrelas, opcionais, UI e 720p/1080p mantidas. Resumo efetivo em tests/artifacts/validation_summary.json. Avisos de áudio em alguns encerramentos headless imediatos permanecem explicitamente registrados; não equivalem a falhas de lógica, mas também não autorizam declarar ausência universal de vazamentos.
+
+## Expansão Ponta Negra — 16/11/2026
+
+Bateria completa: 1181 verificações em 24 suítes, zero falhas e nenhuma mensagem ERROR/SCRIPT ERROR nos logs finais. test_fisheries.gd acrescenta 119 casos de falas, foco, redes, contato WASD, pausa, quatro passageiros/remadas e música por fase; foi reexecutado após reforçar foco na câmera do barco. Dez capturas de revisão em 720p, PCM das cinco músicas inspecionado e mil frames medidos por perfil Alto/Médio. Resultados e limites em PONTA_NEGRA_PESCADORES.md. Ensaios automatizados não substituem uma partida humana prolongada; avisos em encerramento headless imediato permanecem registrados.

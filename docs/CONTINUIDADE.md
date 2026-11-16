@@ -33,3 +33,7 @@ Novos materiais/vegetação/poses, caderno Q, vento lateral, prioridades, planej
 ## Continuidade — Asset Revolution
 
 Branch `asset-revolution`; base aprovada `upgrade-visual-4` em df0ab5d e tag `checkpoint-pre-assets-df0ab5d`. Main permanece anterior. Leia ASSET_REVOLUTION.md e catalogo_assets.md antes de trocar modelos. Recursos são somente visuais; preserve colisões, grupos, IDs e condições. testes/test_imported_assets.gd valida rigs reais, materiais/sky ativos, malhas filhas desenhadas, aves, pausa e barco. --legacy-art desativa o novo passe para comparação. O fallback procedural continua testado separadamente. Próximos refinamentos dependem de assets ambientais autorais e animações faciais/ações específicas, não de criar fases.
+
+## Pescadores — 16/11/2026
+
+Branch ponta-negra-pescadores, checkpoint anterior checkpoint-pre-pescadores-4f5b05f. Veja PONTA_NEGRA_PESCADORES.md para regras, tempos, posições e limitações. Redes usam reação analítica apenas no barco, sem novos corpos físicos; não transformar em bloqueios do corredor central/píer. Falas e avisos têm timers separados. O passageiro existente usa SeatedRowingPose no rig; propulsão/inventário originais. Cinco músicas originais reproduzíveis via compose_phase_music.py; não restaurar a antiga frase compartilhada por acidente. Vozes dependem de gravações/assets licenciados.

@@ -86,3 +86,7 @@ A extensão das regras e sua ligação a funções reais está na tabela de `VIS
 ## Asset Revolution
 
 A apresentação externa é rastreada em ASSET_REVOLUTION.md (tabela código/evidência), catalogo_assets.md e asset_manifest.json. Dados observados dentro do jogo: tests/artifacts/asset_integration_report.json. Mecânicas e placares existentes preservados; aves e novos modelos não alteram GDD lógico.
+
+## Ponta Negra — pescadores e cinco músicas
+
+Mapeamento código/regras/evidências em PONTA_NEGRA_PESCADORES.md. fisherman's phases e canal_fisheries acrescentam ambientação/obstáculo temporário; nenhum requisito de vitória, score ou save muda. Teste test_fisheries.gd cobre 119 limites e integrações, inclusive teclado real contra a rede e clipes no mixer. Fonte/partitura das trilhas em compose_phase_music.py e trilhas_originais.json. As poses são medidas no sinal do modificador, não fora do processamento do esqueleto.

@@ -119,7 +119,9 @@ func run() -> void:
 	boat.position = boat.dock_position
 	boat.speed = 0
 	level.player.position = boat.landing_position
-	check(level.try_board(),"Contato integrado: embarque original")
+	var boarded: bool = level.try_board()
+	var aim_point: Vector2 = boat.camera.unproject_position(npc.position+Vector3.UP*1.05)
+	check(boarded and level.on_boat and system.update_focus(boat.camera,aim_point)==npc,"Embarque original e identificação pelo ponto projetado da câmera do barco")
 	npc.enter(Fisher.Phase.OPEN)
 	boat.position = Vector3(npc.net_anchor.x,0.05,10)
 	boat.rotation.y = 0

@@ -1,5 +1,5 @@
 """Áudio original sintetizado para ECO MARICÁ. Sem amostras externas.
-Execute com Python 3; recria WAV mono PCM 16-bit/22050 Hz deterministicamente.
+Execute com Python 3 e NumPy; efeitos/menu mono e cinco trilhas estéreo PCM 16-bit/22050 Hz.
 """
 import math
 import random
@@ -86,7 +86,10 @@ def main():
                 samples[begin+j] += .10 * env * (math.sin(TAU * freq * t) + .22 * math.sin(TAU * freq * 2 * t))
                 samples[begin+j] += .035 * env * math.sin(TAU * freq * .5 * t)
         save('music', name, samples)
-    from compose_phase_music import generate_all
+    if __package__:
+        from .compose_phase_music import generate_all
+    else:
+        from compose_phase_music import generate_all
     generate_all()
 
 if __name__ == '__main__':

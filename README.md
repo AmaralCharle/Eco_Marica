@@ -107,3 +107,7 @@ Há testes de física real e de estados com reposicionamento controlado; não su
 Modelos e efeitos procedurais usam recursos nativos, sem assets baixados. Os benchmarks representam vistas controladas, sem garantir FPS de uma partida completa. Usabilidade externa, métricas de aprendizagem, revisão humana da mixagem/dificuldade, rigs externos, DOCX/PDF final, vídeo e exportação Windows permanecem pendentes.
 
 Repositório de destino: https://github.com/AmaralCharle/Eco_Marica.git . Checkpoints locais; nenhuma publicação automática.
+
+## Ponta Negra — pescadores e remada
+
+Branch `ponta-negra-pescadores`, base preservada em `checkpoint-pre-pescadores-4f5b05f`. Quatro NPCs cumprimentam a até 5 m; balão por 3 s, intervalo individual de 20 s. Mire para ver o nome. “Olha a tarrafa!” avisa o lançamento; contorne ou aguarde a rede temporária. Sem perda de pontos/carga. Passageiro sentado com braços e remos animados; controles e metas originais preservados. As cinco fases ganharam músicas instrumentais originais distintas, com o mesmo controle de volume. Relatório e limitações em [docs/PONTA_NEGRA_PESCADORES.md](docs/PONTA_NEGRA_PESCADORES.md).
