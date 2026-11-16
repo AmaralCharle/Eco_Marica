@@ -232,7 +232,7 @@ func build_menu() -> void:
 	hero.add_child(actions)
 	var options := button("Configurações",open_settings,false,actions)
 	options.size_flags_horizontal = Control.SIZE_EXPAND_FILL
-	var exit := button("Sair",func(): get_tree().quit(),false,actions)
+	var exit := button("Sair",func(): get_node("/root/GameAudio").request_quit(),false,actions)
 	exit.theme_type_variation = "QuietButton"
 	if mission.progress.campaign_completed:
 		button("Campanha concluída • Rever conclusão",mission.show_campaign_completion,false,hero)

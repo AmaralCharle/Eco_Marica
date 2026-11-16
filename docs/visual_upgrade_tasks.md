@@ -12,7 +12,7 @@ Branch: `upgrade-visual-4`. Base aprovada: `3fc476c` (tag `fase-1-final`, public
 | 06 Ponta Negra | validada | Água, barco e margens |
 | 07 Araçatiba/Itaipuaçu | validada | Coerência entre as cinco fases |
 | 08 Personagens/animações | validada | Um modelo primeiro; articulação visual e estados existentes |
-| 09 Áudio/efeitos | pendente | Complementos originais, volume e sobreposição |
+| 09 Áudio/efeitos | validada | Complementos originais, volume e sobreposição |
 | 10 Decisões ambientais | pendente | Composição, vento, prioridade de bueiros, solo e rota |
 | 11 Estrelas/opcionais | pendente | Critérios numéricos, sem bloquear progressão |
 | 12 Estatísticas/resultados | pendente | Tentativas e melhores avaliações, migração compatível |
@@ -49,3 +49,7 @@ Araçatiba e Itaipuaçu compartilham os materiais do piloto e novas folhas de pa
 ### TASK 08 — validada
 
 Lucas recebeu cotovelos primeiro, com 57 verificações e captura de ação/corrida/barco. Depois Marina, Rafael e Bia receberam o mesmo padrão, mantendo pivôs externos e controlador. Estados idle/walk/run/collect/plant/interact/embark/disembark exercitados; suporte GLB preservado. Arquivos: character_appearance.gd e test_character_visuals.gd. Validação final da tarefa: 93 verificações de visual e 49 de personagens sem erros de script.
+
+### TASK 09 — validada
+
+Áudio existente inspecionado: mixer por buses, pool de 12 vozes e volume preservados. Três feedbacks originais curtos (decision/optional/stars) gerados por generate_upgrade_audio.py, prontos para integrar nas tarefas seguintes. Streams de efeitos terminados são liberados; fechamento pelo menu/janela aguarda o mixer. Teste áudio 17 verificações sem falhas. Avisos de encerramento imediato dos testes ainda serão auditados em memória na TASK 13; não se declara ausência irrestrita de vazamentos.

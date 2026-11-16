@@ -19,6 +19,7 @@ var music_tween: Tween
 var hover_at: int = 0
 var last_save_ok: bool = true
 var ui_theme: Theme
+var shutting_down: bool = false
 
 func _ready() -> void:
 	ui_theme = preload("res://scripts/ui/eco_theme.gd").build()
@@ -29,6 +30,8 @@ func _ready() -> void:
 		if bus != "Master":
 			AudioServer.set_bus_send(AudioServer.get_bus_index(bus), "Master")
 	load_settings()
+	get_tree().auto_accept_quit = false
+	get_tree().root.close_requested.connect(request_quit)
 	music = make_player("Music")
 	ambience = make_player("Ambience")
 	rain = make_player("Ambience")
@@ -41,7 +44,21 @@ func make_player(bus: String) -> AudioStreamPlayer:
 	var player := AudioStreamPlayer.new()
 	player.bus = bus
 	add_child(player)
+	player.finished.connect(func(): player.stream = null)
 	return player
+
+func request_quit() -> void:
+	if shutting_down: return
+	shutting_down = true
+	if music_tween and music_tween.is_valid(): music_tween.kill()
+	for player in get_children():
+		if player is AudioStreamPlayer:
+			player.stop()
+			player.stream = null
+	streams.clear()
+	# Dá ao mixer tempo para liberar playbacks antes de encerrar a aplicação.
+	await get_tree().create_timer(0.12).timeout
+	get_tree().quit()
 
 func stream_for(event: String, folder: String = "sounds", loop: bool = false) -> AudioStreamWAV:
 	var key := folder + "/" + event + ("_loop" if loop else "")
