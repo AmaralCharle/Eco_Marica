@@ -28,3 +28,8 @@ Polimento de cenários implementado nas cinco fases, com prioridade para Centro,
 O autor autorizou o prompt 4.0 e pediu retorno seguro se necessário. Base preservada na main/tag `fase-1-final` (3fc476c); configuração local do editor preservada em d89078f; trabalho em `upgrade-visual-4`. Há backup ZIP, patch, arquivos não versionados e saves pré-upgrade fora do repositório. Não houve reset/clean nem merge na main.
 
 Novos materiais/vegetação/poses, caderno Q, vento lateral, prioridades, planejamento, estrelas, opcionais e histórico. Auditoria comparou três renderizadores e manteve Mobile. Quatro ciclos de memória sem órfãos/acúmulo de nós; Alto próximo de 61–81 FPS nas vistas controladas. Diário em `visual_upgrade_tasks.md`, regras e rollback em `VISUAL_UPGRADE_4.md`. Próxima ação após entrega: teste humano do autor no notebook. Não interpretar essa evolução como finalização acadêmica ou aprovação humana já ocorrida.
+
+
+## Continuidade — Asset Revolution
+
+Branch `asset-revolution`; base aprovada `upgrade-visual-4` em df0ab5d e tag `checkpoint-pre-assets-df0ab5d`. Main permanece anterior. Leia ASSET_REVOLUTION.md e catalogo_assets.md antes de trocar modelos. Recursos são somente visuais; preserve colisões, grupos, IDs e condições. testes/test_imported_assets.gd valida rigs reais, materiais/sky ativos, malhas filhas desenhadas, aves, pausa e barco. --legacy-art desativa o novo passe para comparação. O fallback procedural continua testado separadamente. Próximos refinamentos dependem de assets ambientais autorais e animações faciais/ações específicas, não de criar fases.

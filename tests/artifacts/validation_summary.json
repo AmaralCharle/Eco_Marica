@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-11-16T14:59:57.1208910-03:00",
-  "checks": 968,
+  "generated_at": "2026-11-16T16:30:24.6820656-03:00",
+  "checks": 1062,
   "failed_suites": 0,
   "suites": [
     {
@@ -17,7 +17,7 @@
       "exit_code": 0,
       "log": "C:\\Users\\CHARLE\\Documents\\Eco-Maricá\\eco-marica\\tests\\artifacts\\test_art_direction.log",
       "has_errors": false,
-      "warnings": false
+      "warnings": true
     },
     {
       "name": "test_audio.gd",
@@ -65,7 +65,7 @@
       "exit_code": 0,
       "log": "C:\\Users\\CHARLE\\Documents\\Eco-Maricá\\eco-marica\\tests\\artifacts\\test_character_visuals.log",
       "has_errors": false,
-      "warnings": false
+      "warnings": true
     },
     {
       "name": "test_characters.gd",
@@ -96,6 +96,14 @@
       "checks": 16,
       "exit_code": 0,
       "log": "C:\\Users\\CHARLE\\Documents\\Eco-Maricá\\eco-marica\\tests\\artifacts\\test_foundation.log",
+      "has_errors": false,
+      "warnings": true
+    },
+    {
+      "name": "test_imported_assets.gd",
+      "checks": 94,
+      "exit_code": 0,
+      "log": "C:\\Users\\CHARLE\\Documents\\Eco-Maricá\\eco-marica\\tests\\artifacts\\test_imported_assets.log",
       "has_errors": false,
       "warnings": true
     },
@@ -137,7 +145,7 @@
       "exit_code": 0,
       "log": "C:\\Users\\CHARLE\\Documents\\Eco-Maricá\\eco-marica\\tests\\artifacts\\test_presentation.log",
       "has_errors": false,
-      "warnings": false
+      "warnings": true
     },
     {
       "name": "test_progress_extension.gd",

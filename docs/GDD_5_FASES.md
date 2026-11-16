@@ -144,3 +144,10 @@ Consultar os trechos de `scripts/gameplay/restoration_session.gd:act`, `scripts/
 
 ## Anexo B Capturas
 Capturas verificadas de treino, personagens, três primeiras missões, Ubatiba e Ponta Negra estão em `tests/artifacts/`. São estados automatizados e não evidências de teste externo. Selecionar 3–6 figuras com legendas para o GDD de entrega; o vídeo ainda não foi produzido.
+
+
+## Asset Revolution — apresentação com modelos reais (16/11/2026)
+
+As cinco fases e condições de vitória/derrota permanecem as mesmas. A apresentação passa a usar modelos CC0 Kenney/Quaternius, materiais 1K ambientCG, HDRI Poly Haven e ave AssetQuest. Os quatro protagonistas mantêm IDs, seleção, cores e equipamento, com proporções humanas mais alongadas e animações dos próprios rigs. Alcance ambiental é autoral, sem retargeting entre esqueletos; Rafael não dispõe de clipe dedicado de salto, conservando o salto físico com pose idle.
+
+Aves são decoração: até quatro, ativação por distância, voo/asa simples e pio original; pausam e recolhem com tempestade forte no Centro. Não entram no placar ou objetivos. Cenas não foram reconstruídas. A integração ocorre antes do agrupamento visual em world_polish.gd, sem novos obstáculos. Rastreabilidade, licenças, limitações e medições em ASSET_REVOLUTION.md, catalogo_assets.md e asset_manifest.json.

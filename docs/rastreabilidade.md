@@ -81,3 +81,8 @@ A expansão substitui o antigo encerramento no Centro; somente a quinta fase con
 ## Upgrade 4
 
 A extensão das regras e sua ligação a funções reais está na tabela de `VISUAL_UPGRADE_4.md`: caderno/decisões, vento, prioridade, estrelas, histórico, poses, perfis e áudio. `visual_upgrade_tasks.md` registra checkpoints e testes por tarefa. Não houve novos testes externos com alunos.
+
+
+## Asset Revolution
+
+A apresentação externa é rastreada em ASSET_REVOLUTION.md (tabela código/evidência), catalogo_assets.md e asset_manifest.json. Dados observados dentro do jogo: tests/artifacts/asset_integration_report.json. Mecânicas e placares existentes preservados; aves e novos modelos não alteram GDD lógico.

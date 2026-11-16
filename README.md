@@ -2,7 +2,13 @@
 
 Jogo acadêmico 3D educativo para Windows, um jogador offline. Godot 4.7.2 Standard e GDScript, renderizador Forward Mobile/Vulkan. Campanha com cinco fases, áudio sintetizado original, cenários/personagens aprimorados e opções de volume, câmera e qualidade. A entrega acadêmica final ainda será preparada.
 
-## Upgrade 4 — versão de avaliação
+## Asset Revolution — versão de avaliação
+
+Branch atual: `asset-revolution`, com modelos CC0 reais, quatro personagens rigados, barco, materiais PBR 1K, vegetação e céu HDRI. As cinco fases e regras foram preservadas. Base de retorno: `upgrade-visual-4`/tag `checkpoint-pre-assets-df0ab5d`. Relatório, limitações e medições: [docs/ASSET_REVOLUTION.md](docs/ASSET_REVOLUTION.md); autores/licenças/estados: [docs/catalogo_assets.md](docs/catalogo_assets.md). Execute F8/F5 para carregar a versão nova.
+
+Aves e animações pausam com a missão. Alto usa MSAA 4× após comparação medida; Médio oferece mais margem na Intel UHD. O argumento `--legacy-art` permite comparação visual sem editar arquivos. Nenhum modelo pago ou aplicativo adicional foi necessário.
+
+## Upgrade 4 — base anterior desta branch
 
 Branch `upgrade-visual-4`; a `main` e a tag `fase-1-final` conservam a versão anterior. Reinicie com F8/F5 para testar. Q abre decisões opcionais com tempo pausado; Esc retorna. Estrelas e opcionais não bloqueiam a campanha e não alteram os pontos principais. Melhor classificação, tentativas e histórico são locais, com save versão 2 compatível com o leitor antigo.
 
@@ -85,7 +91,7 @@ Execute na raiz do projeto:
 .\tests\run_all.ps1 -Godot 'C:\caminho\Godot_v4.7.2-stable_win64_console.exe'
 ```
 
-Validação atual: 968 verificações em 22 suítes, sem falhas. Inclui áudio, apresentação, cenário, preservação física da camada decorativa e interface das cinco fases em 1280 × 720. Medições e limites em `docs/CENARIOS_2026_11_16.md`; resumo em `tests/artifacts/validation_summary.json`. O executor confere código de saída e mensagens do motor, salvando logs em `tests/artifacts/test_*.log`. Testes usam saves próprios e não concluem a campanha real do jogador.
+Validação atual: 1062 verificações em 23 suítes, sem falhas. Inclui áudio, apresentação, cenário, preservação física da camada decorativa e interface das cinco fases em 1280 × 720. Medições e limites em `docs/CENARIOS_2026_11_16.md`; resumo em `tests/artifacts/validation_summary.json`. O executor confere código de saída e mensagens do motor, salvando logs em `tests/artifacts/test_*.log`. Testes usam saves próprios e não concluem a campanha real do jogador.
 
 Há testes de física real e de estados com reposicionamento controlado; não substituem uma partida humana completa nem avaliação da dificuldade. Capturas `capture_ubatiba.gd`, `capture_ponta_negra.gd` e demais scripts geram estados simulados para inspeção gráfica. Não são evidência de teste externo.
 

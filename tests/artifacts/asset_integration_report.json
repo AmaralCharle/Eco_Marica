@@ -1,0 +1,213 @@
+{
+	"checks": 94,
+	"failures": 0,
+	"used": {
+		"res://assets/imported/ambientcg/Asphalt001/Asphalt001_1K-JPG_Color.jpg": [
+			"centro",
+			"aracatiba"
+		],
+		"res://assets/imported/ambientcg/Asphalt001/Asphalt001_1K-JPG_NormalGL.jpg": [
+			"centro",
+			"aracatiba"
+		],
+		"res://assets/imported/ambientcg/Asphalt001/Asphalt001_1K-JPG_Roughness.jpg": [
+			"centro",
+			"aracatiba"
+		],
+		"res://assets/imported/ambientcg/Ground037/Ground037_1K-JPG_Color.jpg": [
+			"ubatiba"
+		],
+		"res://assets/imported/ambientcg/Ground037/Ground037_1K-JPG_NormalGL.jpg": [
+			"ubatiba"
+		],
+		"res://assets/imported/ambientcg/Ground037/Ground037_1K-JPG_Roughness.jpg": [
+			"ubatiba"
+		],
+		"res://assets/imported/ambientcg/Ground055S/Ground055S_1K-JPG_Color.jpg": [
+			"itaipuacu"
+		],
+		"res://assets/imported/ambientcg/Ground055S/Ground055S_1K-JPG_NormalGL.jpg": [
+			"itaipuacu"
+		],
+		"res://assets/imported/ambientcg/Ground055S/Ground055S_1K-JPG_Roughness.jpg": [
+			"itaipuacu"
+		],
+		"res://assets/imported/ambientcg/Wood001/Wood001_1K-JPG_Color.jpg": [
+			"ponta_negra",
+			"aracatiba"
+		],
+		"res://assets/imported/ambientcg/Wood001/Wood001_1K-JPG_NormalGL.jpg": [
+			"ponta_negra",
+			"aracatiba"
+		],
+		"res://assets/imported/ambientcg/Wood001/Wood001_1K-JPG_Roughness.jpg": [
+			"ponta_negra",
+			"aracatiba"
+		],
+		"res://assets/imported/assetquest/bird.glb": [
+			"centro",
+			"ubatiba",
+			"ponta_negra",
+			"aracatiba",
+			"itaipuacu"
+		],
+		"res://assets/imported/kenney/city-kit-commercial/building-a.glb": [
+			"centro"
+		],
+		"res://assets/imported/kenney/city-kit-commercial/building-b.glb": [
+			"centro"
+		],
+		"res://assets/imported/kenney/city-kit-commercial/building-c.glb": [
+			"centro"
+		],
+		"res://assets/imported/kenney/city-kit-commercial/building-d.glb": [
+			"centro"
+		],
+		"res://assets/imported/kenney/city-kit-commercial/detail-awning.glb": [
+			"centro"
+		],
+		"res://assets/imported/kenney/city-kit-roads/construction-cone.glb": [
+			"centro"
+		],
+		"res://assets/imported/kenney/city-kit-roads/electricity-pole.glb": [
+			"centro"
+		],
+		"res://assets/imported/kenney/city-kit-roads/light-curved.glb": [
+			"centro",
+			"aracatiba"
+		],
+		"res://assets/imported/kenney/nature-kit/flower_purpleC.glb": [
+			"centro",
+			"ubatiba",
+			"ponta_negra",
+			"aracatiba",
+			"itaipuacu"
+		],
+		"res://assets/imported/kenney/nature-kit/flower_yellowC.glb": [
+			"centro",
+			"ubatiba",
+			"ponta_negra",
+			"aracatiba",
+			"itaipuacu"
+		],
+		"res://assets/imported/kenney/nature-kit/plant_bushDetailed.glb": [
+			"centro",
+			"ubatiba",
+			"ponta_negra",
+			"aracatiba",
+			"itaipuacu"
+		],
+		"res://assets/imported/kenney/nature-kit/plant_bushSmall.glb": [
+			"centro",
+			"ubatiba",
+			"ponta_negra",
+			"aracatiba",
+			"itaipuacu"
+		],
+		"res://assets/imported/kenney/nature-kit/rock_largeA.glb": [
+			"ubatiba",
+			"ponta_negra",
+			"aracatiba",
+			"itaipuacu"
+		],
+		"res://assets/imported/kenney/nature-kit/rock_largeC.glb": [
+			"ubatiba",
+			"ponta_negra",
+			"aracatiba",
+			"itaipuacu"
+		],
+		"res://assets/imported/kenney/nature-kit/rock_smallA.glb": [
+			"centro",
+			"ubatiba",
+			"ponta_negra",
+			"aracatiba",
+			"itaipuacu"
+		],
+		"res://assets/imported/kenney/nature-kit/tree_palmDetailedShort.glb": [
+			"ponta_negra",
+			"aracatiba",
+			"itaipuacu"
+		],
+		"res://assets/imported/kenney/nature-kit/tree_palmDetailedTall.glb": [
+			"ubatiba",
+			"aracatiba",
+			"itaipuacu"
+		],
+		"res://assets/imported/kenney/watercraft-kit/boat-row-small.glb": [
+			"ponta_negra"
+		],
+		"res://assets/imported/polyhaven/kloppenheim_05_puresky_1k.hdr": [
+			"ubatiba",
+			"ponta_negra",
+			"aracatiba",
+			"itaipuacu"
+		],
+		"res://assets/imported/quaternius/characters/man.glb": [
+			"centro",
+			"ubatiba",
+			"ponta_negra",
+			"aracatiba",
+			"itaipuacu"
+		],
+		"res://assets/imported/quaternius/characters/woman.glb": [
+			"aracatiba"
+		],
+		"res://assets/imported/quaternius/characters/woman_casual.glb": [
+			"aracatiba"
+		],
+		"res://assets/imported/quaternius/characters/worker.glb": [
+			"aracatiba"
+		],
+		"res://assets/imported/quaternius/stylized-nature/Bush_Common_Flowers.gltf": [
+			"centro",
+			"ubatiba",
+			"ponta_negra",
+			"aracatiba",
+			"itaipuacu"
+		],
+		"res://assets/imported/quaternius/stylized-nature/CommonTree_3.gltf": [
+			"centro",
+			"ubatiba",
+			"ponta_negra"
+		],
+		"res://assets/imported/quaternius/stylized-nature/CommonTree_5.gltf": [
+			"centro",
+			"ubatiba",
+			"ponta_negra",
+			"aracatiba"
+		],
+		"res://assets/imported/quaternius/stylized-nature/Fern_1.gltf": [
+			"centro",
+			"ubatiba",
+			"ponta_negra",
+			"aracatiba",
+			"itaipuacu"
+		],
+		"res://assets/imported/quaternius/stylized-nature/Flower_3_Group.gltf": [
+			"centro",
+			"ubatiba",
+			"ponta_negra",
+			"aracatiba",
+			"itaipuacu"
+		],
+		"res://assets/imported/quaternius/stylized-nature/Grass_Common_Short.gltf": [
+			"centro",
+			"ubatiba",
+			"ponta_negra",
+			"aracatiba",
+			"itaipuacu"
+		],
+		"res://assets/imported/quaternius/stylized-nature/Rock_Medium_1.gltf": [
+			"ubatiba",
+			"ponta_negra",
+			"aracatiba",
+			"itaipuacu"
+		],
+		"res://assets/imported/quaternius/stylized-nature/Rock_Medium_2.gltf": [
+			"ubatiba",
+			"ponta_negra",
+			"aracatiba",
+			"itaipuacu"
+		]
+	}
+}
