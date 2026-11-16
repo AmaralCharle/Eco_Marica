@@ -8,6 +8,7 @@ const Icon = preload("res://scripts/ui/eco_icon.gd")
 var dashboard
 var menu_card: PanelContainer
 var screen_tween: Tween
+var menu_scroll: ScrollContainer
 var mission: Node3D
 var session: RecyclingSession
 var status: Label
@@ -45,8 +46,14 @@ func _ready() -> void:
 	menu_card.add_theme_stylebox_override("panel", style())
 	center.add_child(menu_card)
 	content = VBoxContainer.new()
+	content.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	content.add_theme_constant_override("separation", 10)
-	menu_card.add_child(content)
+	menu_scroll = ScrollContainer.new()
+	menu_scroll.horizontal_scroll_mode = ScrollContainer.SCROLL_MODE_DISABLED
+	menu_scroll.follow_focus = true
+	menu_card.add_child(menu_scroll)
+	menu_scroll.add_child(content)
+	content.minimum_size_changed.connect(func(): call_deferred("fit_dialog"))
 	results_button = Button.new()
 	results_button.text = "Mostrar resultados"
 	results_button.position = Vector2(24, 24)
@@ -152,10 +159,16 @@ func update_screen() -> void:
 	animate_screen()
 
 func animate_screen() -> void:
+	call_deferred("fit_dialog")
 	if screen_tween and screen_tween.is_valid(): screen_tween.kill()
 	content.modulate.a = 0.0
 	screen_tween = create_tween()
 	screen_tween.tween_property(content, "modulate:a", 1.0, 0.18)
+
+func fit_dialog() -> void:
+	if not is_instance_valid(menu_scroll): return
+	var limit := maxf(320,get_viewport().get_visible_rect().size.y-96)
+	menu_scroll.custom_minimum_size.y = minf(content.get_combined_minimum_size().y,limit)
 
 func show_feedback(text: String, positive: bool) -> void:
 	feedback.text = ("✓  " if positive else "ATENÇÃO  ·  ") + text
