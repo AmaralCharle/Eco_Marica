@@ -26,6 +26,8 @@ func _ready() -> void:
 	var appearance := StandardMaterial3D.new()
 	appearance.albedo_color = {"paper": Color("f1ebd4"), "plastic": Color("8cd8c6"), "glass": Color("b2c8a5"), "metal": Color("aebdc6")}.get(material, Color.WHITE)
 	appearance.metallic = 0.35 if material == "metal" else 0.0
+	appearance.roughness = {"paper":0.94,"plastic":0.43,"glass":0.22,"metal":0.30}.get(material,0.8)
+	appearance.metallic_specular = 0.48 if material in ["glass","plastic"] else 0.3
 	mesh.material = appearance
 	var model := MeshInstance3D.new()
 	model.mesh = mesh

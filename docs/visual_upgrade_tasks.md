@@ -9,7 +9,7 @@ Branch: `upgrade-visual-4`. Base aprovada: `3fc476c` (tag `fase-1-final`, public
 | 03 HUD e problemas visuais | validada | 720p/1080p, espaço para novas informações, menus e modais |
 | 04 Piloto Centro | validada | Materiais, arquitetura, vegetação, tempestade |
 | 05 Ubatiba | validada | Ambiente rural e recuperação simbólica |
-| 06 Ponta Negra | pendente | Água, barco e margens |
+| 06 Ponta Negra | validada | Água, barco e margens |
 | 07 Araçatiba/Itaipuaçu | pendente | Coerência entre as cinco fases |
 | 08 Personagens/animações | pendente | Um modelo primeiro; articulação visual e estados existentes |
 | 09 Áudio/efeitos | pendente | Complementos originais, volume e sobreposição |
@@ -37,3 +37,7 @@ Centro piloto: vitrines, esquadrias, bancos, vasos, materiais e 64 respingos lim
 ### TASK 05 — validada
 
 Ubatiba: cobertura vegetal agrupada aparece progressivamente após plantio, e proteção ganha material de cobertura orgânica. Mantidas avaliações 12/plantios 8/proteções 3. Arquivos: planting_plot.gd e environment_surface.gdshader. Teste Ubatiba: 18 verificações sem falhas. Crescimento é feedback simbólico; arte de terreno e vegetação existente foi preservada.
+
+### TASK 06 — validada
+
+Ponta Negra: assento, encosto, boias e cintas no barco, espuma junto à água e resíduos flutuantes com acabamento e altura visual revistos. Arquivos: boat_polish.gd, floating_waste.gd, waste.gd. Mantidas física, posições lógicas, capacidade e controle. Ponta Negra: 20 verificações sem falhas; captura final ainda será realizada na TASK 14.

@@ -27,6 +27,22 @@ func _ready() -> void:
 		var rope := art.cylinder(self, Vector3(side * 0.38, 0.48, -0.75), 0.055, 0.085, Color("baab7e"))
 		rope.rotation.x = PI * 0.5
 	art.box(self, Vector3(0, 0.67, 1.1), Vector3(0.42, 0.52, 0.34), Color("3b5359"))
+	art.box(self,Vector3(0,0.62,-0.42),Vector3(1.05,0.10,0.30),Color("ae9368"))
+	art.box(self,Vector3(0,0.79,-0.56),Vector3(1.02,0.30,0.055),Color("bdab82"))
+	# Boias e cintas são detalhes visuais, sem novos volumes físicos.
+	for side: float in [-1,1]:
+		var buoy := MeshInstance3D.new()
+		var ring_mesh := TorusMesh.new()
+		ring_mesh.inner_radius = 0.15
+		ring_mesh.outer_radius = 0.23
+		ring_mesh.rings = 20
+		ring_mesh.ring_segments = 6
+		buoy.mesh = ring_mesh
+		buoy.position = Vector3(side*0.69,0.47,-0.25)
+		buoy.rotation.z = PI/2
+		buoy.material_override = art.surface(Color("d68b50"))
+		add_child(buoy)
+		art.box(self,Vector3(side*0.72,0.47,-0.25),Vector3(0.055,0.43,0.045),Color("e9dbb4"))
 	art.cylinder(self, Vector3(0, 0.27, 1.17), 0.5, 0.06, Color("54727a"))
 	var text := Label3D.new()
 	text.text = "ECO MARICÁ"
@@ -35,7 +51,7 @@ func _ready() -> void:
 	text.pixel_size = 0.007
 	add_child(text)
 	for i in 5:
-		var ripple := art.ellipsoid(self, Vector3(0, 0.02, 1.5 + i * 0.28), Vector3(0.15, 0.035, 0.18), Color("b4e0d3"))
+		var ripple := art.ellipsoid(self, Vector3(0, -0.075, 1.5 + i * 0.28), Vector3(0.32, 0.025, 0.13), Color("b4e0d3"))
 		wake.append(ripple)
 	art.free()
 

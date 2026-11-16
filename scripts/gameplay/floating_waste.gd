@@ -6,6 +6,13 @@ func _ready() -> void:
 	super._ready()
 	add_to_group("floating_waste")
 	origin_x = position.x
+	var float_art := Node3D.new()
+	float_art.name = "FloatingArt"
+	add_child(float_art)
+	for child in get_children():
+		if child is MeshInstance3D and child != marker: child.reparent(float_art)
+	float_art.position.y = -0.32 if material == "paper" else -0.22 if material == "metal" else -0.13
+	float_art.rotation = Vector3(0.10,0,0.12 if material != "paper" else -0.08)
 	if escape_speed > 0:
 		item_label.text = Config.MATERIAL_NAMES[material] + " • → SAÍDA"
 func advance_float(delta: float, session: RecyclingSession) -> void:
