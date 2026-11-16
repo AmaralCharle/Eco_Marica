@@ -31,18 +31,19 @@ static func canopy(seed_index: int = 0) -> ArrayMesh:
 static func palm_fronds() -> ArrayMesh:
 	var st := SurfaceTool.new()
 	st.begin(Mesh.PRIMITIVE_TRIANGLES)
-	for side: float in [-1, 1]:
-		for i in 6:
-			var t: float = i / 6.0
-			var u: float = (i + 1) / 6.0
-			var a := Vector3(side * t * 2.0, sin(t * PI) * 0.23 - t * t * 0.62, 0)
-			var b := Vector3(side * u * 2.0, sin(u * PI) * 0.23 - u * u * 0.62, 0)
-			var width: float = sin((t + 0.05) * PI) * 0.37
-			var tip := (a + b) * 0.5
-			for sign_value: float in [-1, 1]:
-				for p: Vector3 in [a, b, tip + Vector3(-side * 0.08, -0.055, width * sign_value)]:
-					st.set_color(Color(0.90 + t * 0.13, 0.90 + t * 0.13, 0.90 + t * 0.13, t))
-					st.add_vertex(p)
+	for direction: float in [-1,1]:
+		for i in 9:
+			var t := (i+1)/10.0
+			var center := Vector3(direction*t*2.3,sin(t*PI)*0.32-t*t*0.55,0)
+			var width := sin(t*PI)*0.50+0.08
+			for side: float in [-1,1]:
+				var root := center-Vector3(direction*0.15,0,0)
+				var tip := center+Vector3(direction*0.17,-0.12,side*width)
+				var ridge := center+Vector3(direction*0.05,0.045,side*width*0.46)
+				for point: Vector3 in [root,ridge,tip,root,tip,center+Vector3(direction*0.14,-0.025,0)]:
+					var shade: float = 0.86+t*0.17+(0.035 if side > 0 else 0.0)
+					st.set_color(Color(shade,shade,shade,t))
+					st.add_vertex(point)
 	return finish(st)
 
 static func tuft() -> ArrayMesh:

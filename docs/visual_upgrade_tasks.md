@@ -10,7 +10,7 @@ Branch: `upgrade-visual-4`. Base aprovada: `3fc476c` (tag `fase-1-final`, public
 | 04 Piloto Centro | validada | Materiais, arquitetura, vegetação, tempestade |
 | 05 Ubatiba | validada | Ambiente rural e recuperação simbólica |
 | 06 Ponta Negra | validada | Água, barco e margens |
-| 07 Araçatiba/Itaipuaçu | pendente | Coerência entre as cinco fases |
+| 07 Araçatiba/Itaipuaçu | validada | Coerência entre as cinco fases |
 | 08 Personagens/animações | pendente | Um modelo primeiro; articulação visual e estados existentes |
 | 09 Áudio/efeitos | pendente | Complementos originais, volume e sobreposição |
 | 10 Decisões ambientais | pendente | Composição, vento, prioridade de bueiros, solo e rota |
@@ -41,3 +41,7 @@ Ubatiba: cobertura vegetal agrupada aparece progressivamente após plantio, e pr
 ### TASK 06 — validada
 
 Ponta Negra: assento, encosto, boias e cintas no barco, espuma junto à água e resíduos flutuantes com acabamento e altura visual revistos. Arquivos: boat_polish.gd, floating_waste.gd, waste.gd. Mantidas física, posições lógicas, capacidade e controle. Ponta Negra: 20 verificações sem falhas; captura final ainda será realizada na TASK 14.
+
+### TASK 07 — validada
+
+Araçatiba e Itaipuaçu compartilham os materiais do piloto e novas folhas de palmeira com folíolos curvos, também usadas em samambaias. A malha tem cor/vento graduais e mantém troncos/colisões. Arquivo: environment_meshes.gd. Testes: Araçatiba 32 e Itaipuaçu 47, sem falhas.

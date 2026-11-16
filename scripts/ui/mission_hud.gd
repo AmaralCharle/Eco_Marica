@@ -166,7 +166,7 @@ func animate_screen() -> void:
 	screen_tween.tween_property(content, "modulate:a", 1.0, 0.18)
 
 func fit_dialog() -> void:
-	if not is_instance_valid(menu_scroll): return
+	if not is_inside_tree() or is_queued_for_deletion() or not is_instance_valid(menu_scroll): return
 	var limit := maxf(320,get_viewport().get_visible_rect().size.y-96)
 	menu_scroll.custom_minimum_size.y = minf(content.get_combined_minimum_size().y,limit)
 
