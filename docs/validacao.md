@@ -106,3 +106,9 @@ Limitações preservadas: tempo e reposicionamento controlados em parte dos test
 ## Direção de arte por referências — 16/11/2026
 
 727 verificações em 19 suítes, sem falhas. `test_art_direction.gd` acrescenta 66 casos de preservação de áreas de interação e identificação, vegetação, céu, riacho/canal e atualização contínua da luz na tempestade. Testes físicos e de campanha anteriores mantidos. Capturas e benchmark Alto/1280 × 720 em `art_reference_*` e `art_detail_*`; relatório e limites em `DIRECAO_ARTE_REFERENCIAS_2026_11_16.md`. Vistas controladas e poses de revisão não substituem partida humana ou teste externo.
+
+## Upgrade visual 4 — 16/11/2026
+
+Execução final: **968 verificações em 22 suítes, zero falhas**, sem ERROR/SCRIPT ERROR nos logs conferidos pelo executor. Inclui decisões opcionais nas cinco fases, atalhos Q/Esc, estrelas, persistência compatível, campanha clássica, física, personagens e layouts 720p/1080p. `capture_upgrade.gd` produziu 36 capturas; uma simulação controlada completou cinco vitórias, 15 estrelas e cinco opcionais. Esses dados não pertencem ao save real do jogador nem comprovam uma partida humana.
+
+Três renderizadores e três perfis foram medidos; Mobile foi mantido. Alto registrou aproximadamente 61–81 FPS médios em vistas 1280 × 720. Quatro ciclos das cinco fases retornaram a 18 nós e zero órfãos, RSS 889–900 MiB sem crescimento contínuo. Isso não garante FPS mínimo nem ausência universal de vazamentos. Alguns testes headless com encerramento imediato ainda apresentam avisos de AudioStreamWAV; a captura final e o ensaio com encerramento suave terminaram sem esses avisos. Relatório: `VISUAL_UPGRADE_4.md`; medições: `visual_upgrade_audit.md`.

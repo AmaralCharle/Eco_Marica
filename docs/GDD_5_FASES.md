@@ -84,6 +84,14 @@ Primitivas low-poly, vegetação e água estilizadas, materiais leves e sem text
 
 As estatísticas finais são dos melhores resultados registrados por missão; repetir uma pontuação menor não aumenta nem reduz o acumulado. Saves antigos não recebem estatísticas fabricadas. O mixer `GameAudio` separa Master/Music/Ambience/SFX; volumes, câmera e qualidade possuem preferências locais. Sons e músicas originais sintetizados por código são provisórios, com origem registrada em `ASSETS_E_CREDITOS.md`. Fonte de interface: SystemFont com Segoe UI/Noto Sans/Arial e fallback nativo do Godot, sem redistribuição de fontes; ícone original preservado e marca vetorial de folha nos menus.
 
+## Upgrade 4 — extensão das seções 5–13
+
+Branch de avaliação `upgrade-visual-4`, preservando `main`/tag `fase-1-final`. Q abre decisões opcionais com tempo pausado: separação de partes removíveis em Araçatiba (sem mudar as 15 unidades), vento lateral limitado em Itaipuaçu, prioridade por proximidade de resíduos aos bueiros no Centro, leitura do laudo em Ubatiba e planejamento de carga/distância em Ponta Negra. Cinco opcionais independentes da vitória. Não há penalidade principal por revisão do caderno.
+
+Estrelas: 1 por vitória; 2 com até dois erros e duas perdas nas fases pertinentes, com limite de um erro em Ubatiba; 3 sem erros/perdas. Velocidade não aumenta a nota e estrelas não bloqueiam progressão. Melhor nota independe do melhor score. Tentativas, histórico e opcionais são extensões aditivas do save versão 2; dados históricos ausentes não são fabricados. Câmeras e colisões permanecem.
+
+Materiais, folhas, respingos, barco, recuperação simbólica e cotovelos visuais evoluídos. Perfis com densidade/efeitos e resolução interna; Baixo mantém a HUD e toda a jogabilidade. Regras completas, parâmetros, arquivos/funções e validações em `VISUAL_UPGRADE_4.md`; medições em `visual_upgrade_audit.md`. O documento descreve a versão de avaliação, ainda sujeita à partida humana e à revisão do autor.
+
 ## 12. Arquitetura técnica
 Motor Godot 4.7.2 Standard, GDScript; recursos nativos, sem bibliotecas externas de execução. Máquina observada: Windows 11 64 bits, Intel Core i5-12450H, aproximadamente 12 GB de RAM instalada e Intel UHD Graphics. Renderização padrão Forward Mobile/Vulkan após ensaios comparativos, em 1280 × 720. Há benchmarks de vistas controladas das cinco fases, sem garantia de FPS sustentados em partida humana; resultados em `POLIMENTO.md`.
 

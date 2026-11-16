@@ -49,7 +49,7 @@ Resultados iniciais e comparação serão completados após os três processos t
 | forward_plus | ubatiba | 42.53 | 26.99 | 1134.6 | 202 | 1 | 14 |
 | forward_plus | ponta_negra | 44.17 | 26.89 | 1138.0 | 210 | 1 | 29 |
 
-Decisão: manter Mobile. Forward+ consumiu aproximadamente 1,08–1,14 GiB de working set e entregou cerca de 43–47 FPS nas vistas, sem benefício artístico que justificasse a troca nesta etapa. Compatibility apresentou piores oscilações (p95 em algumas vistas acima de 30 ms). Mobile manteve aproximadamente 63–85 FPS nas amostras, com working set de cerca de 809–870 MiB. Todos os três processos terminaram com exit 0. Os recursos procedurais/shaders foram carregados nos três; capturas permitem comparar o acabamento. Valores são amostras controladas, não garantia de desempenho mínimo.
+Decisão: manter Mobile. Forward+ consumiu aproximadamente 1082–1138 MiB de working set e entregou cerca de 43–47 FPS nas vistas, sem benefício artístico que justificasse a troca nesta etapa. Compatibility apresentou piores oscilações (p95 em algumas vistas acima de 30 ms). Mobile manteve aproximadamente 63–85 FPS nas amostras, com working set de cerca de 809–870 MiB. Todos os três processos terminaram com exit 0. Os recursos procedurais/shaders foram carregados nos três; capturas permitem comparar o acabamento. Valores são amostras controladas, não garantia de desempenho mínimo.
 
 ## Perfis finais e memória
 

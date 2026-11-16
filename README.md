@@ -2,6 +2,12 @@
 
 Jogo acadêmico 3D educativo para Windows, um jogador offline. Godot 4.7.2 Standard e GDScript, renderizador Forward Mobile/Vulkan. Campanha com cinco fases, áudio sintetizado original, cenários/personagens aprimorados e opções de volume, câmera e qualidade. A entrega acadêmica final ainda será preparada.
 
+## Upgrade 4 — versão de avaliação
+
+Branch `upgrade-visual-4`; a `main` e a tag `fase-1-final` conservam a versão anterior. Reinicie com F8/F5 para testar. Q abre decisões opcionais com tempo pausado; Esc retorna. Estrelas e opcionais não bloqueiam a campanha e não alteram os pontos principais. Melhor classificação, tentativas e histórico são locais, com save versão 2 compatível com o leitor antigo.
+
+Centro piloto com vitrines/respingos, recuperação simbólica em Ubatiba, barco/resíduos revistos, folhas tropicais e cotovelos articulados. HUD validada em 720p/1080p. Alto medido em aproximadamente 61–81 FPS nas vistas a 1280×720; não é garantia em partida completa. Baixo usa 3D a 80%, mantendo a HUD nativa. Detalhes, limites, rollback e regras em `docs/VISUAL_UPGRADE_4.md`, auditoria em `docs/visual_upgrade_audit.md` e diário em `docs/visual_upgrade_tasks.md`.
+
 ## Abrir e jogar
 1. Abra o `project.godot` desta pasta no Godot 4.7.2. Se o editor estava aberto em Compatibility, reabra o projeto para carregar o novo renderizador.
 2. Pare uma execução anterior com F8 e pressione F5.
@@ -41,7 +47,7 @@ Nova passagem visual de 16/11/2026, inspirada nas seis referências já enviadas
 Atualização de cenários de 16/11/2026: materiais de solo/pavimentação/madeira, vegetação, água, luz e atmosfera revistos nas cinco fases; detalhes adicionais no Centro, Ubatiba e Ponta Negra. Não muda as metas ou as posições dos objetivos. Ver `docs/CENARIOS_2026_11_16.md` para arquivos, evidências e limites.
 No menu ou na pausa, abra **Configurações**. Master, Music, Ambience e SFX possuem volumes independentes; zero silencia. Sensibilidade e suavização da câmera são ajustáveis. Qualidade Baixa remove sombras e reduz vegetação; Média usa sombras próximas e MSAA 2×; Alta acrescenta detalhes, mais vegetação, MSAA 8× e quatro cascatas de sombras direcionais de 4096. Alta é o padrão para instalações sem preferências salvas. O nível não troca o renderizador nem reinicia a campanha. Preferências em `user://eco_settings.cfg`, separadas dos saves.
 
-As 34 faixas/efeitos WAV foram sintetizados originalmente por código, com auxílio de IA; não foram baixados. São provisórios e não gravações de ambientes reais. Há passos por superfície, sons de ações, menu, restauração, chuva, motor e trilhas instrumentais discretas. Veja `docs/ASSETS_E_CREDITOS.md` e `docs/POLIMENTO.md`.
+As 37 faixas/efeitos WAV foram sintetizados originalmente por código, com auxílio de IA; não foram baixados. São provisórios e não gravações de ambientes reais. Há passos por superfície, sons de ações, menu, restauração, chuva, motor e trilhas instrumentais discretas. Veja `docs/ASSETS_E_CREDITOS.md` e `docs/POLIMENTO.md`.
 
 Foi adotado Forward Mobile após abrir e comparar os três renderizadores na Intel UHD. Para diagnóstico em outra máquina, é possível iniciar pelo console com `--rendering-method gl_compatibility --rendering-driver opengl3`; para comparar Forward+, use `--rendering-method forward_plus --rendering-driver vulkan`. Não é necessário editar os saves.
 
@@ -79,7 +85,7 @@ Execute na raiz do projeto:
 .\tests\run_all.ps1 -Godot 'C:\caminho\Godot_v4.7.2-stable_win64_console.exe'
 ```
 
-Validação atual: 727 verificações em 19 suítes, sem falhas. Inclui áudio, apresentação, cenário, preservação física da camada decorativa e interface das cinco fases em 1280 × 720. Medições e limites em `docs/CENARIOS_2026_11_16.md`; resumo em `tests/artifacts/validation_summary.json`. O executor confere código de saída e mensagens do motor, salvando logs em `tests/artifacts/test_*.log`. Testes usam saves próprios e não concluem a campanha real do jogador.
+Validação atual: 968 verificações em 22 suítes, sem falhas. Inclui áudio, apresentação, cenário, preservação física da camada decorativa e interface das cinco fases em 1280 × 720. Medições e limites em `docs/CENARIOS_2026_11_16.md`; resumo em `tests/artifacts/validation_summary.json`. O executor confere código de saída e mensagens do motor, salvando logs em `tests/artifacts/test_*.log`. Testes usam saves próprios e não concluem a campanha real do jogador.
 
 Há testes de física real e de estados com reposicionamento controlado; não substituem uma partida humana completa nem avaliação da dificuldade. Capturas `capture_ubatiba.gd`, `capture_ponta_negra.gd` e demais scripts geram estados simulados para inspeção gráfica. Não são evidência de teste externo.
 

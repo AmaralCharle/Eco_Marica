@@ -22,3 +22,9 @@ O GDD de trabalho permanece em `docs/GDD_5_FASES.md`. Identificação da equipe,
 ## Próxima ação
 
 Polimento de cenários implementado nas cinco fases, com prioridade para Centro, Ubatiba e Ponta Negra. Alterações, evidências, desempenho e limites em `CENARIOS_2026_11_16.md`. Interface também implementada: HUD e telas comuns nas cinco fases, com 604 verificações em 17 suítes e revisão gráfica 1280 × 720; detalhes em `INTERFACE_2026_11_16.md`. Personagens também aprimorados: Lucas validado primeiro, depois Marina/Rafael/Bia; qualidade Alta ativada e fronteira opcional para GLB. Referências visuais também aplicadas em nova passagem dos cenários, com prioridade Centro/Ubatiba/Ponta Negra e preservação dos acessos. Resultado atual: 727 verificações em 19 suítes. Ver `DIRECAO_ARTE_REFERENCIAS_2026_11_16.md`. Evidências em `PERSONAGENS_2026_11_16.md`. Próxima ação: avaliação do autor e novas ideias. Preservar as cinco fases, os saves e os testes; não retomar a finalização acadêmica/exportação sem solicitação do autor.
+
+## Branch de avaliação 4.0
+
+O autor autorizou o prompt 4.0 e pediu retorno seguro se necessário. Base preservada na main/tag `fase-1-final` (3fc476c); configuração local do editor preservada em d89078f; trabalho em `upgrade-visual-4`. Há backup ZIP, patch, arquivos não versionados e saves pré-upgrade fora do repositório. Não houve reset/clean nem merge na main.
+
+Novos materiais/vegetação/poses, caderno Q, vento lateral, prioridades, planejamento, estrelas, opcionais e histórico. Auditoria comparou três renderizadores e manteve Mobile. Quatro ciclos de memória sem órfãos/acúmulo de nós; Alto próximo de 61–81 FPS nas vistas controladas. Diário em `visual_upgrade_tasks.md`, regras e rollback em `VISUAL_UPGRADE_4.md`. Próxima ação após entrega: teste humano do autor no notebook. Não interpretar essa evolução como finalização acadêmica ou aprovação humana já ocorrida.

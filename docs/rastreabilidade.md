@@ -77,3 +77,7 @@ Etapa 6: 34 verificações do Centro e 13 do fluxo completo de campanha; regress
 | Encerramento, mapa e estatísticas | 6, 11, 13 | scripts/ui/mission_hud.gd: update_screen; scripts/ui/campaign_map.gd: _draw; scripts/core/mission_progress.gd: totals | Implementado | Teste de cinco fases e captura ponta_finale.png |
 
 A expansão substitui o antigo encerramento no Centro; somente a quinta fase conclui a campanha. Seções 1–16 e regras atuais estão em `GDD_5_FASES.md`. Total da execução final: 306 verificações em 13 suítes. Detalhes e limitações em `validacao.md`.
+
+## Upgrade 4
+
+A extensão das regras e sua ligação a funções reais está na tabela de `VISUAL_UPGRADE_4.md`: caderno/decisões, vento, prioridade, estrelas, histórico, poses, perfis e áudio. `visual_upgrade_tasks.md` registra checkpoints e testes por tarefa. Não houve novos testes externos com alunos.

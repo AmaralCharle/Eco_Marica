@@ -26,3 +26,9 @@ Total de áudio: **34 arquivos** PCM WAV mono 16 bits, 22050 Hz. Reproduzir a ge
 As seis imagens fornecidas pelo autor serviram de direção artística: aventura urbana, reflorestamento em Ubatiba, Revenge of the Savage Planet, Reef by Barji, personagem de Isla Wanderleaf e cena tropical low-poly do Arthub. As imagens não foram copiadas para os assets, recortadas, convertidas em modelos ou redistribuídas. A referência não concede licença sobre personagens, marcas, modelos ou músicas desses jogos/sites. Não foram inventados autores ou URLs ausentes.
 
 Diretórios usados: `assets/music`, `assets/sounds`, `assets/materials`; malhas, animações e efeitos permanecem em código nativo em `scripts/player` e `scripts/effects`. Não existem texturas/modelos externos a catalogar nesta versão. `icon.svg` anterior foi preservado. Fontes ambientais e acadêmicas anteriores continuam em `escopo_e_creditos.md`.
+
+## Upgrade 4 — recursos adicionais
+
+`upgrade_visuals.gd` cria detalhes comerciais e respingos agrupados; `stylized_glass.gdshader` e `rain_splash.gdshader` são shaders originais. `environment_meshes.gd` recebeu folíolos curvos; a recuperação usa geometria nativa e material de cobertura. `character_appearance.gd` articula cotovelos sem assets externos. Código, modelagem procedural e materiais produzidos no projeto com assistência Codex.
+
+Três WAV adicionais: decision, optional e stars. Síntese matemática original em `tools/generate_upgrade_audio.py`, PCM mono 16 bits/22050 Hz, sem samples ou músicas externas. Executar o gerador anterior para 34 arquivos e o novo para esses três; total atual **37 WAV**. Nenhum GLB externo foi importado. Referências visuais continuam apenas inspiração e não foram redistribuídas. Limitações e declaração de uso de IA preservadas.

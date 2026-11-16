@@ -18,7 +18,7 @@ Branch: `upgrade-visual-4`. Base aprovada: `3fc476c` (tag `fase-1-final`, public
 | 12 Estatísticas/resultados | validada | Tentativas e melhores avaliações, migração compatível |
 | 13 Perfis/otimização | validada | Baixo/Médio/Alto; cargas e memória |
 | 14 Regressão completa | validada | Cinco fases, saves próprios; revisão gráfica e limites |
-| 15 GDD/rastreabilidade/créditos | pendente | Documentar somente o implementado e validado |
+| 15 GDD/rastreabilidade/créditos | validada | Documentar somente o implementado e validado |
 
 ## Rollback
 
@@ -73,3 +73,7 @@ Fontes decorativas estáticas liberadas depois do agrupamento; nós físicos/ani
 ### TASK 14 — validada
 
 Executor completo: 968 verificações, 22 suítes, zero falhas/ERROR/SCRIPT ERROR nos logs finais. Inclui campanha clássica completa sem exigir opcionais, migração/rollback, 720p/1080p, física, coleção/plantio/barco e estados. capture_upgrade.gd produziu 36 capturas em duas resoluções, com vitórias reais da simulação, 15 estrelas e 5 opcionais; dados de teste, não estatísticas do jogador. Revisão adicional de 12 poses/corrida/barco dos quatro personagens. Índice dos bueiros refinado para ponderar distâncias e evitar empate artificial só por contagem. Capturas antigas sobrescritas pelos utilitários foram restauradas; evidências novas usam prefixo upgrade. Testes humanos obrigatórios descritos no relatório.
+
+### TASK 15 — validada
+
+README, GDD, créditos, continuidade, rastreabilidade, auditoria e relatório consolidados com regras implementadas e evidências finais: 968 verificações em 22 suítes, 36 capturas, três perfis/renderizadores e quatro ciclos de memória. Limitações, assets externos e retorno à tag fase-1-final explícitos; main preservada. Sem gerar entrega acadêmica final.
