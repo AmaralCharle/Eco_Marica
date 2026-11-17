@@ -15,5 +15,3 @@ PASS: Acesso sem pulo ao coletor metal z=16.0
 PASS: Rampa permite subir a calçada sem pulo lado -1.0
 PASS: Rampa permite subir a calçada sem pulo lado 1.0
 RESULT: 14 verificações, 0 falhas
-WARNING: 4 ObjectDB instances were leaked at exit (run with `--verbose` for details).
-   at: cleanup (core/object/object.cpp:2536)

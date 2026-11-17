@@ -5,7 +5,12 @@ func _ready() -> void:
 	box("Land", Vector3(13, -0.3, 0), Vector3(10, 0.6, 40), Color("88ab7d"), true)
 	box("WestBank", Vector3(-11, -0.3, 0), Vector3(6, 0.6, 40), Color("76a27a"), true)
 	box("Channel", Vector3(0, -0.22, 0), Vector3(16, 0.1, 40), Color("54aeb7"))
-	box("Pier", Vector3(8, -0.125, 12), Vector3(4, 0.25, 4), Color("b5946e"), true)
+	var pier := box("Pier", Vector3(8, -0.125, 12), Vector3(4, 0.25, 4), Color("b5946e"), true)
+	# O collider continua até x=10; o tablado visível termina no gramado em x=8.
+	# Duas superfícies em y=0 entre x=8 e x=10 causavam z-fighting ao caminhar.
+	var deck: MeshInstance3D = pier.get_child(0)
+	deck.mesh.size.x = 2.0
+	deck.position.x = -1.0
 	box("Bridge", Vector3(0, 3.45, -1), Vector3(18, 0.35, 2.4), Color("c4b38c"), true)
 	for side: float in [-1, 1]:
 		box("BridgePost", Vector3(side * 7, 1.6, -1), Vector3(0.3, 3.2, 0.35), Color("a18b6b"), true)

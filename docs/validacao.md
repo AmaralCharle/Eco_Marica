@@ -121,3 +121,7 @@ Executor completo final: **1062 verificações em 23 suítes, zero falhas**, sem
 ## Expansão Ponta Negra — 16/11/2026
 
 Bateria completa: 1184 verificações em 24 suítes, zero falhas e nenhuma mensagem ERROR/SCRIPT ERROR nos logs finais. test_fisheries.gd acrescenta 122 casos de falas, foco, redes, contato WASD, pausa, quatro passageiros/remadas e música por fase; foi reexecutado após reforçar foco na câmera do barco. Onze capturas de revisão em 720p, PCM das cinco músicas inspecionado e mil frames medidos por perfil Alto/Médio. Resultados e limites em PONTA_NEGRA_PESCADORES.md. Ensaios automatizados não substituem uma partida humana prolongada; avisos em encerramento headless imediato permanecem registrados.
+
+## Queda na água e piso do píer — 17/11/2026
+
+1.199 verificações em 25 suítes, zero falhas. Quinze casos novos validam queda física em derrota, pausa, navegação sem falso positivo, pisos seguros, caminhada estável e embarque/desembarque. Interface reexecutada após instrução atualizada: 226 verificações sem falhas. Três capturas Mobile/Vulkan 720p foram inspecionadas. Relatório: PONTA_NEGRA_CORRECOES_AGUA_PIER.md. Avisos de encerramento headless imediato continuam documentados.

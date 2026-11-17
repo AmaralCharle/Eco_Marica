@@ -81,6 +81,8 @@ func boat_interact() -> void:
 func advance_time(delta: float) -> void:
 	if state != State.JOGANDO:
 		return
+	if check_water_fall():
+		return
 	remaining = maxf(0, remaining - maxf(delta, 0))
 	$World.advance_water(delta)
 	if remaining <= 0:
@@ -90,6 +92,16 @@ func advance_time(delta: float) -> void:
 		if state != State.JOGANDO:
 			break
 		item.advance_float(delta, session)
+func check_water_fall() -> bool:
+	# O jogador oculto permanece no píer durante a navegação: só avaliar a pé.
+	if state != State.JOGANDO or on_boat:
+		return false
+	var feet: Vector3 = $World.to_local(player.global_position)
+	var inside_water: bool = absf(feet.x) < 8.0 and feet.z >= -70.0 and feet.z <= 20.0
+	if inside_water and feet.y <= -0.02:
+		finish(false, "Você caiu na água! Use o barco para navegar pelo canal.")
+		return true
+	return false
 func evaluate_objectives() -> void:
 	if state != State.JOGANDO:
 		return

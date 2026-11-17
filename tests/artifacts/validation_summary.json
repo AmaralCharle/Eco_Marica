@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-11-17T13:50:17.5040828-03:00",
-  "checks": 1184,
+  "generated_at": "2026-11-17T13:59:12.7986356-03:00",
+  "checks": 1199,
   "failed_suites": 0,
   "suites": [
     {
@@ -49,7 +49,7 @@
       "exit_code": 0,
       "log": "C:\\Users\\CHARLE\\Documents\\Eco-Maricá\\eco-marica\\tests\\artifacts\\test_centro_access.log",
       "has_errors": false,
-      "warnings": true
+      "warnings": false
     },
     {
       "name": "test_centro.gd",
@@ -89,7 +89,7 @@
       "exit_code": 0,
       "log": "C:\\Users\\CHARLE\\Documents\\Eco-Maricá\\eco-marica\\tests\\artifacts\\test_evolution.log",
       "has_errors": false,
-      "warnings": false
+      "warnings": true
     },
     {
       "name": "test_fisheries.gd",
@@ -113,7 +113,7 @@
       "exit_code": 0,
       "log": "C:\\Users\\CHARLE\\Documents\\Eco-Maricá\\eco-marica\\tests\\artifacts\\test_imported_assets.log",
       "has_errors": false,
-      "warnings": false
+      "warnings": true
     },
     {
       "name": "test_interface.gd",
@@ -121,7 +121,7 @@
       "exit_code": 0,
       "log": "C:\\Users\\CHARLE\\Documents\\Eco-Maricá\\eco-marica\\tests\\artifacts\\test_interface.log",
       "has_errors": false,
-      "warnings": false
+      "warnings": true
     },
     {
       "name": "test_itaipuacu.gd",
@@ -148,12 +148,20 @@
       "warnings": true
     },
     {
+      "name": "test_ponta_water.gd",
+      "checks": 15,
+      "exit_code": 0,
+      "log": "C:\\Users\\CHARLE\\Documents\\Eco-Maricá\\eco-marica\\tests\\artifacts\\test_ponta_water.log",
+      "has_errors": false,
+      "warnings": true
+    },
+    {
       "name": "test_presentation.gd",
       "checks": 33,
       "exit_code": 0,
       "log": "C:\\Users\\CHARLE\\Documents\\Eco-Maricá\\eco-marica\\tests\\artifacts\\test_presentation.log",
       "has_errors": false,
-      "warnings": false
+      "warnings": true
     },
     {
       "name": "test_progress_extension.gd",

@@ -47,7 +47,7 @@ Pontuação compartilhada: coleta única +5; destino correto +10; erro -5, míni
 | Itaipuaçu | 20 destinos corretos, quatro materiais, 240s | Meta completa, menos de cinco perdas | Quinta perda ou tempo zero |
 | Centro | 15 destinos corretos e três bueiros, 180s | Ambas as metas completas | Tempo zero |
 | Ubatiba | 12 avaliações, oito plantios e três proteções, 300s | Todas as metas, até três decisões incorretas | Quarta decisão incorreta ou tempo zero |
-| Ponta Negra | 20 destinos corretos usando barco, 360s | Meta completa e menos de cinco perdas | Quinta saída efetiva da zona ou tempo zero |
+| Ponta Negra | 20 destinos corretos usando barco, 360s | Meta completa e menos de cinco perdas | Queda a pé na água, quinta saída efetiva da zona ou tempo zero |
 
 Araçatiba consome o item no descarte errado; treino, Itaipuaçu, Centro e Ponta Negra permitem correção. Até a quarta perda nas fases 2 e 5, outro ID aparece em área alcançável para manter a meta possível. O perdido continua registrado. O bônus de missão e a coleta não podem ser duplicados pelo mesmo ID. Fases são desbloqueadas sequencialmente.
 

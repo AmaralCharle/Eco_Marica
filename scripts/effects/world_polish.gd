@@ -406,7 +406,7 @@ func pier_details() -> void:
 		cylinder(self, Vector3(-6.6 + i * 2.2, -0.04, -18.4), 0.22, 0.13, Color("d4ae69"))
 		cylinder(self, Vector3(-6.6 + i * 2.2, 0.11, -18.4), 0.12, 0.10, Color("eee0b6"))
 	for i in 12:
-		box(self, Vector3(8, 0.004, 10.15 + i * 0.33), Vector3(3.95, 0.008, 0.026), Color("8f7959"))
+		box(self, Vector3(7, 0.004, 10.15 + i * 0.33), Vector3(1.95, 0.008, 0.026), Color("8f7959"))
 	# Cantos distantes do ponto de desembarque; sem colisões novas.
 	for z: float in [10.1, 13.9]:
 		cylinder(self, Vector3(9.7, 0.3, z), 0.6, 0.11, Color("917454"))
