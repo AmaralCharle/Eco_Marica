@@ -37,3 +37,5 @@ Branch `asset-revolution`; base aprovada `upgrade-visual-4` em df0ab5d e tag `ch
 ## Pescadores — 16/11/2026
 
 Branch ponta-negra-pescadores, checkpoint anterior checkpoint-pre-pescadores-4f5b05f. Veja PONTA_NEGRA_PESCADORES.md para regras, tempos, posições e limitações. Redes usam reação analítica apenas no barco, sem novos corpos físicos; não transformar em bloqueios do corredor central/píer. Falas e avisos têm timers separados. O passageiro existente usa SeatedRowingPose no rig; propulsão/inventário originais. Cinco músicas originais reproduzíveis via compose_phase_music.py; não restaurar a antiga frase compartilhada por acidente. Vozes dependem de gravações/assets licenciados.
+
+Revisão 17/11: câmera embarcada admite mira pelo mouse sem deslocar o SpringArm ou virar o casco. O teste espera o blend de embarque e mira pelo centro da tela; a captura adicional mostra Beto na ponte. Não substituir esse teste por projeção arbitrária fora da tela.

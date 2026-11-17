@@ -1,0 +1,15 @@
+{
+	"draw_calls": 293.0,
+	"fps_mean": 79.9181957348458,
+	"frames": 1000,
+	"load_ms": 1642.028,
+	"max_active_nets": 1,
+	"npc_count": 4,
+	"p95_ms": 15.25,
+	"quality": 1,
+	"resolution": "1280x720",
+	"rss_mib": 889.8046875,
+	"scenario": "passageiro remando, quatro NPCs, ciclos reais; barco fixo para comparação; prazo da missão congelado",
+	"vram_mib": 199.593078613281,
+	"worst_ms": 23.258
+}

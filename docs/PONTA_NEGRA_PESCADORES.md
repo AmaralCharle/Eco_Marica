@@ -21,6 +21,8 @@ A distância é tridimensional, inclusiva até **5 metros**, tomando o barco com
 
 O nome aparece somente sob foco da câmera: centro da tela com mouse capturado, ponteiro com mouse livre. O componente `canal_interaction.gd` existente chama a seleção por raio projetado, volume aproximado do corpo e linha de visão do mundo. Alcance visual de 35 m; some ao tirar o foco ou pausar. Funciona a pé e na câmera do barco. Foco não substitui E nem interfere no alvo de resíduos/lixeiras.
 
+Revisão de 17/11: o mouse também orienta a câmera embarcada, com sensibilidade, suavização e limites de inclinação existentes. A lente gira sem deslocar o braço protegido da câmera nem virar o casco; W/S e A/D continuam responsáveis pela navegação. Pausar bloqueia a mira. A captura `fisheries_boat_aim_bridge.png` confirma identificação de Beto pelo centro da câmera do barco.
+
 ## Tarrafa temporária e equilíbrio
 
 Ciclo: espera → preparo de **2,5 s** → lançamento de **0,8 s** → aberta por **5 s** → recolhimento de **1,2 s** → espera de **34,5 s**. Em condição normal, cada pescador repete a cada 44 s; primeiros preparos em 6, 17, 28 e 39 s escalonam uma rede por vez. Existe também limite de segurança de **duas abertas simultaneamente**, caso os ciclos se aproximem após adiamentos.
@@ -55,11 +57,11 @@ São timbres sintetizados, não gravações instrumentais. Fonte reproduzível: 
 
 ## Validação executada
 
-- Bateria completa: **1.181 verificações em 24 suítes, zero falhas**, sem ERROR/SCRIPT ERROR nos logs finais.
-- Suíte específica `test_fisheries.gd`: **119 verificações**, também reexecutada após adicionar conferência de foco na câmera do barco. Cobre quatro nomes/localizações, limite de 5 m, duração de 3 s, cooldown individual de 20 s, coexistência de aviso/cumprimento, foco a pé/embarcado, todos os estados durante 180 s simulados, limite simultâneo, espaço central/píer, adiamento sobre o barco, varredura em passo longo, navegação WASD real contra rede, passagem após recolher, pausa, quatro poses sentadas/remadas/desembarques e as cinco músicas no mixer.
+- Revisão final de 17/11: **1.184 verificações em 24 suítes, zero falhas**, sem ERROR/SCRIPT ERROR nos logs finais.
+- Suíte específica `test_fisheries.gd`: **122 verificações**, também reexecutada após adicionar conferência de foco na câmera do barco. Cobre quatro nomes/localizações, limite de 5 m, duração de 3 s, cooldown individual de 20 s, coexistência de aviso/cumprimento, foco a pé/embarcado, todos os estados durante 180 s simulados, limite simultâneo, espaço central/píer, adiamento sobre o barco, varredura em passo longo, navegação WASD real contra rede, passagem após recolher, pausa, quatro poses sentadas/remadas/desembarques e as cinco músicas no mixer.
 - Regressões existentes preservadas: campanha, coleta/descarte, perdas/reposição, vitória/derrota, acesso ao píer, ponte, pausa, física, personagens, saves e interface em 720p/1080p.
 - PCM das cinco faixas: estéreo, duração acima de 30 s, sem silêncio/clipping, DC baixo, junção do loop sem salto e hashes diferentes. Evidência `fisheries_audio_quality.json`.
-- Dez capturas 1280×720: cumprimentos dos quatro NPCs, preparo, rede aberta e os quatro passageiros remando. São estados controlados de revisão, não uma partida humana.
+- Onze capturas 1280×720: cumprimentos dos quatro NPCs, preparo, rede aberta, os quatro passageiros remando e mira embarcada na ponte. São estados controlados de revisão, não uma partida humana.
 
 As poses modificadas foram medidas no sinal `modification_processed`, antes de o motor restaurar as poses-base, conforme a [documentação oficial do Godot](https://docs.godotengine.org/en/stable/classes/class_skeletonmodifier3d.html). O teste não confunde a pose-base em pé com a pose enviada à renderização.
 
@@ -67,7 +69,7 @@ Alguns testes headless que encerram imediatamente continuam apresentando avisos 
 
 ## Desempenho medido
 
-Intel UHD integrada, Mobile/Vulkan, 1280×720; mil frames por perfil depois do aquecimento. Quatro NPCs, passageiro remando e ciclos reais; houve uma tarrafa ativa nas amostras. O barco fica fixo para comparação e o prazo da missão é congelado, enquanto ciclos/animações continuam.
+Medição de 16/11: Intel UHD integrada, Mobile/Vulkan, 1280×720; mil frames por perfil depois do aquecimento. Quatro NPCs, passageiro remando e ciclos reais; houve uma tarrafa ativa nas amostras. O barco fica fixo para comparação e o prazo da missão é congelado, enquanto ciclos/animações continuam.
 
 | Perfil | FPS médio | p95 | Pior frame | RSS | VRAM |
 |---|---|---|---|---|---|
@@ -94,6 +96,6 @@ Sem downloads novos: NPCs reutilizam **Man de Quaternius (CC0)**, https://poly.p
 
 ## Teste e próximos refinamentos
 
-F8/F5 no projeto; selecionar Ponta Negra. Aproximar-se até 5 m, mirar para ler o nome, observar o aviso/aro e a rede; contornar pelo centro, recuar ou esperar. Embarcar com E, navegar, parar e desembarcar como antes. Selecionar os quatro protagonistas para conferir postura. Comparar as cinco músicas pelo controle Música já existente.
+F8/F5 no projeto; selecionar Ponta Negra. Aproximar-se até 5 m, mirar para ler o nome, observar o aviso/aro e a rede; contornar pelo centro, recuar ou esperar. Embarcar com E, usar o mouse para olhar, W/S para acelerar/recuar e A/D para virar, parar e desembarcar como antes. Selecionar os quatro protagonistas para conferir postura. Comparar as cinco músicas pelo controle Música já existente.
 
 Refinamentos possíveis: animações próprias de arremesso/recolhimento, mãos com IK nos remos, modelos de pescadores mais variados e gravações de fala licenciadas mantendo legendas. As músicas podem receber gravações instrumentais licenciadas numa etapa futura. Não há vozes nesta entrega.

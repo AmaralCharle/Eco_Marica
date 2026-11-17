@@ -54,6 +54,21 @@ func run() -> void:
 		await snap(id+"_rowing")
 		boat.speed = 0
 		if not level.try_disembark(): quit(1); return
+	level.player.position = boat.landing_position
+	if not level.try_board(): quit(1); return
+	boat.set_physics_process(false)
+	boat.position = Vector3(0,0.05,4)
+	await create_timer(0.6).timeout
+	boat.camera.current = true
+	root.get_node("GameAudio").smoothing = false
+	var bridge_npc: Node3D = system.fishermen[3]
+	var direction: Vector3 = boat.global_basis.inverse()*(bridge_npc.position+Vector3.UP*1.05-boat.camera.global_position).normalized()
+	var desired := Vector2(asin(direction.y),atan2(-direction.x,-direction.z))
+	var sensitivity: float = boat.Config.MOUSE_SENSITIVITY*root.get_node("GameAudio").sensitivity
+	boat.apply_look(Vector2(-(desired.y-boat.look_target.y)/sensitivity,-(desired.x-boat.look_target.x)/sensitivity))
+	var target: Node3D = system.update_focus(boat.camera,root.get_visible_rect().size*0.5)
+	if target != bridge_npc: push_error("Mira embarcada não encontrou Beto"); quit(1); return
+	await snap("boat_aim_bridge")
 	level.queue_free()
 	for i in 5: await process_frame
 	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE

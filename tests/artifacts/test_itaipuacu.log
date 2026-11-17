@@ -48,5 +48,5 @@ PASS: Interação integrada alcança os 20 itens e quatro materiais
 PASS: Repetir fase anterior não rebaixa desbloqueio
 PASS: Desbloqueio inválido rejeitado
 RESULT: 47 verificações, 0 falhas
-WARNING: 17 ObjectDB instances were leaked at exit (run with `--verbose` for details).
+WARNING: 18 ObjectDB instances were leaked at exit (run with `--verbose` for details).
    at: cleanup (core/object/object.cpp:2536)

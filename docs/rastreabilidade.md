@@ -89,4 +89,4 @@ A apresentação externa é rastreada em ASSET_REVOLUTION.md (tabela código/evi
 
 ## Ponta Negra — pescadores e cinco músicas
 
-Mapeamento código/regras/evidências em PONTA_NEGRA_PESCADORES.md. fisherman's phases e canal_fisheries acrescentam ambientação/obstáculo temporário; nenhum requisito de vitória, score ou save muda. Teste test_fisheries.gd cobre 119 limites e integrações, inclusive teclado real contra a rede e clipes no mixer. Fonte/partitura das trilhas em compose_phase_music.py e trilhas_originais.json. As poses são medidas no sinal do modificador, não fora do processamento do esqueleto.
+Mapeamento código/regras/evidências em PONTA_NEGRA_PESCADORES.md. fisherman's phases e canal_fisheries acrescentam ambientação/obstáculo temporário; nenhum requisito de vitória, score ou save muda. Teste test_fisheries.gd cobre 122 limites e integrações, inclusive teclado real contra a rede e clipes no mixer. Fonte/partitura das trilhas em compose_phase_music.py e trilhas_originais.json. As poses são medidas no sinal do modificador, não fora do processamento do esqueleto.

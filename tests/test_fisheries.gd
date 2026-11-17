@@ -120,8 +120,27 @@ func run() -> void:
 	boat.speed = 0
 	level.player.position = boat.landing_position
 	var boarded: bool = level.try_board()
-	var aim_point: Vector2 = boat.camera.unproject_position(npc.position+Vector3.UP*1.05)
-	check(boarded and level.on_boat and system.update_focus(boat.camera,aim_point)==npc,"Embarque original e identificação pelo ponto projetado da câmera do barco")
+	boat.position = Vector3(0,0.05,4)
+	await create_timer(0.6).timeout
+	boat.camera.current = true
+	var aimed_npc: Node3D = system.fishermen[3]
+	var sight: Vector3 = boat.global_basis.inverse()*(aimed_npc.position+Vector3.UP*1.05-boat.camera.global_position).normalized()
+	var desired_look := Vector2(asin(sight.y),atan2(-sight.x,-sight.z))
+	var sensitivity: float = boat.Config.MOUSE_SENSITIVITY*root.get_node("GameAudio").sensitivity
+	boat.apply_look(Vector2(-(desired_look.y-boat.look_target.y)/sensitivity,-(desired_look.x-boat.look_target.x)/sensitivity))
+	check(boarded and level.on_boat and system.update_focus(boat.camera,root.get_visible_rect().size*0.5)==aimed_npc,"Mouse aponta centro da câmera embarcada ao pescador e identifica seu nome")
+	var hull_yaw: float = boat.rotation.y
+	var camera_place: Vector3 = boat.camera.global_position
+	var camera_basis: Basis = boat.camera.basis
+	boat.apply_look(Vector2(120,-50000))
+	check(boat.camera.basis!=camera_basis and boat.rotation.y==hull_yaw and boat.camera.global_position.distance_to(camera_place)<0.001,"Mouse muda mira sem alterar casco nem posição protegida da câmera")
+	check(boat.look_target.x<=boat.Config.CAMERA_MAX_PITCH and boat.look_target.x>=boat.Config.CAMERA_MIN_PITCH,"Mira do barco respeita limites de inclinação")
+	level.set_state(level.State.PAUSADO)
+	var frozen_camera: Basis = boat.camera.basis
+	boat.apply_look(Vector2(200,200))
+	check(boat.camera.basis==frozen_camera,"Pausa bloqueia a mira embarcada")
+	level.set_state(level.State.JOGANDO)
+	boat.reset_look()
 	npc.enter(Fisher.Phase.OPEN)
 	boat.position = Vector3(npc.net_anchor.x,0.05,10)
 	boat.rotation.y = 0
