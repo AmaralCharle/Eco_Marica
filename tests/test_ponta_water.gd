@@ -82,6 +82,27 @@ func run() -> void:
 	level.advance_time(400)
 	check(level.result_reason==reason and level.state==level.State.DERROTA,"Resultado da queda não é sobrescrito pelo cronômetro")
 	await capture("water_game_over")
+	# Regressão do relato: a grama acaba em z=20, fora do antigo retângulo da água.
+	level.set_state(level.State.JOGANDO)
+	level.player.position = Vector3(11,0.1,19)
+	level.player.velocity = Vector3.ZERO
+	Input.action_press("move_back")
+	for i in 100:
+		await frames(1)
+		level.advance_time(1.0/60)
+		if level.state==level.State.DERROTA: break
+	Input.action_release("move_back")
+	check(level.state==level.State.DERROTA and level.player.position.z>20,"Caminhar além do final da grama causa game over")
+	await capture("grass_edge_game_over")
+	for edge: Vector3 in [Vector3(11,1,-21),Vector3(19,1,12),Vector3(-15,1,12),Vector3(-11,1,21),Vector3(0,1,21)]:
+		level.set_state(level.State.JOGANDO)
+		level.player.position = edge
+		level.player.velocity = Vector3.ZERO
+		for i in 100:
+			await frames(1)
+			level.advance_time(1.0/60)
+			if level.state==level.State.DERROTA: break
+		check(level.state==level.State.DERROTA,"Queda fora das bordas originais também encerra: "+str(edge))
 	level.queue_free()
 	await frames(4)
 	print("RESULT: %d verificações, %d falhas" % [checks,failures])

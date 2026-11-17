@@ -97,8 +97,9 @@ func check_water_fall() -> bool:
 	if state != State.JOGANDO or on_boat:
 		return false
 	var feet: Vector3 = $World.to_local(player.global_position)
-	var inside_water: bool = absf(feet.x) < 8.0 and feet.z >= -70.0 and feet.z <= 20.0
-	if inside_water and feet.y <= -0.02:
+	# Todas as superfícies caminháveis ficam em y>=0. Não limitar por x/z:
+	# ao sair do fim do gramado (z>20), o jogador já está fora do canal original.
+	if feet.y <= -0.02:
 		finish(false, "Você caiu na água! Use o barco para navegar pelo canal.")
 		return true
 	return false

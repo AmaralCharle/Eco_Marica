@@ -125,3 +125,5 @@ Bateria completa: 1184 verificações em 24 suítes, zero falhas e nenhuma mensa
 ## Queda na água e piso do píer — 17/11/2026
 
 1.199 verificações em 25 suítes, zero falhas. Quinze casos novos validam queda física em derrota, pausa, navegação sem falso positivo, pisos seguros, caminhada estável e embarque/desembarque. Interface reexecutada após instrução atualizada: 226 verificações sem falhas. Três capturas Mobile/Vulkan 720p foram inspecionadas. Relatório: PONTA_NEGRA_CORRECOES_AGUA_PIER.md. Avisos de encerramento headless imediato continuam documentados.
+
+Após relato do autor sobre o final da grama: reproduzidas seis quedas não detectadas na versão anterior, incluindo caminhada real além de z=20. Corrigido limite horizontal indevido. Regressão focal de 169 verificações sem falhas (21 água/bordas, 6 acesso, 20 missão, 122 pescadores), mais captura gráfica de derrota no fim do gramado. A bateria completa de 1.199 acima é anterior a esse ajuste; não foi repetida.

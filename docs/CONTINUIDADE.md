@@ -41,3 +41,5 @@ Branch ponta-negra-pescadores, checkpoint anterior checkpoint-pre-pescadores-4f5
 Revisão 17/11: câmera embarcada admite mira pelo mouse sem deslocar o SpringArm ou virar o casco. O teste espera o blend de embarque e mira pelo centro da tela; a captura adicional mostra Beto na ponte. Não substituir esse teste por projeção arbitrária fora da tela.
 
 Correção posterior solicitada pelo autor: cair a pé no canal causa DERROTA, sem afetar o barco. Tablado visível termina em x=8 para não sobrepor o gramado; collider original preservado. Não ampliar novamente a malha/tábuas sobre o gramado coplanar. Ver PONTA_NEGRA_CORRECOES_AGUA_PIER.md e test_ponta_water.gd. Última regressão: 1.199 verificações em 25 suítes sem falhas.
+
+Retorno do autor: a queda ocorria no final do gramado, fora do retângulo original do canal. Não restringir check_water_fall por x/z: qualquer queda abaixo do piso seguro da fase deve perder, exceto embarcado. Novo teste caminha realmente além de z=20; outras cinco bordas também cobertas. Regressão focal mais recente: 169 verificações sem falhas; bateria completa anterior não repetida.

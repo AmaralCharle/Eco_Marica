@@ -21,5 +21,5 @@ PASS: Quinta perda encerra sem criar reposição adicional
 PASS: Quatro perdas ainda permitem vitória com reposição e índice de 83%
 PASS: Prazo de 360 segundos encerra fase incompleta
 RESULT: 20 verificações, 0 falhas
-WARNING: 18 ObjectDB instances were leaked at exit (run with `--verbose` for details).
+WARNING: 10 ObjectDB instances were leaked at exit (run with `--verbose` for details).
    at: cleanup (core/object/object.cpp:2536)
