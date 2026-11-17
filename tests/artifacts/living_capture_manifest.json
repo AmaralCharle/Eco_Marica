@@ -1,0 +1,64 @@
+{
+  "captures": [
+    {
+      "file": "living_720_aracatiba_recovered.png",
+      "width": 1280,
+      "height": 720,
+      "sha256": "1da1772d2ee206bbafaf78e11383865cd21d8af2af4a6853deb1287f801f2c9a"
+    },
+    {
+      "file": "living_720_itaipuacu_recovered.png",
+      "width": 1280,
+      "height": 720,
+      "sha256": "fb5f546a8014d243d8adac7abd267bd671d4086061a5a54eb9bde4d77b7e5f5c"
+    },
+    {
+      "file": "living_720_centro_recovered.png",
+      "width": 1280,
+      "height": 720,
+      "sha256": "6b4937fb79624fc46cdf65185b09e06d05380425ce32b8c51d1d8aa302b32001"
+    },
+    {
+      "file": "living_720_ubatiba_recovered.png",
+      "width": 1280,
+      "height": 720,
+      "sha256": "12239727fef0d87ee0894aca04a00a24eacb77f81b16482e2b8a3174ec194cb4"
+    },
+    {
+      "file": "living_720_ponta_negra_recovered.png",
+      "width": 1280,
+      "height": 720,
+      "sha256": "536bf64562d8307a500b3314df81a8834a0a01adef1a4eec5a6ff297422deb49"
+    },
+    {
+      "file": "living_1080_aracatiba_recovered.png",
+      "width": 1920,
+      "height": 1080,
+      "sha256": "3dbed120ec05da1b2c99d1a018bee055a00da7b2da95226a2e7e6b30a09a86a4"
+    },
+    {
+      "file": "living_1080_itaipuacu_recovered.png",
+      "width": 1920,
+      "height": 1080,
+      "sha256": "86281a654ad127c5d094694c8a5804c4cd1e4dd179c21e72e7b8efe9e1a93928"
+    },
+    {
+      "file": "living_1080_centro_recovered.png",
+      "width": 1920,
+      "height": 1080,
+      "sha256": "a8ed4b7ef312d72593e3c78cfe1d54e209dbfe42d82cdfd0e4aa154998c049a2"
+    },
+    {
+      "file": "living_1080_ubatiba_recovered.png",
+      "width": 1920,
+      "height": 1080,
+      "sha256": "c8c9ce7d606ab79212d59872cf1d6be7a768b389ec958d63ff9657229a311b57"
+    },
+    {
+      "file": "living_1080_ponta_negra_recovered.png",
+      "width": 1920,
+      "height": 1080,
+      "sha256": "a22f301516fc2d960e0f6749b92a1edde32e9d8842fd5b111a409b213dfe8986"
+    }
+  ]
+}

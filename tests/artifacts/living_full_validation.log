@@ -1,0 +1,27 @@
+PASS test_aracatiba.gd: 32
+PASS test_art_direction.gd: 66
+PASS test_audio.gd: 17
+PASS test_boat.gd: 9
+PASS test_campaign.gd: 18
+PASS test_centro_access.gd: 14
+PASS test_centro.gd: 34
+PASS test_character_visuals.gd: 93
+PASS test_characters.gd: 49
+PASS test_environment.gd: 22
+PASS test_evolution.gd: 59
+PASS test_fisheries.gd: 122
+PASS test_foundation.gd: 16
+PASS test_imported_assets.gd: 94
+PASS test_interface.gd: 226
+PASS test_itaipuacu.gd: 47
+PASS test_living_recovery.gd: 107
+PASS test_ponta_access.gd: 6
+PASS test_ponta_negra.gd: 20
+PASS test_ponta_water.gd: 21
+PASS test_presentation.gd: 33
+PASS test_progress_extension.gd: 8
+PASS test_ratings.gd: 36
+PASS test_recycling.gd: 35
+PASS test_resolutions.gd: 110
+PASS test_ubatiba.gd: 18
+TOTAL: 1312 verificacoes; 0 suites com falha.

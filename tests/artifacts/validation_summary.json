@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-11-17T13:59:12.7986356-03:00",
-  "checks": 1199,
+  "generated_at": "2026-11-17T14:55:15.2521809-03:00",
+  "checks": 1312,
   "failed_suites": 0,
   "suites": [
     {
@@ -49,7 +49,7 @@
       "exit_code": 0,
       "log": "C:\\Users\\CHARLE\\Documents\\Eco-Maricá\\eco-marica\\tests\\artifacts\\test_centro_access.log",
       "has_errors": false,
-      "warnings": false
+      "warnings": true
     },
     {
       "name": "test_centro.gd",
@@ -121,7 +121,7 @@
       "exit_code": 0,
       "log": "C:\\Users\\CHARLE\\Documents\\Eco-Maricá\\eco-marica\\tests\\artifacts\\test_interface.log",
       "has_errors": false,
-      "warnings": true
+      "warnings": false
     },
     {
       "name": "test_itaipuacu.gd",
@@ -129,7 +129,15 @@
       "exit_code": 0,
       "log": "C:\\Users\\CHARLE\\Documents\\Eco-Maricá\\eco-marica\\tests\\artifacts\\test_itaipuacu.log",
       "has_errors": false,
-      "warnings": true
+      "warnings": false
+    },
+    {
+      "name": "test_living_recovery.gd",
+      "checks": 107,
+      "exit_code": 0,
+      "log": "C:\\Users\\CHARLE\\Documents\\Eco-Maricá\\eco-marica\\tests\\artifacts\\test_living_recovery.log",
+      "has_errors": false,
+      "warnings": false
     },
     {
       "name": "test_ponta_access.gd",
@@ -149,7 +157,7 @@
     },
     {
       "name": "test_ponta_water.gd",
-      "checks": 15,
+      "checks": 21,
       "exit_code": 0,
       "log": "C:\\Users\\CHARLE\\Documents\\Eco-Maricá\\eco-marica\\tests\\artifacts\\test_ponta_water.log",
       "has_errors": false,
@@ -177,7 +185,7 @@
       "exit_code": 0,
       "log": "C:\\Users\\CHARLE\\Documents\\Eco-Maricá\\eco-marica\\tests\\artifacts\\test_ratings.log",
       "has_errors": false,
-      "warnings": true
+      "warnings": false
     },
     {
       "name": "test_recycling.gd",
@@ -185,7 +193,7 @@
       "exit_code": 0,
       "log": "C:\\Users\\CHARLE\\Documents\\Eco-Maricá\\eco-marica\\tests\\artifacts\\test_recycling.log",
       "has_errors": false,
-      "warnings": true
+      "warnings": false
     },
     {
       "name": "test_resolutions.gd",

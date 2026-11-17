@@ -28,7 +28,7 @@ Executar incrementalmente. Primeiro fechar tasks 01–02 com testes, imagens e c
 | Task | Estado | Arquivos/dependências | Verificação prevista |
 |---|---|---|---|
 | 01 Backup/auditoria | Concluída | Este diário, backup externo, tag/base | Git limpo em arquivos rastreados antes das edições, CRC ZIP, bundle |
-| 02 Transformação/cinema | Em implementação | `environmental_recovery.gd`, `recovery_garden.gd`, apresentação/HUD; estados reais da sessão | Cinco fases, marcos progressivos, vitória/derrota, pular, câmera, HUD, nenhum ponto/colisor novo |
+| 02 Transformação/cinema | Concluída neste lote | `environmental_recovery.gd`, `recovery_garden.gd`, apresentação/HUD; estados reais da sessão | 107 casos novos; bateria 1.312/26 sem falhas; cinco tomadas em 720p/1080p; relatório `LIVING_WORLD_7_ETAPA_1.md` |
 | 03 Animações | Planejada | Catálogo de clipes, AnimationPlayer/rigs atuais | Conferir clipes por personagem e transições; distinguir pose procedural de animação |
 | 04 NPCs ambientais | Planejada | Percursos seguros, rigs existentes, limite/distância | Não bloquear objetivos, pausa, trajetórias, custo real |
 | 05 Diálogos | Planejada | Componente comum; preservar falas/timers dos pescadores | Legibilidade, prioridade, cooldown individual e limite de sobreposição |

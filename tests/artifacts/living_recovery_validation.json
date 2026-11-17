@@ -1,0 +1,46 @@
+{
+	"checks": 107,
+	"failures": 0,
+	"phases": [
+		{
+			"cinematic_seconds": 6.5,
+			"phase": "aracatiba",
+			"saved_unchanged": true,
+			"score": 425,
+			"stage": 3,
+			"viewport_logical_height": 720.0
+		},
+		{
+			"cinematic_seconds": 6.5,
+			"phase": "itaipuacu",
+			"saved_unchanged": true,
+			"score": 520,
+			"stage": 3,
+			"viewport_logical_height": 720.0
+		},
+		{
+			"cinematic_seconds": 6.5,
+			"phase": "centro",
+			"saved_unchanged": true,
+			"score": 515,
+			"stage": 3,
+			"viewport_logical_height": 720.0
+		},
+		{
+			"cinematic_seconds": 6.5,
+			"phase": "ubatiba",
+			"saved_unchanged": true,
+			"score": 365,
+			"stage": 3,
+			"viewport_logical_height": 720.0
+		},
+		{
+			"cinematic_seconds": 6.5,
+			"phase": "ponta_negra",
+			"saved_unchanged": true,
+			"score": 520,
+			"stage": 3,
+			"viewport_logical_height": 720.0
+		}
+	]
+}

@@ -90,3 +90,7 @@ A apresentação externa é rastreada em ASSET_REVOLUTION.md (tabela código/evi
 ## Ponta Negra — pescadores e cinco músicas
 
 Mapeamento código/regras/evidências em PONTA_NEGRA_PESCADORES.md. fisherman's phases e canal_fisheries acrescentam ambientação/obstáculo temporário; nenhum requisito de vitória, score ou save muda. Teste test_fisheries.gd cobre 122 limites e integrações, inclusive teclado real contra a rede e clipes no mixer. Fonte/partitura das trilhas em compose_phase_music.py e trilhas_originais.json. As poses são medidas no sinal do modificador, não fora do processamento do esqueleto.
+
+## Living World 7 — tasks 01–02
+
+`environmental_recovery.gd:sync_progress` liga marcos reais a setores decorativos; `start_cinematic/stop_cinematic/_input` ligam vitória a tomada de 6,5 s e saída antecipada. `recovery_garden.gd:build/reveal` constrói/revela geometria. `mission_hud.gd:set_cinematic_active` preserva resultados/controles. Evidências: `test_living_recovery.gd` (107 casos), capturas `living_720_*`/`living_1080_*`, perfil `living_performance.json`. Não há novo estado de save, critério de vitória ou bônus visual. Demais tasks do prompt permanecem explicitamente no diário `living_world_tasks.md`.

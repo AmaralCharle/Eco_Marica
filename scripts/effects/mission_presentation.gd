@@ -11,6 +11,7 @@ func _ready() -> void:
 	mission.session.presentation_event.connect(on_event)
 	var polish := preload("res://scripts/effects/world_polish.gd").new()
 	add_child(polish)
+	add_child(preload("res://scripts/effects/environmental_recovery.gd").new())
 
 func on_event(event: String) -> void:
 	audio.play_event(event)

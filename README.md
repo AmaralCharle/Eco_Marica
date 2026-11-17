@@ -113,3 +113,7 @@ Repositório de destino: https://github.com/AmaralCharle/Eco_Marica.git . Checkp
 Branch `ponta-negra-pescadores`, base preservada em `checkpoint-pre-pescadores-4f5b05f`. Quatro NPCs cumprimentam a até 5 m; balão por 3 s, intervalo individual de 20 s. Mire para ver o nome. “Olha a tarrafa!” avisa o lançamento; contorne ou aguarde a rede temporária. Sem perda de pontos/carga. Passageiro sentado com braços e remos animados; controles e metas originais preservados. As cinco fases ganharam músicas instrumentais originais distintas, com o mesmo controle de volume. Relatório e limitações em [docs/PONTA_NEGRA_PESCADORES.md](docs/PONTA_NEGRA_PESCADORES.md).
 
 No barco, o mouse permite olhar para os pescadores e o cenário; W/S acelera/recua e A/D vira o casco. Sensibilidade e suavização seguem as preferências existentes.
+
+## Living World 7 — primeiro lote
+
+Branch `living-world-7`, checkpoint anterior `checkpoint-pre-living-world-7-e959a1d`. Ações corretas revelam três setores de recuperação visual nas cinco fases. Após a vitória há uma tomada de 6,5 s; botão, Espaço/Enter/Esc continuam para os resultados. Araçatiba recebe dois moradores retornando à convivência; o Centro mostra grelhas desobstruídas e Ponta Negra recebe reações legendadas. Sem novos requisitos de vitória ou mudanças no save. Relatório: [LIVING_WORLD_7_ETAPA_1.md](docs/LIVING_WORLD_7_ETAPA_1.md). Próximos lotes e limites: [living_world_tasks.md](docs/living_world_tasks.md).

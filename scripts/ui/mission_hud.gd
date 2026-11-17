@@ -21,6 +21,17 @@ var selector: CharacterSelection
 var feedback_time: float = 0.0
 var hud_widgets: Array[Control] = []
 var cleaning_bar: ProgressBar
+var cinematic_active := false
+
+func set_cinematic_active(enabled: bool) -> void:
+	cinematic_active = enabled
+	overlay.visible = mission.state != Mission.State.JOGANDO and not enabled
+	results_button.hide()
+	if not enabled and mission.state == Mission.State.VITORIA:
+		for node in content.find_children("*","Button",true,false):
+			if not node.disabled:
+				node.grab_focus()
+				break
 
 func _ready() -> void:
 	mission = get_parent()
@@ -113,7 +124,7 @@ func update_screen() -> void:
 	for node in content.get_children():
 		content.remove_child(node)
 		node.queue_free()
-	overlay.visible = mission.state != Mission.State.JOGANDO
+	overlay.visible = mission.state != Mission.State.JOGANDO and not cinematic_active
 	results_button.hide()
 	menu_card.custom_minimum_size.x = 1040 if mission.state in [Mission.State.MENU,Mission.State.SELECAO_PERSONAGEM] else 900 if mission.state == Mission.State.FINALIZADO else 840
 	content.add_theme_constant_override("separation",10)

@@ -45,3 +45,7 @@ Adaptações com assistência Codex: seleção, redução de texturas Quaternius
 ## Pescadores, tarrafas e trilhas — 16/11/2026
 
 Reuso do modelo Man de Quaternius, CC0, https://poly.pizza/m/HMnuH5geEG , e Watercraft Kit de Kenney, CC0, https://kenney.nl/assets/watercraft-kit . Sem novos downloads. Chapéus, balões, malha de tarrafa, pose de remada e lógica são autorais/adaptações com assistência Codex. As cinco novas composições e timbres são sintetizados originalmente, sem samples ou melodias de terceiros; fonte em tools/compose_phase_music.py, títulos/BPM/hashes em docs/trilhas_originais.json. Menu e efeitos existentes preservados; total de arquivos WAV continua 38, pois cinco foram substituídos. Não há vozes nem gravações humanas nesta etapa. Falas em texto fornecidas pelo usuário.
+
+## Living World 7 — primeiro lote — 17/11/2026
+
+Reutiliza Nature Kit de Kenney (CC0, https://kenney.nl/assets/nature-kit) nos canteiros e Man de Quaternius (CC0, fonte já registrada acima) nos dois moradores de Araçatiba. Walk/Idle são clipes originais do próprio modelo; não são animações criadas pela IA. Bordas/cobertura dos canteiros, transições, câmeras, montagem e textos de recuperação foram elaborados com assistência Codex. Sem downloads novos, vozes ou samples externos. Os demais personagens, reações e paisagens mantêm seus créditos anteriores. Relatório de escopo: LIVING_WORLD_7_ETAPA_1.md.

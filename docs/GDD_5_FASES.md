@@ -104,6 +104,9 @@ Persistência local: perfil em `user://player_profile.json`, progresso em `user:
 Executar: abrir `project.godot` no Godot 4.7.2, F5, escolher personagem/fase e seguir instruções. Testes: executar `tests/run_all.ps1` no PowerShell ajustando o caminho do motor, se necessário. Passo a passo completo no README.
 
 ## 13. Rastreabilidade do GDD ao código
+
+Living World 7 — lote inicial (17/11): `scripts/effects/environmental_recovery.gd:sync_progress` observa ações reais e revela três setores visuais; `on_state_changed/start_cinematic/stop_cinematic` apresentam uma tomada pós-vitória de 6,5 s, pulável, sem alterar resultados. `recovery_garden.gd:build/reveal` monta geometria decorativa sem colisão. `mission_hud.gd:set_cinematic_active` restaura a tela de resultados. Regras por fase, MDA (ação correta → retorno visual → percepção simbólica de cuidado), testes e limites em `LIVING_WORLD_7_ETAPA_1.md`. Rotinas completas de NPCs, novas conquistas e avaliação inicial/final ainda não implementadas nesta etapa.
+
 | Regra | Seções | Arquivo e função real | Estado e evidência |
 |---|---|---|---|
 | Coleta única, classificação e piso zero | 5, 6 | scripts/gameplay/recycling_session.gd: collect, sort_into | Implementado; test_recycling.gd |
